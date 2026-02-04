@@ -1,0 +1,31 @@
+---
+
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Home">
+	<div class="space-y-6">
+		<h2 class="text-4xl font-bold text-teal">Bienvenido</h2>
+		<p class="text-lg">
+			Este es un sitio estático profesional configurado con <strong>Astro</strong> y <strong>Tailwind CSS</strong>.
+		</p>
+		<div class="p-4 bg-slate/10 rounded-lg border border-teal/20">
+			<p>Paleta de colores activa:</p>
+			<ul class="flex space-x-4 mt-2">
+				<li class="flex items-center space-x-2">
+					<div class="w-6 h-6 bg-navy border border-slate"></div>
+					<span>Navy</span>
+				</li>
+				<li class="flex items-center space-x-2">
+					<div class="w-6 h-6 bg-slate"></div>
+					<span>Slate</span>
+				</li>
+				<li class="flex items-center space-x-2">
+					<div class="w-6 h-6 bg-teal"></div>
+					<span>Teal</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</MainLayout>

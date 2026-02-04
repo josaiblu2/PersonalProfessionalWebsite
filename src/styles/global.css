@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+@theme {
+  --color-navy: #0F172A;
+  --color-slate: #475569;
+  --color-teal: #14B8A6;
+}

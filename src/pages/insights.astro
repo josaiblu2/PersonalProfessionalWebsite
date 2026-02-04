@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const posts = await getCollection('insights');
+---
+
+<MainLayout title="Insights">
+	<div class="space-y-8">
+		<h2 class="text-4xl font-bold text-teal">Insights</h2>
+		<div class="grid gap-6">
+			{posts.map(post => (
+				<article class="p-6 bg-slate/5 rounded-xl border border-teal/10 hover:border-teal/40 transition-colors">
+					<h3 class="text-2xl font-bold text-teal">
+						<a href={`/insights/${post.id}`}>{post.data.title}</a>
+					</h3>
+					<p class="mt-2 text-slate/80">{post.data.description}</p>
+					<div class="mt-4 text-sm text-slate/60">
+						{post.data.pubDate.toLocaleDateString()} • {post.data.author}
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</MainLayout>
