@@ -8,6 +8,10 @@ export default {
         slate: '#475569',
         teal: '#14B8A6',
       },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular'],
+      },
     },
   },
   plugins: [],

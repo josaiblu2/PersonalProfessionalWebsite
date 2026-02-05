@@ -1,0 +1,21 @@
+---
+const vendors = [
+  { name: 'Samsung', logo: '/logos/samsung.svg' },
+  { name: 'Nokia', logo: '/logos/nokia.svg' },
+  { name: 'Ericsson', logo: '/logos/ericsson.svg' },
+  { name: 'Huawei', logo: '/logos/huawei.svg' },
+  { name: 'Capgemini', logo: '/logos/capgemini.svg' },
+];
+---
+<section class="py-12 border-y border-teal/10">
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="text-center text-xs font-mono uppercase tracking-widest text-slate mb-8">Multivendor Delivery Excellence</p>
+    <div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+      {vendors.map(vendor => (
+        <div class="flex items-center justify-center p-4">
+          <span class="text-2xl font-bold font-mono text-slate hover:text-teal transition-colors">{vendor.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

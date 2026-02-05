@@ -1,30 +1,28 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../components/Hero.astro';
+import Experience from '../components/Experience.astro';
 ---
 
-
-<MainLayout title="Home">
-	<div class="space-y-6">
-		<h2 class="text-4xl font-bold text-teal">Bienvenido</h2>
-		<p class="text-lg">
-			Este es un sitio estático profesional configurado con <strong>Astro</strong> y <strong>Tailwind CSS</strong>.
-		</p>
-		<div class="p-4 bg-slate/10 rounded-lg border border-teal/20">
-			<p>Paleta de colores activa:</p>
-			<ul class="flex space-x-4 mt-2">
-				<li class="flex items-center space-x-2">
-					<div class="w-6 h-6 bg-navy border border-slate"></div>
-					<span>Navy</span>
-				</li>
-				<li class="flex items-center space-x-2">
-					<div class="w-6 h-6 bg-slate"></div>
-					<span>Slate</span>
-				</li>
-				<li class="flex items-center space-x-2">
-					<div class="w-6 h-6 bg-teal"></div>
-					<span>Teal</span>
-				</li>
-			</ul>
+<MainLayout title="Salvador Ibarra | Senior SON Architect">
+	<Hero />
+	<Experience />
+	
+	<section class="py-20 space-y-12">
+		<div class="grid md:grid-cols-3 gap-8">
+			<div class="p-8 bg-slate/5 border border-teal/10 rounded-2xl hover:border-teal/30 transition-colors group">
+				<h3 class="text-xl font-bold text-white mb-4 group-hover:text-teal transition-colors">Architecture</h3>
+				<p class="text-slate/80 leading-relaxed text-sm">Industrializing cSON outcomes through production-grade architectures and 5G interop.</p>
+			</div>
+			<div class="p-8 bg-slate/5 border border-teal/10 rounded-2xl hover:border-teal/30 transition-colors group">
+				<h3 class="text-xl font-bold text-white mb-4 group-hover:text-teal transition-colors">SMO/Automation</h3>
+				<p class="text-slate/80 leading-relaxed text-sm">Orchestrating RAN automation via SMO-driven workflows and R-App integration.</p>
+			</div>
+			<div class="p-8 bg-slate/5 border border-teal/10 rounded-2xl hover:border-teal/30 transition-colors group">
+				<h3 class="text-xl font-bold text-white mb-4 group-hover:text-teal transition-colors">FOA/FFA Validation</h3>
+				<p class="text-slate/80 leading-relaxed text-sm">Ensuring production readiness through rigorous multivendor field validation.</p>
+			</div>
 		</div>
-	</div>
+	</section>
 </MainLayout>
+
