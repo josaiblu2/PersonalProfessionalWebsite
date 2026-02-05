@@ -14,17 +14,21 @@ const { title = "Personal Website" } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-navy text-slate min-h-screen flex flex-col">
-		<header class="p-6 border-b border-teal/20">
-			<nav class="max-w-4xl mx-auto flex justify-between items-center">
-				<h1 class="text-2xl font-bold text-teal">My Professional Site</h1>
-				<div class="space-x-4">
-					<a href="/" class="hover:text-teal transition-colors">Home</a>
+	<body class="bg-navy text-slate min-h-screen flex flex-col font-sans">
+		<header class="sticky top-0 z-50 bg-navy/90 backdrop-blur-md border-b border-teal/10 transition-all duration-300">
+			<nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+				<a href="/" class="text-xl font-bold text-white tracking-tight hover:text-teal transition-colors">
+					Salvador Ibarra
+				</a>
+				<div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+					<a href="#expertise" class="hover:text-teal transition-colors">Expertise</a>
 					<a href="/insights" class="hover:text-teal transition-colors">Insights</a>
+					<a href="#case-studies" class="hover:text-teal transition-colors">Case Studies</a>
+					<a href="#contact" class="hover:text-teal transition-colors">Contact</a>
 				</div>
 			</nav>
 		</header>
-		<main class="flex-grow max-w-4xl mx-auto p-6 w-full">
+		<main class="flex-grow w-full">
 			<slot />
 		</main>
 		<footer class="p-6 border-t border-teal/20 text-center text-sm">
