@@ -7,15 +7,24 @@ const vendors = [
   { name: 'Capgemini', logo: '/logos/capgemini.svg' },
 ];
 ---
-<section class="py-12 border-y border-teal/10">
-  <div class="max-w-5xl mx-auto px-6">
-    <p class="text-center text-xs font-mono uppercase tracking-widest text-slate mb-8">Multivendor Delivery Excellence</p>
-    <div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+<section class="py-24 border-y border-teal/10 bg-navy/30">
+  <div class="max-w-6xl mx-auto px-6 text-center space-y-12">
+    <h3 class="text-sm font-mono uppercase tracking-widest text-slate/50">Experience with Industry Leaders</h3>
+    
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-12 items-center justify-items-center">
       {vendors.map(vendor => (
-        <div class="flex items-center justify-center p-4">
-          <span class="text-2xl font-bold font-mono text-slate hover:text-teal transition-colors">{vendor.name}</span>
+        <div class="group transition-all duration-500 transform hover:scale-105">
+            <img 
+                src={vendor.logo} 
+                alt={`${vendor.name} logo`} 
+                class="h-10 w-auto opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+            />
         </div>
       ))}
     </div>
+    
+    <p class="text-slate text-lg font-light max-w-2xl mx-auto border-t border-slate/10 pt-8">
+      Proven delivery across multivendor production environments and FOA/FFA validation gates.
+    </p>
   </div>
 </section>
