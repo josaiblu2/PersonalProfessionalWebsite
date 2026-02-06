@@ -10,9 +10,13 @@
     <!-- 
       This file exists solely to ensure Netlify detects the contact form configuration 
       during the build process. It is not linked or displayed to users.
+      MUST MATCH Contact.astro EXACTLY.
     -->
-    <form name="contact" method="POST" netlify action="/success">
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success">
         <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden" style="display:none">
+            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+        </p>
         <input type="text" name="name" />
         <input type="email" name="email" />
         <input type="text" name="company" />
