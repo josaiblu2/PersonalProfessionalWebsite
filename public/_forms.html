@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form Declaration</title>
+</head>
+
+<body>
+    <!-- 
+      This file exists solely to ensure Netlify detects the contact form configuration 
+      during the build process. It is not linked or displayed to users.
+    -->
+    <form name="contact" netlify action="/success.html">
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="company" />
+        <select name="inquiry-type">
+            <option value="Request CV">Request CV</option>
+            <option value="Project Collaboration">Project Collaboration</option>
+            <option value="Consulting Inquiry">Consulting Inquiry</option>
+        </select>
+        <textarea name="message"></textarea>
+    </form>
+</body>
+
+</html>
