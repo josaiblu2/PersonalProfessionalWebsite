@@ -14,101 +14,185 @@
       </p>
     </div>
 
-    <form 
-      name="contact" 
-      method="POST" 
-      action="/success"
-      data-netlify="true" 
-      class="bg-[#020617] border border-white/5 rounded-2xl p-8 md:p-12 shadow-2xl space-y-8 relative"
-    >
-      <!-- Hidden input for Netlify -->
-      <input type="hidden" name="form-name" value="contact" />
+    <div id="contact-form-container">
+      <form 
+        id="contact-form"
+        name="contact" 
+        method="POST" 
+        class="bg-[#020617] border border-white/5 rounded-2xl p-8 md:p-12 shadow-2xl space-y-8 relative"
+      >
+        <!-- Hidden input for Netlify -->
+        <input type="hidden" name="form-name" value="contact" />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Full Name -->
-        <div class="space-y-2">
-          <label for="name" class="block text-sm font-mono text-slate-300">Full Name <span class="text-teal">*</span></label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name" 
-            required
-            class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30"
-            placeholder="John Doe"
-          />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Full Name -->
+          <div class="space-y-2">
+            <label for="name" class="block text-sm font-mono text-slate-300">Full Name <span class="text-teal">*</span></label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              required
+              class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30"
+              placeholder="John Doe"
+            />
+          </div>
+
+          <!-- Professional Email -->
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-mono text-slate-300">Professional Email <span class="text-teal">*</span></label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required
+              class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30"
+              placeholder="john@company.com"
+            />
+          </div>
         </div>
 
-        <!-- Professional Email -->
-        <div class="space-y-2">
-          <label for="email" class="block text-sm font-mono text-slate-300">Professional Email <span class="text-teal">*</span></label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            required
-            class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30"
-            placeholder="john@company.com"
-          />
-        </div>
-      </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Company / Organization -->
+          <div class="space-y-2">
+            <label for="company" class="block text-sm font-mono text-slate-300">Company / Organization</label>
+            <input 
+              type="text" 
+              id="company" 
+              name="company" 
+              class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30"
+              placeholder="Tech Corp Ltd."
+            />
+          </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Company / Organization -->
-        <div class="space-y-2">
-          <label for="company" class="block text-sm font-mono text-slate-300">Company / Organization</label>
-          <input 
-            type="text" 
-            id="company" 
-            name="company" 
-            class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30"
-            placeholder="Tech Corp Ltd."
-          />
-        </div>
-
-        <!-- Inquiry Type -->
-        <div class="space-y-2">
-          <label for="inquiry-type" class="block text-sm font-mono text-slate-300">Inquiry Type</label>
-          <div class="relative">
-            <select 
-              id="inquiry-type" 
-              name="inquiry-type"
-              class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all appearance-none cursor-pointer"
-            >
-              <option value="Request CV">Request CV</option>
-              <option value="Project Collaboration">Project Collaboration</option>
-              <option value="Consulting Inquiry">Consulting Inquiry</option>
-            </select>
-            <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-400">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <!-- Inquiry Type -->
+          <div class="space-y-2">
+            <label for="inquiry-type" class="block text-sm font-mono text-slate-300">Inquiry Type</label>
+            <div class="relative">
+              <select 
+                id="inquiry-type" 
+                name="inquiry-type"
+                class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all appearance-none cursor-pointer"
+              >
+                <option value="Request CV">Request CV</option>
+                <option value="Project Collaboration">Project Collaboration</option>
+                <option value="Consulting Inquiry">Consulting Inquiry</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Message -->
-      <div class="space-y-2">
-        <label for="message" class="block text-sm font-mono text-slate-300">Message</label>
-        <textarea 
-          id="message" 
-          name="message" 
-          rows="4"
-          class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30 resize-none"
-          placeholder="How can we work together?"
-        ></textarea>
-      </div>
+        <!-- Message -->
+        <div class="space-y-2">
+          <label for="message" class="block text-sm font-mono text-slate-300">Message</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            rows="4"
+            class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30 resize-none"
+            placeholder="How can we work together?"
+          ></textarea>
+        </div>
 
-      <!-- Submit Button -->
-      <div class="pt-4">
-        <button 
-          type="submit"
-          class="w-full md:w-auto px-8 py-4 bg-teal text-navy font-bold rounded-lg hover:bg-[#2DD4BF] hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] transition-all duration-300 flex items-center justify-center group"
-        >
-          Send Message
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <button 
+            type="submit"
+            id="submit-button"
+            class="w-full md:w-auto px-8 py-4 bg-teal text-navy font-bold rounded-lg hover:bg-[#2DD4BF] hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] transition-all duration-300 flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span id="button-text">Send Message</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="button-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+            <!-- Loading Spinner (Hidden by default) -->
+            <svg class="animate-spin h-5 w-5 ml-3 text-navy hidden" id="loading-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </button>
+        </div>
+        <p id="error-message" class="text-red-400 text-sm mt-4 hidden">An error occurred. Please try again later.</p>
+      </form>
+
+      <!-- Success Message (Hidden by default) -->
+      <div id="success-message" class="hidden bg-[#020617] border border-white/5 rounded-2xl p-8 md:p-12 shadow-2xl text-center space-y-8">
+        <div class="w-20 h-20 bg-teal/10 rounded-full flex items-center justify-center mx-auto text-teal">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
+        </div>
+        <div class="space-y-4">
+          <h3 class="text-3xl text-white font-bold">Message Received</h3>
+          <p class="text-slate text-lg">Thank you for reaching out. Your message has been successfully transmitted.</p>
+        </div>
+        <button id="reset-button" class="text-teal hover:text-white font-mono text-sm underline underline-offset-4 decoration-current transition-colors">
+          Send another message
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMessage = document.getElementById('success-message');
+  const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+  const buttonText = document.getElementById('button-text');
+  const buttonIcon = document.getElementById('button-icon');
+  const loadingSpinner = document.getElementById('loading-spinner');
+  const errorMessage = document.getElementById('error-message');
+  const resetButton = document.getElementById('reset-button');
+
+  const setLoading = (isLoading: boolean) => {
+    if (isLoading) {
+      submitButton.disabled = true;
+      buttonText.innerText = 'Sending...';
+      buttonIcon.classList.add('hidden');
+      loadingSpinner.classList.remove('hidden');
+      errorMessage.classList.add('hidden');
+    } else {
+      submitButton.disabled = false;
+      buttonText.innerText = 'Send Message';
+      buttonIcon.classList.remove('hidden');
+      loadingSpinner.classList.add('hidden');
+    }
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      if (response.ok) {
+        form.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+        form.reset();
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error(error);
+      errorMessage.classList.remove('hidden');
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  resetButton?.addEventListener('click', () => {
+    successMessage.classList.add('hidden');
+    form.classList.remove('hidden');
+    errorMessage.classList.add('hidden');
+  });
+</script>
