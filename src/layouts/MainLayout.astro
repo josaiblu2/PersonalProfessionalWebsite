@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-const { title = "Personal Website" } = Astro.props;
+import Footer from '../components/Footer.astro';
+const { title = "Salvador Ibarra | Senior SON Architect & RAN Automation Specialist" } = Astro.props;
 ---
 
 <html lang="es">
@@ -8,8 +9,10 @@ const { title = "Personal Website" } = Astro.props;
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+	<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+<meta name="description" content="Expert in cSON evolution to O-RAN rApps/xApps and SMO-driven automation." />
+		<meta name="keywords" content="SON, cSON, O-RAN, SMO, RAN Automation, Samsung, Nokia, Ericsson, 5G KPI Optimization, rApps, xApps, Non-RT RIC, Near-RT RIC" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -31,8 +34,6 @@ const { title = "Personal Website" } = Astro.props;
 		<main class="flex-grow w-full">
 			<slot />
 		</main>
-		<footer class="p-6 border-t border-teal/20 text-center text-sm">
-			<p>&copy; 2026 - Built with Astro and Tailwind</p>
-		</footer>
+		<Footer />
 	</body>
 </html>

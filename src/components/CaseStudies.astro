@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+
+const cases = await getCollection('case-studies');
+const sortedCases = cases.sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+// Pre-render content
+const casesWithContent = await Promise.all(sortedCases.map(async (c) => {
+  const { Content } = await c.render();
+  return { ...c, Content };
+}));
+
+const getIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'network-architecture':
+      return `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`;
+    case 'automation-pulse':
+      return `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>`;
+    case 'scale-database':
+      return `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>`;
+    default:
+      return `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
+  }
+};
+---
+
+<section id="case-studies" class="py-24 bg-navy relative border-t border-slate/10">
+  <div class="max-w-7xl mx-auto px-6">
+     <div class="space-y-4 mb-16 text-center md:text-left">
+      <h2 class="text-xs font-mono text-teal tracking-widest uppercase">Proven Track Record</h2>
+      <h3 class="text-3xl md:text-5xl text-white font-bold">Case Studies</h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {casesWithContent.map((c) => (
+        <article class="bg-[#0F172A] border border-white/5 rounded-2xl p-8 hover:border-teal/50 transition-all duration-300 group flex flex-col h-full shadow-lg hover:shadow-teal/5">
+          <div class="text-teal mb-6 p-3 bg-teal/10 w-fit rounded-lg group-hover:bg-teal group-hover:text-navy transition-colors duration-300" set:html={getIcon(c.data.icon)}></div>
+          
+          <h4 class="text-xl text-white font-bold mb-4 leading-tight min-h-[3.5rem]">{c.data.title}</h4>
+          
+          <div class="text-[#14B8A6] font-mono font-bold text-sm mb-4 tracking-wide border-b border-teal/10 pb-4">
+            {c.data.metric}
+          </div>
+          
+          <p class="text-slate leading-relaxed mb-8 flex-1">
+            {c.data.description}
+          </p>
+
+          <button 
+            data-modal-trigger-case={c.slug}
+            class="text-left text-white text-sm font-bold flex items-center hover:text-teal transition-colors mt-auto group/btn"
+          >
+            Read Full Case Study
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </button>
+        </article>
+      ))}
+    </div>
+  </div>
+
+   {/* Modals */}
+  {casesWithContent.map((c) => (
+    <dialog id={`modal-case-${c.slug}`} class="p-0 bg-transparent backdrop:bg-navy/90 w-full max-w-4xl h-fit m-auto rounded-2xl shadow-2xl open:animate-fadeUp backdrop:open:animate-fadeIn">
+       <div class="bg-[#1E293B] border border-teal/40 rounded-2xl overflow-hidden max-h-[85vh] flex flex-col text-left shadow-2xl shadow-teal/10">
+            {/* Header */}
+            <div class="p-8 border-b border-white/10 flex justify-between items-start bg-[#1E293B]/95 sticky top-0 z-10 backdrop-blur-md">
+                <div class="space-y-2 max-w-2xl">
+                     <span class="text-xs text-teal font-mono uppercase tracking-widest font-bold">
+                        {c.data.metric}
+                    </span>
+                    <h2 class="text-2xl md:text-3xl text-white font-bold leading-tight font-sans">
+                        {c.data.title}
+                    </h2>
+                </div>
+                <button 
+                    onclick={`document.getElementById('modal-case-${c.slug}').close()`}
+                    class="p-2 text-slate-300 hover:text-teal transition-colors rounded-full hover:bg-white/5"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            {/* Content */}
+            <div class="p-8 md:p-12 overflow-y-auto prose prose-invert prose-lg max-w-none font-sans text-slate-50
+                prose-headings:text-teal prose-headings:font-bold 
+                prose-p:text-slate-50 prose-p:leading-relaxed
+                prose-li:text-slate-50
+                prose-strong:text-[#14B8A6] prose-strong:font-bold
+                prose-ul:text-slate-50
+            ">
+                <c.Content />
+            </div>
+       </div>
+    </dialog>
+  ))}
+</section>
+
+<script>
+  // Add event listeners
+  const triggers = document.querySelectorAll('[data-modal-trigger-case]');
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault(); 
+      const slug = trigger.getAttribute('data-modal-trigger-case');
+      const modal = document.getElementById(`modal-case-${slug}`);
+      if (modal) {
+        (modal as HTMLDialogElement).showModal();
+      }
+    });
+  });
+</script>
+
+<style>
+  dialog::backdrop {
+    backdrop-filter: blur(8px);
+  }
+  
+  dialog[open] {
+    animation: zoomIn 0.3s ease-out;
+  }
+  
+  @keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+  }
+</style>
