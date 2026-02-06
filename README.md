@@ -1,43 +1,29 @@
-# Astro Starter Kit: Minimal
+# Salvador Ibarra | Senior SON Architect & RAN Automation Specialist
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## Project Goal
+This repository hosts the personal professional brand website for **Salvador Ibarra**, a Senior SON Architect. The site serves as a technical portfolio to demonstrate expertise in **cSON architectures, SMO-driven automation, and O-RAN evolution**.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+It is designed to be high-performance, visually professional (Deep Navy/Electric Teal theme), and content-rich, featuring detailed technical case studies and industry insights.
 
-## 🚀 Project Structure
+## Tech Stack
+Built with modern web technologies for performance and maintainability:
+*   **Astro:** Static Site Generator (SSG) for zero-JS frontend performance.
+*   **Tailwind CSS:** Utility-first styling with a custom configuration for the "Deep Navy" enterprise tech aesthetic.
+*   **Markdown & Content Collections:** Type-safe content management for Insights and Case Studies.
+*   **Netlify Forms:** Serverless contact form handling.
+*   **Vercel/Netlify:** (Target Deployment Platforms).
 
-Inside of your Astro project, you'll see the following folders and files:
+## Key Sections
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### Professional Case Studies
+Detailed breakdown of technical achievements using a *Problem - Solution - Result* framework:
+*   **Multivendor cSON Governance:** Unifying Samsung, Nokia, and Ericsson optimization logic (Verizon context).
+*   **Industrializing Network Assurance:** Leveraging SMO and O-RAN interfaces for automated auditing (Capgemini context).
+*   **Scalable cSON Architecture:** High-availability optimization for Tier-1 operators.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Technical Insights
+Deep-dive articles on the future of RAN:
+*   **NR Over Non-Terrestrial Networks (NTN):** Analyzing the impact of satellite dynamics on traditional SON logic.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Disclaimer
+> **Note on Confidentiality:** All case studies and technical examples presented in this portfolio are based on public-facing highlights, generalized professional achievements, and industry standard practices. Specific proprietary data, sensitive configuration values, and internal IP have been omitted or generalized to strictly respect **Non-Disclosure Agreements (NDAs)** and employer confidentiality.
