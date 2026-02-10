@@ -1,9 +1,9 @@
 ---
 title: "Network Slicing: The Ultimate Test for Closed-Loop Automation"
-pubDate: 2026-02-01
+pubDate: 2026-02-02
 description: "Why Network Slicing is the definitive test for SON and the necessity of real-time, cross-domain closed-loop control."
-image: "Network-Slicing.png"
-linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-networkslicing-automation-activity-7423719013620019200-S6-Y/"
+image: "RAN-Slicing.png"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ranslicing-release17-activity-7424111893885345793-x_RV?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # Network Slicing: The Ultimate Test for Closed-Loop Automation

@@ -37,3 +37,11 @@ git commit -m "Add new insight: O-RAN optimization"
 git push origin main
 
 Magia de Automatización: En cuanto hagas el push, Netlify detectará el cambio, reconstruirá tu sitio automáticamente y en menos de 1 minuto el nuevo post estará en vivo.
+
+
+***Si solo quieres verificar en local antes de aplicar en produccion***
+
+PS C:\Proyectos\PersonalProfessionalWebsite> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+PS C:\Proyectos\PersonalProfessionalWebsite> npm run dev   
+
+Abrir http://localhost:4322/insights

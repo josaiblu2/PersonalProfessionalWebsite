@@ -1,25 +1,44 @@
 ---
-title: "The Industrialization of RAN Automation: Moving Beyond Scripts"
-pubDate: 2026-01-20
+title: "The new roles of engineers in the AI era"
+pubDate: 2026-01-27
 description: "Why modern 5G networks require a shift from manual scripting to industrialized software architectures."
-image: "RAN-Industrial.png"
-linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-automation-activity-7419354012344791041-x9Y1/"
+image: "NewRoles.png"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_ai-aiengineering-aiarchitecture-activity-7421945138257694720-q5Tb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
-# The Industrialization of RAN Automation: Moving Beyond Scripts
+# The new roles of engineers in the AI era
 
-For years, RAN automation was synonymous with scripting. Python, Bash, or Perl scripts designed to solve specific problems in isolation. While effective for small-scale tasks, this "script-based" approach is reaching its limit. As we scale 5G, we need to move toward the **industrialization of automation**.
+For decades, engineering roles were clearly defined.
+You designed systems.
+You optimized performance.
+You fixed problems.
 
-Industrialization means moving away from fragmented scripts and toward **integrated software architectures**. 
+AI is not removing those responsibilities.
+It is reshaping them.
 
-Key differences in an industrialized approach:
-• **Standardization:** Using open interfaces (O1, A1, E2) instead of proprietary vendor hooks.
-• **Reusability:** Building modular components (rApps/xApps) that can be deployed across different vendors and regions.
-• **Observability:** Full tracing and logging of every automated action, ensuring we know exactly *why* a change occurred.
-• **Security:** Moving from local scripts to centrally managed, authenticated, and audited automation workflows.
+In the AI era, engineers are no longer just builders of components. They are designers of intelligence, behavior, and decision-making systems.
 
-The goal is to treat the network as a programmable platform. This shift is what enables **Service Management and Orchestration (SMO)** to become the true brain of the network.
+This shift is creating new roles that did not exist before, or that were previously implicit and informal:
 
-Automation is no longer an "extra" tool; it is the core operating model of the 5G era.
+• Engineers are becoming AI Architects, responsible for designing how data, memory, reasoning, and actions interact as a system.
+• Engineers are evolving into AI Engineers, focused on orchestration, reliability, observability, and lifecycle management of AI-driven systems.
+• Engineers are stepping into the role of AI Trainers, transferring domain expertise into structures, rules, and feedback loops that AI can learn from.
+• Engineers are acting as AI Integrators, ensuring AI fits into real workflows, constraints, and operational realities.
 
-#5G #RAN #Automation #SMO #ORAN #TelecomArchitecture
+What all these roles have in common is systems thinking.
+
+The value is no longer in writing a single algorithm or tuning a single model. The value is in understanding how intelligence emerges from structure, context, and feedback across time.
+
+This is why traditional engineering backgrounds translate so well into AI. Engineers already know how to think in terms of constraints, failure modes, trade-offs, and continuous improvement. AI simply adds a new layer of abstraction.
+
+The most successful engineers in the AI era will not be those who chase every new model release.
+
+They will be the ones who understand how to design systems where AI behaves predictably, improves over time, and creates real impact.
+
+AI is not replacing engineers.
+It is demanding a more mature version of engineering.
+
+And those who adapt their mindset will not just stay relevant.
+They will define what engineering means in the years to come.
+
+#AI #AIEngineering #AIArchitecture #EngineeringCareers #FutureOfWork #ArtificialIntelligence #SystemsThinking

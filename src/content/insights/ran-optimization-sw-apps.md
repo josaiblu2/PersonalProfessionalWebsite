@@ -3,7 +3,7 @@ title: "The Industrialization of RAN Optimization: Moving from Scripts to Softwa
 pubDate: 2026-01-23
 description: "Transitioning RAN optimization from manual scripts to scalable software apps within the SMO and O-RAN ecosystem."
 image: "RAN-Optimization-SW.jpeg"
-linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-ranoptimization-activity-7420480444950810625-hjS_/"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-ranoptimization-activity-7420480444950810625-hjS_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # The Industrialization of RAN Optimization: Moving from Scripts to Software Apps

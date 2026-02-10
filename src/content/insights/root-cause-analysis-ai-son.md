@@ -1,22 +1,47 @@
 ---
-title: "AI-Driven Root Cause Analysis: Beyond Threshold Alarms"
-pubDate: 2025-11-20
+title: "AI architecture is about decisions, not models"
+pubDate: 2026-01-28
 description: "How AI and Machine Learning are transforming troubleshooting from reactive alarms to proactive root cause identification."
-image: "AI-RCA.png"
-linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_ai-ml-troubleshooting-activity-7400123456789012345-M8Z1/"
+image: "AI-Architecture-Is.jpeg"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_ai-aiarchitecture-aiengineering-activity-7422315058946347009-nvr_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
-# AI-Driven Root Cause Analysis: Beyond Threshold Alarms
+# AI architecture is about decisions, not models
 
-When a KPI drops in a traditional network, engineers are flooded with alarms. The challenge isn't knowing *that* something is wrong; it's knowing *why*. This is where **AI-Driven Root Cause Analysis (RCA)** is transforming operations.
+One of the biggest misconceptions in AI today is that architecture starts by choosing a model.
+GPT vs Claude.
+Open source vs proprietary.
+Bigger vs cheaper.
 
-Traditional RCA relies on static thresholds and "if-then" rules. AI-driven RCA uses pattern recognition to:
-• **Correlate Events:** Linking a drop in throughput to a specific software update or a neighbor cell's interference spike.
-• **Anomaly Detection:** Identifying subtle performance shifts that don't trigger a hard alarm but indicate a growing problem.
-• **Predictive Failure:** Spotting the signature of a hardware failure days before it actually happens.
+That is not architecture.
+That is procurement.
 
-By automating the "discovery" phase of troubleshooting, we allow engineers to move straight to the **resolution**. 
+Real AI architecture is a sequence of decisions, long before any model is selected.
 
-In the SMO/O-RAN era, RCA becomes an **rApp** that constantly learns from the network's history. The goal is a "Self-Healing" network that identifies its own pain points and suggests (or executes) the cure.
+Architecture defines how intelligence is allowed to emerge inside a system. Models are just components inside that structure.
 
-#AI #ML #RootCauseAnalysis #SON #NetworkOperations #5G
+Every meaningful AI system is shaped by decisions like these:
+
+• Deciding what problems should be solved by reasoning versus deterministic logic.
+• Deciding when the system should retrieve knowledge, and when it should rely on memory or rules.
+• Deciding how much autonomy the AI is allowed to have, and where human control must remain.
+• Deciding how errors are detected, corrected, and learned from over time.
+• Deciding trade-offs between latency, cost, explainability, and reliability.
+
+These decisions matter far more than the choice of model.
+
+Two systems using the same LLM can behave completely differently. One may be robust, predictable, and trusted. The other may be fragile, inconsistent, and impossible to operate. The difference is not intelligence. It is architectural intent.
+
+This is why AI architecture looks increasingly similar to systems engineering. It is about defining boundaries, flows, constraints, and feedback loops. It is about designing behavior, not chasing performance benchmarks.
+
+Models will keep improving and commoditizing.
+Architectural decisions will not.
+
+The real value of an AI architect is not knowing which model is trending this month. It is knowing how to design a system where decisions are made at the right layer, for the right reason, at the right time.
+
+AI architecture is not about models.
+It is about decisions.
+
+And those decisions are what ultimately determine whether AI creates value or chaos.
+
+#AI #AIArchitecture #AIEngineering #SystemsThinking #EnterpriseAI #ArtificialIntelligence #FutureOfAI

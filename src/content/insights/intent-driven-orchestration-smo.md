@@ -1,21 +1,32 @@
 ---
-title: "Intent-Driven Orchestration: The Evolution of SMO"
-pubDate: 2025-12-20
+title: "AI in RAN: Where it really adds value"
+pubDate: 2026-01-26
 description: "From manual configuration to intent-based networking: How SMO is changing network management."
-image: "Intent-Driven.png"
-linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_smo-automation-5g-activity-7410214823412121600-k8N1/"
+image: "AI-In-RAN.jpeg"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-aiintelecom-activity-7421582709493370880-cOzv?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
-# Intent-Driven Orchestration: The Evolution of SMO
+# AI in RAN: Where it really adds value...and where it does not
 
-In traditional networks, we tell the system **how** to do something (e.g., "set this parameter to X"). In modern 5G networks, we move toward **Intent-Driven Orchestration**, where we tell the system **what** we want to achieve.
+AI is everywhere in telecom decks. But in real RAN operations, AI is not a universal upgrade. It is a tool that performs brilliantly in some problems and disappoints in others.
 
-The **Service Management and Orchestration (SMO)** layer is the home of this intent-driven logic. Instead of managing thousands of individual parameters, operators define "Intents":
-• "Ensure 99.9% reliability for this industrial slice."
-• "Maximize energy savings without dropping throughput below 50 Mbps."
+The biggest mistake I see is expecting AI to “optimize the network” by itself. That mindset usually ends in black-box decisions, low trust from RF teams, and automation that cannot be sustained.
 
-The SMO, powered by **rApps**, then calculates the necessary changes across the RAN and Core to meet that intent. It continuously monitors the results and adjusts in a closed-loop.
+Here is where AI genuinely delivers value in RAN:
 
-This shift reduces operational complexity and allows engineers to focus on business outcomes rather than manual configuration. The network becomes a self-adjusting organism aligned with the operator's goals.
+• AI shines when it turns massive telemetry into early warnings, because anomaly detection can spot KPI drifts before customers feel them.
+ • AI adds value when it prioritizes actions, because it can correlate symptoms across layers and reduce the time spent chasing the wrong root cause.
+ • AI helps when it predicts demand and risk, because forecasting congestion and mobility stress allows proactive capacity and parameter strategies.
+ • AI becomes powerful when it closes the loop with guardrails, because it can validate impact and learn without breaking stability.
 
-#SMO #Automation #IntentBasedNetworking #5G #NetworkOrchestration
+And here is where AI often does NOT add real value:
+
+• AI struggles when the data is inconsistent, because wrong labeling, missing counters, or shifting baselines will produce confident but incorrect recommendations.
+ • AI fails when the objective is unclear, because “improve performance” is not a target and KPIs always trade off against each other.
+ • AI becomes risky when it is asked to replace engineering judgment, because RAN is full of context that models do not see: site constraints, market priorities, device mix, and feature interactions.
+
+My takeaway: the winning model is not “AI instead of RF”. It is “AI to scale RF”. Let AI handle detection, correlation, and prioritization, while engineers define the strategy, constraints, and what “good” means.
+
+Where do you see the best AI impact today: anomaly detection, root cause analysis, or closed-loop optimization?
+
+#5G #RAN #AIinTelecom #RANOptimization #NetworkAutomation #SON #SMO #ORAN

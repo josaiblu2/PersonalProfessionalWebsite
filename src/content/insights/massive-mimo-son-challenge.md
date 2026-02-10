@@ -1,9 +1,9 @@
 ---
 title: "Massive MIMO and the Illusion of Simplicity: Why SON Needs to Evolve"
-pubDate: 2026-02-02
+pubDate: 2026-02-03
 description: "Exploring why Massive MIMO optimization requires a shift from traditional grid-based SON to beam-centric automation."
-image: "Massive-MIMO.png"
-linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-massivemimo-son-activity-7424089855520624640-kEwV/"
+image: "Enhanced-MIMO.png"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-nr-mimo-activity-7424474295520788481-6lEW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # Massive MIMO and the Illusion of Simplicity: Why SON Needs to Evolve
