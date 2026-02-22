@@ -1,0 +1,65 @@
+[2m21:35:39[22m [34m[types][39m Generated [2m1ms[22m
+[2m21:35:39[22m [34m[content][39m Syncing content
+node.exe : [31m[Inval
+idContentEntryDataErro
+r][39m [1minsights 
+??? 
+oran-costplay[22m 
+data does not match 
+collection schema.
+At C:\Program Files\no
+dejs\npx.ps1:29 char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: ([31m[Inva   
+ lidCo...lection s    
+chema.:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+
+  [1mlinkedinUrl**: 
+**linkedinUrl[22m: 
+Invalid url
+
+  [1mHint:[22m
+[33m    See [4mhttps
+://docs.astro.build/en
+/guides/content-collec
+tions/[24m for more 
+information on 
+content schemas.[39m
+  [1mError 
+reference:[22m
+    [36m[4mhttps://d
+ocs.astro.build/en/ref
+erence/errors/invalid-
+content-entry-data-err
+or/[24m[39m
+  [1mLocation:[22m
+    [4mC:\Proyectos\P
+ersonalProfessionalWeb
+site\src\content\insig
+hts\ORAN-CostPlay.md:0
+:0[24m
+  [1mStack 
+trace:[22m
+[2m    at 
+getEntryDataAndImages 
+(file:///C:/Proyectos/
+PersonalProfessionalWe
+bsite/node_modules/ast
+ro/dist/content/utils.
+js:168:26)
+    at async syncData 
+(file:///C:/Proyectos/
+PersonalProfessionalWe
+bsite/node_modules/ast
+ro/dist/content/loader
+s/glob.js:94:28)[22m

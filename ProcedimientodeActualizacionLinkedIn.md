@@ -45,3 +45,4 @@ PS C:\Proyectos\PersonalProfessionalWebsite> Set-ExecutionPolicy -ExecutionPolic
 PS C:\Proyectos\PersonalProfessionalWebsite> npm run dev   
 
 Abrir http://localhost:4322/insights
+Abrir http://localhost:4321/insights
