@@ -3,6 +3,7 @@ title: "O-RAN: Is It A Cost Play or A Strategic Control Play?"
 pubDate: 2026-02-23
 description: "O-RAN isn’t just about lowering costs—it’s about regaining control, agility, and faster innovation through an open, well-governed operating model."
 image: "ORAN-CostPlay.jpeg"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_o-ran-isnt-just-about-lowering-costsit-activity-7431722046285496321-OOpb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # O-RAN: Is It A Cost Play or A Strategic Control Play?
