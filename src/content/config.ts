@@ -7,6 +7,7 @@ const insightsCollection = defineCollection({
     pubDate: z.date(),
     description: z.string(),
     image: z.string().optional(),
+    imageAlt: z.string().optional(),
     linkedinUrl: z.string().url().optional(),
   }),
 });
