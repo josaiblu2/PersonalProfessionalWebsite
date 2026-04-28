@@ -3,6 +3,7 @@ title: "AI-NATIVE RAN: FROM SON TO SELF-EVOLVING NETWORKS"
 pubDate: 2026-04-08
 description: "Explains how 3GPP Rel-18 is driving the transition from traditional rule-based SON to AI-native RAN, where networks can learn, adapt, and make autonomous decisions. It highlights the shift from engineered optimization toward self-evolving, intelligent network behavior."
 image: "self-evolving.png"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-oran-aiintelecom-activity-7447667074560057344-xAM1?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # AI-NATIVE RAN: FROM SON TO SELF-EVOLVING NETWORKS

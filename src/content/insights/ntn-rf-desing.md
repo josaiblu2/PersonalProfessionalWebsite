@@ -3,6 +3,7 @@ title: "NTN (NON-TERRESTRIAL NETWORKS): RF DESIGN WITH SATELLITES"
 pubDate: 2026-04-10
 description: "Explains how 3GPP Rel-18 NTN transforms RF design by introducing moving cells, Doppler effects, and dynamic coverage, redefining traditional RAN planning and optimization."
 image: "ntn-rf-design.png"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ntn-satellitecommunications-ugcPost-7447485055486119937-8YJo?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # NTN (NON-TERRESTRIAL NETWORKS): RF DESIGN WITH SATELLITES

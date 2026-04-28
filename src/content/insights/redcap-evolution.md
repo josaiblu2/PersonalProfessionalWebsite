@@ -3,6 +3,8 @@ title: "REDCAP EVOLUTION: THE REAL ENABLER OF MASSIVE 5G ADOPTION"
 pubDate: 2026-04-13
 description: "Explains how RedCap in 3GPP Rel-18 enables scalable and cost-efficient 5G adoption by aligning network performance with real device needs."
 image: "redcap-evolution.png"
+imageAlt: "Explains how RedCap in 3GPP Rel-18 enables scalable and cost-efficient 5G adoption by aligning network capabilities with real device needs"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-redcap-iot-share-7447489562752307200-Rjzf?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # REDCAP EVOLUTION: THE REAL ENABLER OF MASSIVE 5G ADOPTION

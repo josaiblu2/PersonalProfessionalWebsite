@@ -3,6 +3,8 @@ title: "ENHANCED MOBILITY IN 5G: WHY HANDOVER IS STILL A CHALLENGE"
 pubDate: 2026-04-14
 description: "Explains why handover remains a complex challenge in 5G despite Rel-18 improvements, due to increasing network complexity and multi-layer mobility dynamics."
 image: "enhance-mobility.png"
+imageAlt: "Explains that despite 5G Rel-18 enhancements, mobility remains a complex system-level challenge driven by multi-layer interactions, making handover optimization increasingly difficult"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-mobility-activity-7450181183239426048-N8Ly?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # ENHANCED MOBILITY IN 5G: WHY HANDOVER IS STILL A CHALLENGE

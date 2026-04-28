@@ -19,6 +19,7 @@ title: "Título de tu Post en LinkedIn"
 pubDate: 2026-02-05
 description: "Un resumen corto de 1-2 líneas para la tarjeta del feed."
 image: "/assets/posts/vran-optimization.png"
+imageAlt: "Diagrama conceptual de la arquitectura O-RAN comparando reducción de costos contra control estratégico y agilidad"
 linkedinUrl: "URL_DE_TU_POST_EN_LINKEDIN"
 ---
 

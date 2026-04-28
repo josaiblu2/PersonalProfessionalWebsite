@@ -3,6 +3,7 @@ title: "ENERGY EFFICIENCY IN 5G ADVANCED: FROM FEATURE TO MANDATE"
 pubDate: 2026-04-09
 description: "Explains how 3GPP Rel-18 shifts energy efficiency from a secondary optimization goal to a core design principle in 5G RAN. It highlights the need for intelligent, AI-driven networks that balance performance and energy consumption as a new key KPI."
 image: "ee-in-5g.jpeg"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-energyefficiency-ranoptimization-activity-7448029486148759554-zOMn?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # ENERGY EFFICIENCY IN 5G ADVANCED: FROM FEATURE TO MANDATE
