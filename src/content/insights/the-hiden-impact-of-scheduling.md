@@ -4,6 +4,7 @@ pubDate: 2026-05-04
 description: "Explains how RAN scheduling decisions directly impact user throughput by dynamically allocating resources among multiple users in real time."
 image: "the-hidden-impact.jpeg"
 imageAlt: "Realistic 5G network scenario showing a base station distributing resources among multiple users with different throughput levels, illustrating the impact of scheduling on network performance."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-scheduling-activity-7457089201415745537-0_JS?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # THE HIDDEN IMPACT OF SCHEDULING ON USER THROUGHPUT

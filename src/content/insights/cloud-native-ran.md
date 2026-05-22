@@ -4,6 +4,7 @@ pubDate: 2026-04-29
 description: "Explores how cloud-native and distributed RAN architectures transform network design while introducing new challenges in performance, latency, and operational complexity"
 image: "cloud-native-ran.png"
 imageAlt: "Futuristic cloud-native RAN architecture showing distributed network functions across edge and cloud, highlighting virtualization and orchestration in modern telecom networks"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-cloudran-oran-activity-7455277232874323968-xoB4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # CLOUD-NATIVE RAN AND DISTRIBUTED ARCHITECTURES

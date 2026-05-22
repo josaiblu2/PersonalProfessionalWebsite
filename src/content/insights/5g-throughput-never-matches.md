@@ -4,6 +4,7 @@ pubDate: 2026-05-01
 description: "Explains why real-world 5G throughput differs from theoretical peak speeds due to interference, shared resources, and non-ideal radio conditions."
 image: "5g-thrp-never-matches.png"
 imageAlt: "Realistic 5G base station in a city environment showing multiple users sharing network resources and varying signal conditions, illustrating the gap between theoretical and real-world throughput performance."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-throughput-activity-7456002003165474816-M1fp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # WHY 5G THROUGHPUT NEVER MATCHES THEORY
