@@ -2,7 +2,7 @@
 title: "Gemma 4 and the real question: Who will control AI?"
 pubDate: 2026-04-10
 description: "Explains how open-weight AI models like Gemma 4 are shifting power from centralized control to distributed innovation, redefining who builds and owns AI capabilities."
-image: "gemma4-control-ai"
+image: "gemma4-control-ai.png"
 imageAlt: "Highlights the strategic shift from consuming AI to integrating it, where mastering and embedding intelligence becomes the real competitive advantage."
 linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_ia-machinelearning-gemma-activity-7450936117417299968-HPrb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
