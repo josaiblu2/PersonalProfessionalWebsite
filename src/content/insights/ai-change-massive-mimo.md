@@ -4,6 +4,7 @@ pubDate: 2026-06-03
 description: "Explores how AI-driven predictive optimization could transform Massive MIMO by anticipating user behavior, traffic demand, and beam management decisions before performance degrades."
 image: "ai-change-massive-mimo.png"
 imageAlt: "Professional telecom engineering illustration showing AI-assisted beam management in a Massive MIMO network, highlighting predictive optimization, mobility awareness, traffic forecasting, and intelligent radio resource allocation in 5G deployments."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-massivemimo-beamforming-activity-7467964583060721664-O0go?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # FROM BEAMS TO INTENT: HOW AI MAY CHANGE MASSIVE MIMO

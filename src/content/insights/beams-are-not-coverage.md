@@ -4,6 +4,7 @@ pubDate: 2026-05-27
 description: "Explains why Massive MIMO beamforming primarily improves signal quality, spectral efficiency, and capacity rather than simply extending 5G coverage."
 image: "beams-are-not-coverage.png"
 imageAlt: "Professional telecom engineering illustration comparing traditional sector coverage and Massive MIMO beamforming, highlighting how focused radio energy improves signal quality, spectral efficiency, and user experience in 5G networks."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-massivemimo-beamforming-activity-7465420327469371392-M1c4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # BEAMS ARE NOT COVERAGE: THE BIGGEST MISCONCEPTION IN 5G

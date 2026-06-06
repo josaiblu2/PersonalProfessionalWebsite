@@ -4,6 +4,7 @@ pubDate: 2026-05-25
 description: "Explains how Massive MIMO transformed RF planning by replacing uniform sector coverage assumptions with dynamic beam-based radio resource allocation."
 image: "mimo-changed-rules.jpeg"
 imageAlt: "Professional telecom engineering illustration comparing traditional sector coverage and Massive MIMO beamforming, showing how targeted radio beams reshape RF planning, coverage behavior, and network capacity in modern 5G deployments."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-massivemimo-beamforming-activity-7464699315857281024-sxY8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # MASSIVE MIMO CHANGED THE RULES OF RF PLANNING

@@ -4,6 +4,7 @@ pubDate: 2026-05-29
 description: "Explains why beam management is the real challenge in Massive MIMO, requiring continuous adaptation of radio resources to changing user locations and network conditions."
 image: "beams-are-not-coverage.png"
 imageAlt: "Professional telecom engineering illustration showing dynamic beam tracking and beam switching in a Massive MIMO network, highlighting the challenges of mobility management, spectral efficiency, and user experience optimization in 5G deployments."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-massivemimo-beammanagement-activity-7466156420980191232-3IPW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # BEAM MANAGEMENT IS THE REAL CHALLENGE

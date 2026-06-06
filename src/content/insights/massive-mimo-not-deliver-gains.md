@@ -4,6 +4,7 @@ pubDate: 2026-06-01
 description: "Explains why Massive MIMO does not always deliver expected performance gains, highlighting the impact of SINR, traffic density, device capabilities, and beam management."
 image: "massive-mimo-not-deliver-gain.png"
 imageAlt: "Professional telecom engineering illustration comparing successful and limited Massive MIMO deployments, showing how interference, user distribution, radio conditions, and beam management affect 5G network performance."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-massivemimo-beamforming-activity-7467236024998502401-Fvj5?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # WHEN MASSIVE MIMO DOESN’T DELIVER THE EXPECTED GAINS
