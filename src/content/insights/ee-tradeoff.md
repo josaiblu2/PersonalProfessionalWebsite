@@ -4,7 +4,7 @@ pubDate: 2026-06-15
 description: "Explores the tradeoff between energy efficiency and network performance, highlighting how operators balance power savings with coverage, capacity, and user experience."
 image: "ee-tradeoff.png"
 imageAlt: "Professional telecom operations environment showing engineers evaluating the balance between network performance, energy consumption, coverage, capacity, and operational efficiency in a modern 5G RAN."
-
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-energyefficiency-activity-7472309457754980352-MV0Y?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # THE ENERGY EFFICIENCY TRADEOFF: PERFORMANCE VS POWER

@@ -4,7 +4,7 @@ pubDate: 2026-06-17
 description: "Explores why energy efficiency is emerging as a key telecom KPI, complementing traditional network performance metrics such as throughput, coverage, and capacity."
 image: "ee-is-new-kpi.png"
 imageAlt: "Professional telecom operations center showing engineers analyzing energy efficiency metrics alongside traditional RAN performance indicators, highlighting the growing importance of energy-aware network optimization."
-
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-energyefficiency-activity-7473034224120467456-Sriy?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # ENERGY OPTIMIZATION IS BECOMING A NEW KPI

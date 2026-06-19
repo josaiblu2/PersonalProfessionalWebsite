@@ -4,7 +4,7 @@ pubDate: 2026-06-08
 description: "Energy Efficiency in RAN: Why It’s a Business Strategy, Not Just a Sustainability Initiative"
 image: "ee-is-not-sustainability.png"
 imageAlt: "Professional telecom infrastructure scene showing network equipment, energy consumption, and operational performance, illustrating how energy efficiency impacts both network operations and business outcomes."
-
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-energyefficiency-share-7467785110592024576-kMzo/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # ENERGY EFFICIENCY IS NOT A SUSTAINABILITY PROJECT

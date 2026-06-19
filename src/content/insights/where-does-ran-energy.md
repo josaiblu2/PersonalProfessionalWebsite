@@ -4,7 +4,7 @@ pubDate: 2026-06-12
 description: "Explains the main sources of energy consumption in RAN, from power amplifiers and Massive MIMO radios to baseband processing and supporting infrastructure."
 image: "where-does-energy.png"
 imageAlt: "Professional telecom infrastructure illustration showing radio units, Massive MIMO antennas, baseband systems, and supporting equipment that contribute to energy consumption in modern 5G RAN deployments."
-
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-energyefficiency-activity-7471229914185252864-Z8Lc?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # WHERE DOES RAN ENERGY CONSUMPTION REALLY COME FROM?
