@@ -4,7 +4,7 @@ pubDate: 2026-06-19
 description: "Explores how AI, SMO, and intelligent automation are enabling energy-aware RAN optimization by dynamically balancing network performance and power consumption."
 image: "ai-smo-energy-aware.jpeg"
 imageAlt: "Professional telecom operations center showing AI-assisted SMO platforms managing energy consumption, traffic demand, and network optimization across multiple 5G RAN sites."
-
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-energyefficiency-activity-7473838271211487234-BXMp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # AI, SMO AND THE FUTURE OF ENERGY-AWARE RAN
