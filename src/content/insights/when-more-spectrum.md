@@ -4,6 +4,7 @@ pubDate: 2026-08-03
 description: "Discover why network congestion is often caused by inefficient resource management rather than a lack of spectrum, and how optimization can unlock hidden capacity."
 image: "when-more-spectrum.png"
 imageAlt: "A realistic aerial view of a dense urban area with multiple cellular sites serving overlapping coverage zones, while telecom engineers analyze printed radio planning maps and traffic distribution diagrams during a network optimization session."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_ran-5g-spectrum-activity-7490062570985443328-AjXL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # When More Spectrum Doesn't Solve Congestion

@@ -4,6 +4,7 @@ pubDate: 2026-08-05
 description: "Descubre por qué el primer KPI que reviso ante una queja de usuarios no es la cobertura, sino el que mejor refleja la experiencia real del cliente."
 image: "fist-kpi-quejas.png"
 imageAlt: "Un equipo de ingenieros de telecomunicaciones reunido alrededor de una mesa revisando mapas impresos de cobertura, reportes de rendimiento y gráficos de tráfico móvil mientras analizan la causa raíz de una queja de usuarios, en un ambiente profesional y realista."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_ran-ranoptimization-kpis-activity-7490791266620821504-c-lk?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # El KPI que primero reviso cuando recibo una queja de usuarios

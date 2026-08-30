@@ -47,3 +47,42 @@ PS C:\Proyectos\PersonalProfessionalWebsite> npm run dev
 
 Abrir http://localhost:4322/insights
 Abrir http://localhost:4321/insights
+
+
+En caso de error: 
+
+Al correo npm run dev, recibi los siguientes warnings, Explicame que paso, porque lo warnings y como coregir:
+PS C:\Proyectos\PersonalProfessionalWebsite> npm run dev
+
+> shaky-solstice@0.0.1 dev
+> astro dev
+
+14:41:03 [types] Generated 1ms
+14:41:04 [content] Syncing content
+14:41:04 [WARN] [glob-loader] Duplicate id "1erkpiquejas" found in C:\Proyectos\PersonalProfessionalWebsite\src\content\insights\1erKpiQuejas.md. Later items with the same id will overwrite earlier ones.
+14:41:04 [WARN] [glob-loader] Duplicate id "biggest-misconception" found in C:\Proyectos\PersonalProfessionalWebsite\src\content\insights\biggest-misconception.md. Later items with the same id will overwrite earlier ones.
+14:41:04 [WARN] [glob-loader] Duplicate id "when-more-spectrum" found in C:\Proyectos\PersonalProfessionalWebsite\src\content\insights\when-more-spectrum.md. Later items with the same id will overwrite earlier ones.
+14:41:04 [content] Synced content
+
+
+Aplica workaround:
+
+2. ¿Cómo corregirlos?
+Opción A: Limpiar la caché interna de Astro (Solución rápida y más probable)
+El 90% de los casos en Astro 5 donde aparecen duplicados en glob-loader sin que existan dos archivos idénticos en disco se soluciona borrando la carpeta de caché .astro:
+
+Detén el servidor de desarrollo en la terminal (Ctrl + C).
+Elimina la carpeta .astro ejecutando en PowerShell:
+powershell
+Remove-Item -Recurse -Force .astro
+PS C:\Proyectos\PersonalProfessionalWebsite> Remove-Item -Recurse -Force .astro
+Vuelve a iniciar el servidor:
+powershell
+PS C:\Proyectos\PersonalProfessionalWebsite> npm run dev
+npm run dev
+Astro regenerará la caché desde cero y los warnings deberían desaparecer.
+
+Opción B: Renombrar el archivo 1erKpiQuejas.md a minúsculas convencionales
+Para evitar conflictos de compatibilidad de nombres de archivo en Windows / Git / Linux, es una buena práctica mantener todos los nombres de archivo Markdown en minúsculas y separados por guiones (kebab-case):
+
+Renombra src/content/insights/1erKpiQuejas.md a src/content/insights/1er-kpi-quejas.md (o 1erkpiquejas.md).

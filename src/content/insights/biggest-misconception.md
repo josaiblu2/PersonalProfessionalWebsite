@@ -4,6 +4,7 @@ pubDate: 2026-08-07
 description: "Explore why rApps are far more than software applications and how they transform engineering expertise into scalable network automation."
 image: "biggest-misconception.png"
 imageAlt: "A group of telecom architects collaborating around a large table covered with printed Open RAN architecture diagrams, SMO workflows, rApp lifecycle illustrations, and engineering notes, discussing automation design in a professional meeting room."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_openran-rapps-smo-activity-7491512238378401793-NiIY?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # The Biggest Misconception About rApps
