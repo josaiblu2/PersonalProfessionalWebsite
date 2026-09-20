@@ -4,6 +4,7 @@ pubDate: 2026-08-31
 description: "Learn why parameter tuning can unintentionally degrade network performance and why understanding system-wide behavior matters more than changing individual settings."
 image: "parameter-tuning-worse2.png"
 imageAlt: "RF engineers reviewing printed mobility parameter tables, KPI trend reports, coverage maps, and optimization proposals during a technical design review, discussing the network-wide impact of parameter changes before implementation."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_smo-networkautomation-mobility-activity-7500205880848797696-kmF7?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # When Parameter Tuning Makes Things Worse

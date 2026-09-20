@@ -4,6 +4,7 @@ pubDate: 2026-09-04
 description: "Discover why the future of RAN optimization depends less on collecting more KPIs and more on understanding the operational context behind every metric."
 image: "context-over-kpi-2.png"
 imageAlt: "Telecommunications engineers analyzing printed traffic maps, mobility patterns, event schedules, KPI reports, and operational planning documents around a collaborative workspace, illustrating how engineering context leads to better optimization decisions than isolated metrics."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_smo-openran-5g-activity-7501655491710722069-iMpb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # The Future Of Optimization Is Context, Not KPIs

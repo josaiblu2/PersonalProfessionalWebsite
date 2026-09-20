@@ -4,6 +4,7 @@ pubDate: 2026-09-02
 description: "Descubre por qué no todas las decisiones en una red móvil deben automatizarse y cómo encontrar el equilibrio entre IA y experiencia de ingeniería."
 image: "cuando-automatizar-red2.png"
 imageAlt: "Un equipo multidisciplinario de ingenieros de telecomunicaciones analiza diagramas impresos de arquitectura SMO, flujos de automatización, reportes de KPIs y casos de uso sobre una mesa de trabajo, debatiendo qué procesos deben automatizarse y cuáles requieren supervisión humana."
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ai-ranoptimization-activity-7500945745001242624-9SVS?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # Cuándo conviene automatizar una red... y cuándo no?
