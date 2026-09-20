@@ -2,7 +2,7 @@
 title: "DIGITAL TWIN RAN: TEST BEFORE YOU TOUCH THE LIVE NETWORK"
 pubDate: 2026-09-11
 description: "Explore Digital Twin RAN as a safe validation layer for AI, automation, optimization and autonomous network decisions."
-image: "LinkBudgetLaEcuacion.png"
+image: "digital-twin-ran.png"
 imageAlt: "Digital Twin RAN architecture showing a physical 5G network synchronized with a virtual RAN used to simulate and validate optimization actions before deployment."
 linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_digitaltwin-ran-5g-activity-7504195815339560960-BGBB?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
