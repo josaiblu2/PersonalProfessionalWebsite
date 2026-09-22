@@ -44,10 +44,10 @@ Rama: feat/cv-gated-download (basada en fix/hero-mailto-placeholder para evitar 
 Ciclo de revision bisemanal por defecto (2 semanas) a partir del deploy a produccion.
 
 ## Result
-Pendiente de deploy y medicion.
+Desplegado y validado en produccion. Ventana de medicion de 2 semanas activa desde 2026-09-22 (evento marcado como Key Event en GA4). Resultado cuantitativo pendiente hasta el cierre de la ventana.
 
 ## Decision
-Pendiente. Accion manual requerida de Salvador: marcar 'tier1_cv_download_conversion' como Key Event en GA4 Admin, distinto del Key Event de EXP-002.
+Confirmado por Salvador el 2026-09-22: 'tier1_cv_download_conversion' ya esta marcado como Key Event en GA4 Admin, distinto del Key Event de EXP-002. Con esto arranca formalmente la ventana de medicion de 2 semanas (2026-09-22 a 2026-10-06 aprox.). Al cierre de esa ventana se revisaran los resultados frente al KPI objetivo y se documentara en la seccion Result/Learning.
 
 ## Learning
 Pendiente.
@@ -73,3 +73,42 @@ Correccion aplicada (mismo commit/rama, antes de cualquier push):
 Validacion post-correccion: 17 pruebas funcionales con Playwright headless contra el build real (HTML + CSS exactos generados por `astro build`, verificando que el hash de CSS coincidiera con el HTML antes de concluir), cubriendo: textos en ingles, descarga automatica + enlace de respaldo en el camino de exito, bloqueo de descarga + mensaje de error + reintento habilitado en el camino de fallo, y reinicio correcto del modal al reabrir. Las 17 pasaron.
 
 Accion recomendada para Salvador antes del merge final: validar el envio real del formulario cv-request (y del formulario de contacto) usando la Netlify Deploy Preview que Netlify genera automaticamente al abrir el Pull Request -- esto no consume creditos de deploy de produccion segun el modelo de creditos del proyecto, y es el unico entorno donde Netlify Forms funciona de verdad.
+
+## Correction cycle 2 (causa raiz real, post-produccion)
+
+Tras el deploy a produccion del "Correction cycle 1", Salvador probo la descarga directamente contra el sitio en vivo (salvadoribarra.tech) y reporto que la descarga seguia sin completarse en su equipo, incluso al hacer clic genuino en el nuevo enlace de respaldo "Download CV (PDF)" (no un intento automatico/programatico). El historial de descargas de Chrome mostro cuatro intentos consecutivos con el error "Sin archivos".
+
+Esto invalido la hipotesis del "Correction cycle 1" sobre la cadena de gesto del usuario tras un `await fetch()`, ya que el fallo persistio incluso en un click 100% genuino y directo, sin ningun fetch de por medio.
+
+Investigacion definitiva: se ejecuto `git ls-files public/assets/cv/` y `git log --all --diff-filter=A -- "public/assets/cv/*"` sobre el repositorio real. Ambos comandos devolvieron un resultado completamente vacio en todas las ramas.
+
+**Causa raiz confirmada**: el archivo `public/assets/cv/Salvador_Ibarra_Luna_CV_Master_v1_3.pdf` nunca fue agregado a ningun commit de git, en ninguna rama, desde que Salvador lo coloco en el disco local. Netlify construye el sitio desde un checkout limpio del repositorio de git, no desde el disco de Salvador ni desde el disco de este agente; por lo tanto, el archivo jamas existio en ningun build desplegado a produccion, sin importar que tan correcto fuera el HTML/JS que lo referenciaba. Esto explica los tres sintomas originales del "Correction cycle 1" (sin descarga, sin email, "archivo no disponible") y tambien el fallo persistente en produccion reportado despues.
+
+Falla metodologica identificada y reconocida: todas las pruebas locales previas (incluyendo las 17 pruebas de Playwright del "Correction cycle 1") se ejecutaron contra copias preparadas a partir del directorio de trabajo real de Salvador, donde el PDF SI existe fisicamente en disco -- por lo tanto esas pruebas nunca pudieron detectar que el archivo estaba ausente del historial de git, que es exactamente lo que Netlify si nota. Correccion de proceso adoptada de aqui en adelante para este tipo de activos estaticos: validar tambien contra un `git clone` limpio de la rama (o equivalente), no solo contra el arbol de trabajo local.
+
+Correccion aplicada:
+- Commit `fa60e2a` en la rama `hotfix/cv-modal-english-and-download-fallback`: se agrego el PDF a git (`git add` + commit dedicado, separado del commit de idioma/UX para mantener el historial claro).
+
+Validacion de esta correccion (metodologia mejorada, sobre clon limpio, no sobre el arbol de trabajo):
+1. `git clone` local y limpio de la rama `hotfix/cv-modal-english-and-download-fallback` (solo contenido versionado en git).
+2. Confirmado: el PDF aparece en el clon limpio, con checksum MD5 identico al archivo original en el disco de Salvador (`6a736a16505929eaf539bbeb244c43ba`).
+3. `npm install` + `npm run build` ejecutados sobre ese clon limpio (sin ninguna dependencia del arbol de trabajo real): build completado sin errores, 144 paginas generadas.
+4. Confirmado: `dist/assets/cv/Salvador_Ibarra_Luna_CV_Master_v1_3.pdf` existe en la salida del build, con el mismo checksum MD5, y `dist/index.html` referencia exactamente esa misma ruta (`/assets/cv/Salvador_Ibarra_Luna_CV_Master_v1_3.pdf`).
+
+Este es ahora el fix real y verificado del problema de descarga. El "Correction cycle 1" (idioma en ingles, vista de exito persistente, enlace de respaldo garantizado) sigue siendo una mejora valida y se mantiene, pero por si sola no habria resuelto el problema reportado por Salvador porque el archivo referenciado no existia en el servidor.
+
+Accion pendiente de Salvador: hacer `git push` de la rama `hotfix/cv-modal-english-and-download-fallback` actualizada (ahora con los commits `80372b1` y `fa60e2a`) y actualizar/mergear el Pull Request correspondiente. Se reitera la recomendacion de validar primero con la Netlify Deploy Preview que se genera automaticamente en el PR, dado que es el unico entorno que replica fielmente tanto el build desde git limpio como el backend real de Netlify Forms.
+
+## Validacion final en Netlify Deploy Preview (PR #3)
+
+Salvador valido el fix del PDF (commit `fa60e2a`) directamente contra el Deploy Preview generado automaticamente por Netlify para el PR #3 (`https://deploy-preview-3--stellular-strudel-c35baa.netlify.app`), en ventana de incognito para descartar cache del navegador. Resultado: descarga exitosa.
+
+Nota importante detectada durante esta validacion: una prueba previa contra el dominio de produccion (salvadoribarra.tech) seguia mostrando el error "archivo no disponible", lo cual es el comportamiento esperado y correcto -- production todavia no incluye este fix porque el PR no se ha mergeado aun. No se trata de un bug adicional, sino de la diferencia esperada entre el Deploy Preview (que si construye desde el commit con el PDF) y produccion (que sigue en el commit anterior hasta el merge).
+
+Con esta validacion en un entorno que replica fielmente el build real de Netlify, el fix queda confirmado como listo para merge a `main`.
+
+## Confirmacion en produccion
+
+Salvador confirmo descarga exitosa del CV directamente en salvadoribarra.tech tras el merge del PR #3 a `main`. El fix de causa raiz (PDF agregado a git) queda cerrado y confirmado en el entorno real. Comienza a partir de aqui la ventana de medicion de 2 semanas definida en este experimento.
+
+Pendiente unico: accion manual de Salvador en GA4 Admin para marcar 'tier1_contact_conversion' (EXP-002) y 'tier1_cv_download_conversion' (EXP-003) como Key Events -- fuera del alcance de este agente por gobernanza del proyecto (no se altera configuracion de analitica de forma autonoma).
