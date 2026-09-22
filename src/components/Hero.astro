@@ -16,12 +16,12 @@
     </div>
     
     <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-      <a href="mailto:contact@example.com" class="px-8 py-4 bg-teal text-navy font-bold rounded-lg hover:bg-teal/90 transition-all transform hover:-translate-y-1 shadow-lg shadow-teal/20 text-lg">
+      <a href="mailto:josaiblu2@yahoo.com.mx" class="px-8 py-4 bg-teal text-navy font-bold rounded-lg hover:bg-teal/90 transition-all transform hover:-translate-y-1 shadow-lg shadow-teal/20 text-lg">
         Contact for Collaboration
       </a>
-      <a href="#contact" class="px-8 py-4 border-2 border-slate text-slate font-bold rounded-lg hover:border-teal hover:text-teal transition-all text-lg">
+      <button type="button" id="cv-request-trigger" class="px-8 py-4 border-2 border-slate text-slate font-bold rounded-lg hover:border-teal hover:text-teal transition-all text-lg">
         Request CV
-      </a>
+      </button>
     </div>
   </div>
 
@@ -37,3 +37,159 @@
     </div>
   </div>
 </section>
+
+{/* Fase 1, Tarea 3 (EXP-003): modal de descarga de CV con verja de correo. */}
+<dialog id="cv-request-modal" class="p-0 bg-transparent backdrop:bg-navy/90 w-full max-w-md h-fit m-auto rounded-2xl shadow-2xl">
+  <div class="bg-[#020617] border border-teal/40 rounded-2xl p-8 md:p-10 shadow-2xl shadow-teal/10 relative text-left">
+    <button
+      type="button"
+      id="cv-request-close"
+      aria-label="Cerrar"
+      class="absolute top-4 right-4 p-2 text-slate-300 hover:text-teal transition-colors rounded-full hover:bg-white/5"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <h3 class="text-2xl text-white font-bold mb-2 pr-8">Descarga mi CV</h3>
+    <p class="text-slate text-sm mb-6">
+      Ingresa tu correo profesional para descargar el CV en PDF.
+    </p>
+
+    <form
+      id="cv-request-form"
+      name="cv-request"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class="space-y-4"
+    >
+      <input type="hidden" name="form-name" value="cv-request" />
+      <p class="hidden" style="display:none">
+        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+      </p>
+
+      <div class="space-y-2">
+        <label for="cv-email" class="block text-sm font-mono text-slate-300">
+          Correo profesional <span class="text-teal">*</span>
+        </label>
+        <input
+          type="email"
+          id="cv-email"
+          name="email"
+          required
+          class="w-full bg-navy/50 border border-slate/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal focus:ring-1 focus:ring-teal transition-all placeholder-slate/30"
+          placeholder="john@company.com"
+        />
+      </div>
+
+      <p id="cv-request-error" class="hidden text-red-400 text-sm"></p>
+      <p id="cv-request-success" class="hidden text-teal text-sm">Descarga iniciada. Gracias por tu interes.</p>
+
+      <button
+        type="submit"
+        id="cv-request-submit"
+        class="w-full px-8 py-4 bg-teal text-navy font-bold rounded-lg hover:bg-[#2DD4BF] hover:shadow-[0_0_20px_rgba(20,184,166,0.4)] transition-all duration-300"
+      >
+        Descargar CV
+      </button>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  const cvTrigger = document.getElementById('cv-request-trigger');
+  const cvModal = document.getElementById('cv-request-modal') as HTMLDialogElement | null;
+  const cvClose = document.getElementById('cv-request-close');
+  const cvForm = document.getElementById('cv-request-form') as HTMLFormElement | null;
+  const cvSubmit = document.getElementById('cv-request-submit') as HTMLButtonElement | null;
+  const cvError = document.getElementById('cv-request-error');
+  const cvSuccess = document.getElementById('cv-request-success');
+
+  const CV_PDF_URL = '/assets/cv/Salvador_Ibarra_Luna_CV_Master_v1_3.pdf';
+
+  cvTrigger?.addEventListener('click', () => {
+    cvError?.classList.add('hidden');
+    cvSuccess?.classList.add('hidden');
+    cvModal?.showModal();
+  });
+
+  cvClose?.addEventListener('click', () => cvModal?.close());
+
+  cvForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!cvForm || !cvSubmit) return;
+
+    cvError?.classList.add('hidden');
+    cvSuccess?.classList.add('hidden');
+    cvSubmit.disabled = true;
+    const originalLabel = cvSubmit.textContent;
+    cvSubmit.textContent = 'Enviando...';
+
+    try {
+      const formData = new FormData(cvForm);
+      const body = new URLSearchParams(formData as any).toString();
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+
+      if (!response.ok) {
+        throw new Error('Netlify Forms respondio con un error');
+      }
+
+      // Evento GA4 Tier 1, distinto y separado del evento del formulario de contacto (EXP-002).
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'tier1_cv_download_conversion', {
+          event_category: 'Tier1_Conversion',
+          event_label: 'cv_download',
+          transport_type: 'beacon',
+        });
+      }
+
+      const link = document.createElement('a');
+      link.href = CV_PDF_URL;
+      link.download = 'Salvador_Ibarra_Luna_CV.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      cvSuccess?.classList.remove('hidden');
+      cvForm.reset();
+      setTimeout(() => cvModal?.close(), 1200);
+    } catch (err) {
+      if (cvError) {
+        cvError.textContent = 'No pudimos procesar tu solicitud. Verifica tu conexion e intenta de nuevo.';
+        cvError.classList.remove('hidden');
+      }
+    } finally {
+      cvSubmit.disabled = false;
+      cvSubmit.textContent = originalLabel;
+    }
+  });
+</script>
+
+<style>
+  #cv-request-modal::backdrop {
+    backdrop-filter: blur(8px);
+  }
+
+  #cv-request-modal[open] {
+    animation: cvModalZoomIn 0.3s ease-out;
+  }
+
+  @keyframes cvModalZoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
