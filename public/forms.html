@@ -17,6 +17,14 @@
         <select name="inquiry-type"></select>
         <textarea name="message"></textarea>
     </form>
+
+    <!--
+      Fase 1, Tarea 3 (EXP-003): declaracion estatica del formulario cv-request,
+      independiente del formulario de contacto, para que Netlify lo detecte en build.
+    -->
+    <form name="cv-request" data-netlify="true" hidden>
+        <input type="email" name="email" />
+    </form>
 </body>
 
 </html>
