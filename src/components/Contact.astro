@@ -114,3 +114,24 @@
         </button>
       </div>
     </form>
+
+<script>
+  // Fase 1, Tarea 2 (EXP-002): evento GA4 Tier 1 al enviar el formulario de contacto.
+  // No intercepta el envio nativo del formulario (Netlify Forms sigue manejando el
+  // POST y la redireccion a /success/ exactamente igual que antes). Se usa
+  // transport_type: 'beacon' para que gtag.js encole la peticion mediante
+  // navigator.sendBeacon antes de que la navegacion la interrumpa.
+  const contactForm = document.querySelector('form[name="contact"]');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', () => {
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'tier1_contact_conversion', {
+          event_category: 'Tier1_Conversion',
+          event_label: 'contact_form',
+          transport_type: 'beacon',
+        });
+      }
+    });
+  }
+</script>
