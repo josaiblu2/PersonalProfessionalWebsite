@@ -4,6 +4,7 @@ pubDate: 2026-09-21
 description: "Understand what L4 Autonomous Networks require beyond automation: intent, guardrails, explainability and data discipline across RAN, SON and SMO."
 coverImage: "./l4-autonomous-networks.png"
 imageAlt: "Futuristic telecom operations center with a translucent 5G RAN topology map, closed loop feedback arrows and guardrail boundaries around cell sites, representing L4 Autonomous Networks with SMO orchestration, in deep blue and teal tones"
+linkedinUrl: "https://lnkd.in/p/evK6uNpv"
 ---
 
 # L4 AUTONOMOUS NETWORKS: IT TAKES MORE THAN AUTOMATION

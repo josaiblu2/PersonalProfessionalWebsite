@@ -4,6 +4,7 @@ pubDate: 2026-09-23
 description: "Descubre los criterios de diseño RF que definen una red privada 5G industrial: multitrayecto, SINR, TDD y espectro para latencia y confiabilidad."
 coverImage: "./redes-privadas-5g.png"
 imageAlt: "Interior de una planta industrial moderna con radio dots de una red privada 5G, líneas de cobertura RF translúcidas, vehículos AGV y maquinaria, en tonos azul profundo y verde azulado"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-privatenetworks-randesign-activity-7508548595311173633-1vyi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # REDES PRIVADAS 5G: RF PARA PLANTAS INDUSTRIALES
