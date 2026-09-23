@@ -4,14 +4,17 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 ---
 
-## BL-001 -- Proteccion anti-spam en formularios de Netlify Forms
+## BL-001 -- Proteccion anti-spam en formularios de Netlify Forms [CERRADO -- hallazgo original incorrecto]
 
-**Status:** Abierto -- agendado para proxima iteracion (no urgente, importante)
+**Status:** Cerrado -- el hallazgo original era incorrecto, ver Correccion abajo.
 **Registrado:** 2026-09-22
+**Corregido:** 2026-09-23
 
-**Observation:** Ninguno de los dos formularios en produccion (`contact` y `cv-request`, ambos via Netlify Forms) tiene proteccion anti-spam activa. Ambos son formularios publicos accesibles por cualquier visitante o bot.
+**Correccion (2026-09-23):** Al iniciar la implementacion de este item, se reviso el codigo fuente real de ambos formularios y se confirmo que **ambos ya cuentan con proteccion honeypot nativa de Netlify**, usando el atributo correcto `netlify-honeypot="bot-field"` (sin el prefijo `data-` que se busco erroneamente durante la auditoria original) mas su campo oculto `bot-field` correspondiente. El honeypot de `contact` existe desde el commit `bb37d7c` (6 de febrero de 2026); el honeypot de `cv-request` existe desde su commit de implementacion original, `cf66f49` (EXP-003). El hallazgo original de este item ("Ninguno de los dos formularios... tiene proteccion anti-spam activa") fue un error de auditoria: se busco el atributo `data-netlify-honeypot`, que no es el nombre de atributo que usa el codigo (ni el que documenta Netlify), en lugar de `netlify-honeypot`. No se requiere ninguna implementacion adicional para este item. Se deja este registro (en lugar de borrarlo) para dejar constancia del error y evitar que se repita en auditorias futuras.
 
-**Evidence:** Revision del codigo de ambos formularios (`Contact.astro`, `Hero.astro` / modal de CV) confirma que no se implemento el atributo honeypot nativo de Netlify (`data-netlify-honeypot`) ni ningun otro mecanismo (reCAPTCHA, rate limiting, validacion adicional). Salvador pregunto explicitamente donde se almacenan los correos capturados por `cv-request` (respuesta: en el panel de Netlify Forms, sin base de datos propia), lo cual expuso esta brecha durante la revision.
+**Observation original (incorrecta, mantenida por transparencia):** Ninguno de los dos formularios en produccion (`contact` y `cv-request`, ambos via Netlify Forms) tiene proteccion anti-spam activa. Ambos son formularios publicos accesibles por cualquier visitante o bot.
+
+**Evidence original (incorrecta, mantenida por transparencia):** Revision del codigo de ambos formularios (`Contact.astro`, `Hero.astro` / modal de CV) confirma que no se implemento el atributo honeypot nativo de Netlify (`data-netlify-honeypot`) ni ningun otro mecanismo (reCAPTCHA, rate limiting, validacion adicional). Salvador pregunto explicitamente donde se almacenan los correos capturados por `cv-request` (respuesta: en el panel de Netlify Forms, sin base de datos propia), lo cual expuso esta brecha durante la revision.
 
 **Impact:** Riesgo de que envios de spam/bots contaminen la lista de correos capturados en `cv-request` (pensada para generar leads reales de oportunidades profesionales) y el buzon de notificaciones del formulario `contact`. Impacto indirecto en la calidad de datos usada para medir el KPI Tier 1 (descargas de CV / contactos), pudiendo inflar artificialmente los conteos de EXP-002 y EXP-003 si no se corrige antes de que el volumen de spam sea significativo.
 
