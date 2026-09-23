@@ -88,3 +88,21 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 **Risk:** Bajo. Cambios aditivos en metadatos/build config, no tocan contenido editorial ni URLs existentes. Debe validarse con Google's Rich Results Test y una revision de sitemap.xml generado antes de considerar el cambio cerrado.
 
 **Reusability:** Alta -- el patron de JSON-LD `Article`/`BlogPosting` y `lastmod` en sitemap aplica a cualquier sitio Astro con contenido tipo blog/insights.
+
+## BL-005 -- Imagen del Hero (headshot) sin optimizar, causando LCP movil de 8.7s en el homepage
+
+**Registrado:** 2026-09-23 (detectado durante la primera linea base de PageSpeed Insights, tras el deploy de EXP-004a/EXP-004b/EXP-005/EXP-006)
+
+**Observation:** El homepage obtiene un Performance score de solo 67/100 en movil (vs. 92/100 en escritorio), con un Largest Contentful Paint (LCP) de **8.7 segundos** en movil -- calificacion "poor" segun los umbrales de Google (>4s). El mismo problema no aparece en escritorio (LCP 1.7s) ni en las paginas de Insights ya migradas a `astro:assets` en EXP-004a/EXP-004b.
+
+**Evidence:** Consulta real a la PageSpeed Insights API v5 (2026-09-23) sobre `https://salvadoribarra.tech/`, estrategia mobile. El detalle `network-requests` de la auditoria identifica `https://salvadoribarra.tech/assets/Salvador_Headshot_Primary.png` como el recurso mas pesado de la pagina: **1,030 KB** de transferencia. Confirmado en codigo (`src/components/Hero.astro`, linea 33): la imagen se renderiza con una etiqueta `<img src="/assets/Salvador_Headshot_Primary.png">` plana, sirviendose directamente desde `public/assets/` (1,054,779 bytes en disco, PNG sin comprimir) -- exactamente el mismo patron de defecto que EXP-004a/EXP-004b ya corrigio para las 141 imagenes de posts de Insights, simplemente nunca se aplico a esta imagen del Hero porque no pertenece a la coleccion de contenido `insights`.
+
+**Impact:** El homepage es la pagina de entrada mas importante del sitio -- desde ahi se accede directamente a los dos eventos Tier 1 (Contact, CV download). Un LCP de 8.7s en movil esta muy por encima del umbral "poor" de Google (4s), lo cual perjudica tanto la experiencia real del visitante (la imagen principal tarda casi 9 segundos en aparecer) como senales de SEO relacionadas con Core Web Vitals. Es, ademas, el hallazgo de mayor impacto individual detectado hasta ahora en cualquier auditoria de rendimiento del proyecto.
+
+**Recommendation:** Migrar `Salvador_Headshot_Primary.png` al pipeline de `astro:assets` (mover a `src/assets/` o a la coleccion correspondiente, usar `<Image />` con un ancho maximo razonable para el tamano real de renderizado del circulo del Hero, y formato WebP/AVIF), siguiendo exactamente el mismo patron ya implementado y validado dos veces en EXP-004a/EXP-004b. Es un cambio de una sola imagen, de alcance minimo y riesgo bajo.
+
+**Priority:** Alta -- es el hallazgo de mayor impacto medido objetivamente hasta ahora (LCP "poor" en la pagina de entrada principal del sitio), y la solucion es de bajo riesgo por ser un patron ya probado.
+
+**Risk:** Bajo. Cambio de una sola imagen en un solo componente (`Hero.astro`), mismo patron ya validado en produccion dos veces. Validar visualmente que el circulo del Hero se siga viendo nitido al nuevo ancho de renderizado antes de dar por cerrado el cambio.
+
+**Reusability:** Alta -- el mismo patron de auditoria (buscar imagenes servidas fuera de `astro:assets` via el detalle `network-requests` de PageSpeed Insights) es reutilizable para detectar cualquier imagen similar que se agregue al sitio en el futuro fuera del flujo de Insights.
