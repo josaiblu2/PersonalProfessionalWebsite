@@ -40,10 +40,18 @@ Rama: feat/ga4-contact-tier1-event
 Ciclo de revision bisemanal por defecto (2 semanas) a partir del deploy a produccion.
 
 ## Result
-Pendiente de deploy y medicion.
+Desplegado y validado en produccion. Ventana de medicion de 2 semanas activa desde 2026-09-22 (evento marcado como Key Event en GA4). Resultado cuantitativo pendiente hasta el cierre de la ventana.
 
 ## Decision
-Pendiente. Accion manual requerida de Salvador: marcar 'tier1_contact_conversion' como Key Event en GA4 Admin (el agente no tiene permiso para alterar configuracion de analitica).
+Confirmado por Salvador el 2026-09-22: 'tier1_contact_conversion' ya esta marcado como Key Event en GA4 Admin. Con esto arranca formalmente la ventana de medicion de 2 semanas (2026-09-22 a 2026-10-06 aprox.). Al cierre de esa ventana se revisaran los resultados frente al KPI objetivo y se documentara en la seccion Result/Learning.
 
 ## Learning
 Pendiente.
+
+## Validacion en produccion (post Fase 1)
+
+Salvador confirmo el envio del formulario de contacto en produccion (salvadoribarra.tech), recibiendo la notificacion correspondiente por correo via Netlify Forms. Verificacion del evento de GA4 mediante el reporte de Tiempo Real (Realtime): 'tier1_contact_conversion' aparece registrado (1 evento), junto con 'form_submit', confirmando que el disparo del evento via gtag (transport_type: beacon) funciona correctamente en el entorno real.
+
+Nota operativa: el evento aun no aparecia en Admin > Eventos > Eventos recientes al momento de esta verificacion -- comportamiento esperado, ya que ese panel administrativo puede tardar hasta 24 horas en reflejar un nombre de evento nuevo por primera vez, a diferencia de Tiempo Real que es inmediato. Esto no representa ningun problema funcional.
+
+Con esta confirmacion, EXP-002 queda validado tecnicamente en produccion. Pendiente unicamente la accion administrativa de Salvador de marcar 'tier1_contact_conversion' como Key Event en GA4 Admin (con la estrella junto al evento) en cuanto aparezca en el listado de Eventos recientes.

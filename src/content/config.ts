@@ -2,11 +2,19 @@ import { defineCollection, z } from 'astro:content';
 
 const insightsCollection = defineCollection({
   type: 'content',
-  schema: z.object({
+  // Nota (EXP-004a): se usa la forma de función del schema para acceder al
+  // helper image() de Astro sin migrar a la Content Layer API (eso renombraría
+  // post.slug -> post.id y rompería las URLs ya indexadas de los 140 posts existentes).
+  schema: ({ image }) => z.object({
     title: z.string(),
     pubDate: z.date(),
     description: z.string(),
     image: z.string().optional(),
+    // Nuevo campo opcional (EXP-004a): imagen colocada junto al .md,
+    // optimizada automáticamente por Astro en build. El campo legacy
+    // 'image' (string, ruta en public/assets/posts/) se mantiene intacto
+    // para no romper los 140 posts existentes.
+    coverImage: image().optional(),
     imageAlt: z.string().optional(),
     linkedinUrl: z.string().url().optional(),
   }),
