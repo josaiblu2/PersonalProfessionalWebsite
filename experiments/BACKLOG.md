@@ -70,9 +70,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 ---
 
-## BL-004 -- Datos estructurados (JSON-LD) y lastmod en sitemap para los posts de Insights
+## BL-004 -- Datos estructurados (JSON-LD) y lastmod en sitemap para los posts de Insights [PROMOVIDO A EXP-005]
 
-**Status:** Abierto -- agendado para proxima iteracion (no urgente, importante)
+**Status:** Promovido a experimento formal EXP-005 (ver experiments/EXP-005-structured-data-sitemap-lastmod.md) el 2026-09-23.
 **Registrado:** 2026-09-23 (detectado durante revision de campos del frontmatter con Salvador)
 
 **Observation:** El campo `pubDate` de cada post de Insights no tiene ninguna funcion de SEO actualmente. Se usa unicamente para ordenar el feed y mostrar la fecha visible al lector en la UI. No existen datos estructurados (JSON-LD) en las paginas de posts, y el sitemap generado por `@astrojs/sitemap` no expone `lastmod` por URL.

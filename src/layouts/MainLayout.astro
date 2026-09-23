@@ -7,7 +7,11 @@ const {
 	description = "Expert in cSON evolution to O-RAN rApps/xApps and SMO-driven automation.",
 	image = "/assets/default-share-image.jpg",
 	imageAlt,
-	type = "website"
+	type = "website",
+	// BL-004: datos estructurados JSON-LD opcionales (objeto listo para JSON.stringify).
+	// Solo lo pasan las paginas que los necesitan (por ahora, los posts de Insights);
+	// el resto de las paginas no se ve afectado.
+	structuredData
 } = Astro.props;
 
 const siteUrl = Astro.site || 'https://salvadoribarra.tech';
@@ -44,6 +48,12 @@ const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 		{imageAlt && <meta property="twitter:image:alt" content={imageAlt} />}
 
 		<meta name="keywords" content="SON, cSON, O-RAN, SMO, RAN Automation, Samsung, Nokia, Ericsson, 5G KPI Optimization, rApps, xApps, Non-RT RIC, Near-RT RIC" />
+
+		<!-- BL-004: datos estructurados (JSON-LD) para resultados enriquecidos en Google -->
+		{structuredData && (
+			<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+		)}
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">

@@ -26,6 +26,23 @@ const ogImage = post.data.coverImage
 
 // Forzar el uso del dominio de producción para que LinkedIn y Facebook puedan extraer el preview
 const shareUrl = new URL(Astro.url.pathname, Astro.site || 'https://salvadoribarra.tech').toString();
+
+// BL-004: datos estructurados JSON-LD (BlogPosting) para habilitar resultados
+// enriquecidos en Google Search. Reutiliza shareUrl (URL canonica, ya calculada
+// arriba) y la misma imagen que ya se usa para og:image, resuelta a URL absoluta.
+const siteOrigin = Astro.site || 'https://salvadoribarra.tech';
+const absoluteImageUrl = ogImage ? new URL(ogImage, siteOrigin).toString() : undefined;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": shareUrl },
+  "headline": post.data.title,
+  "description": post.data.description,
+  ...(absoluteImageUrl ? { "image": [absoluteImageUrl] } : {}),
+  "datePublished": post.data.pubDate.toISOString(),
+  "author": { "@type": "Person", "name": "Salvador Ibarra Luna", "url": siteOrigin },
+  "publisher": { "@type": "Person", "name": "Salvador Ibarra Luna" }
+};
 ---
 
 <MainLayout 
@@ -34,6 +51,7 @@ const shareUrl = new URL(Astro.url.pathname, Astro.site || 'https://salvadoribar
   image={ogImage}
   imageAlt={post.data.imageAlt || post.data.title}
   type="article"
+  structuredData={structuredData}
 >
   <article class="max-w-4xl mx-auto py-20 px-6 min-h-screen">
     
