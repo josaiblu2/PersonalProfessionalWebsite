@@ -48,16 +48,16 @@ Archivos modificados: src/content/config.ts (nuevo campo coverImage), src/pages/
 6. Build final limpio (sin el post de prueba, solo con los 141 posts reales): 144 paginas, 409MB en dist/ -- identico al baseline, cero regresion, cero cambio, porque ningun post real usa aun el campo nuevo.
 
 ## Approval status
-Propuesta (EXP-004a + EXP-004b por separado) aprobada por Salvador el 2026-09-22 ("si, aprovado"). Construccion y validacion local aprobada el mismo dia. Commit de estos cambios en la rama local aprobado por Salvador el 2026-09-23 ("si, apruebo"). Aun sin push ni PR (se agrupara con el siguiente lote de cambios significativos, por disciplina de creditos de despliegue).
+Propuesta (EXP-004a + EXP-004b por separado) aprobada por Salvador el 2026-09-22 ("si, aprovado"). Construccion y validacion local aprobada el mismo dia. Commit de estos cambios en la rama local aprobado por Salvador el 2026-09-23 ("si, apruebo"). Agrupado con EXP-004b/EXP-005/EXP-006 en PR #4, validado en Deploy Preview #4 y mergeado a main por Salvador el 2026-09-23 (commit de merge d9d71d5). Deploy de produccion en Netlify completado exitosamente (build iniciado 3:16:35 PM, 1m 3s, 727 archivos).
 
 ## Measurement window
-No aplica todavia (no hay contenido en produccion usando el nuevo campo). Se activara con EXP-004b (migracion de contenido).
+Activa desde el deploy de produccion del 2026-09-23 (commit d9d71d5). Revisar en la sesion de revision bisemanal.
 
 ## Result
-Pipeline construido y validado localmente. Pendiente: push, PR, Deploy Preview, y decision de merge a produccion (todo sujeto a aprobacion explicita de Salvador, sin excepcion).
+Desplegado en produccion. Validacion funcional en Deploy Preview #4 confirmo imagen de portada optimizada (WebP) y og:image optimizado (JPEG 1200px) sirviendose correctamente. Observacion cualitativa de Salvador tras el merge: percibio una mejora notable en la velocidad de carga del listado de Insights ("prácticamente todo apareció muy pronto"). Se registra como contexto, no como evidencia decisoria -- por el Principio de Medicion del proyecto, la evaluacion formal de KPI queda pendiente de datos objetivos (Core Web Vitals / PageSpeed, aun no conectado; o consumo de ancho de banda en Netlify).
 
 ## Decision
-Pendiente de la revision del PR/Deploy Preview.
+Pendiente de datos objetivos de la ventana de medicion (ver Result). Preliminarmente KEEP, sujeto a confirmacion.
 
 ## Learning
 El acceso a .src de un objeto de imagen de astro:assets sin pasar por <Image /> o getImage() NO dispara la optimizacion -- solo re-emite el archivo original. Cualquier uso futuro de imagenes de contenido colectivo para metadatos (og:image, twitter:image, JSON-LD, etc.) debe usar getImage() explicitamente, nunca .src directo, o el beneficio de la optimizacion se pierde silenciosamente sin ningun error de build.

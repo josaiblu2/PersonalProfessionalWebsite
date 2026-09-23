@@ -47,16 +47,20 @@ Rama: feat/image-optimization-pipeline. Archivos nuevos: netlify.toml, netlify/p
 3. **Limite conocido de esta validacion**: la logica de restaurar/guardar contra el cache REAL y distribuido de Netlify solo puede probarse con un despliegue real (Netlify no expone ese backend de cache localmente sin usar netlify-cli enlazado al sitio real). Por tanto, la prueba definitiva de que el cache efectivamente persiste y reduce el tiempo de build requiere observar los logs de al menos 2 builds reales consecutivos en Netlify: el primero debe mostrar "sin cache previo" y guardar el cache; el segundo deberia mostrar "cache restaurado" y completar la fase de optimizacion de imagenes mas rapido.
 
 ## Approval status
-Aprobado por Salvador el 2026-09-23, incluyendo el cambio de enfoque (de plugin de terceros a plugin local sin dependencias) tras compartir los hallazgos de reputacion: "con esta nueva hallazgo, con esta version mas segura. Vamos, adelante."
+Aprobado por Salvador el 2026-09-23, incluyendo el cambio de enfoque (de plugin de terceros a plugin local sin dependencias) tras compartir los hallazgos de reputacion: "con esta nueva hallazgo, con esta version mas segura. Vamos, adelante." Agrupado con EXP-004a/EXP-004b/EXP-005 en PR #4, mergeado a main por Salvador (commit de merge d9d71d5).
 
 ## Measurement window
-Se define al desplegar: revisar los logs de build de los primeros 2 deploys en Netlify tras el merge, comparando el tiempo de la fase "generating optimized images" entre ambos.
+Primer deploy de produccion tras el merge: 2026-09-23, commit d9d71d5 (build iniciado 3:16:35 PM, completado en 1m 3s). Falta el segundo deploy de produccion consecutivo para completar la comparacion.
 
 ## Result
-Implementado y validado localmente en la medida de lo posible (ver limite conocido arriba). Pendiente de commit, push, Deploy Preview, merge, y validacion con builds reales consecutivos.
+**Primera mitad validada con datos reales de produccion (2026-09-23):** el log del deploy de produccion `main@d9d71d5` confirma la ejecucion esperada de ambos hooks del plugin:
+- `onPreBuild` (3:16:55 PM): `[cache-astro-images] sin cache previo (primer build o cache vacio): node_modules/.astro` -- esperado, ya que es el primer build con el plugin activo.
+- `onPostBuild` (3:17:20 PM): `[cache-astro-images] cache guardado para el proximo build: node_modules/.astro` -- confirma que el guardado hacia el cache de Netlify se ejecuto sin errores.
+
+Pendiente: confirmar en el **siguiente** deploy de produccion que `onPreBuild` reporte `cache restaurado...` en vez de "sin cache previo", y comparar el tiempo de build entre ambos deploys para cuantificar el ahorro real.
 
 ## Decision
-Pendiente -- se decidira tras observar el comportamiento en al menos 2 builds reales.
+Pendiente -- se decidira tras observar el log y el tiempo de build del segundo deploy real de produccion consecutivo.
 
 ## Learning
 Antes de adoptar un paquete de terceros para resolver un problema de infraestructura, vale la pena revisar si el paquete es solo un envoltorio delgado sobre una herramienta oficial ya disponible (en este caso, `@netlify/cache-utils`, expuesta automaticamente via `utils.cache` a cualquier build plugin) -- frecuentemente se puede lograr el mismo resultado sin sumar una dependencia externa, eliminando por completo su riesgo de mantenimiento o compatibilidad futura.

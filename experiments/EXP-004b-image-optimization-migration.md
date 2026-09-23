@@ -64,16 +64,19 @@ Medio. Es un cambio estructural que toca los 141 posts existentes (reorganizacio
 Rama: feat/image-optimization-pipeline (misma rama de EXP-004a). 282 archivos modificados (141 renombrados de .md plano a carpeta/index.md + 141 imagenes copiadas a su carpeta).
 
 ## Approval status
-Pendiente de aprobacion explicita de Salvador para el commit (propuesto el 2026-09-23).
+Aprobado por Salvador el 2026-09-23 ("opcion a)" para priorizar esta migracion). Commit aprobado el mismo dia. Agrupado con EXP-004a/EXP-005/EXP-006 en PR #4, validado en Deploy Preview #4 (verificacion de las 141 URLs, imagenes optimizadas visibles) y mergeado a main por Salvador (commit de merge d9d71d5). Deploy de produccion en Netlify completado exitosamente.
 
 ## Measurement window
-No aplica todavia (no desplegado a produccion).
+Activa desde el deploy de produccion del 2026-09-23 (commit d9d71d5). Revisar en la sesion de revision bisemanal.
 
 ## Result
-Migracion construida y validada localmente, pendiente de commit, push, Deploy Preview y aprobacion de merge.
+Desplegado en produccion. Los 141 posts migrados se sirven desde el nuevo pipeline sin regresion de URLs. Observacion cualitativa de Salvador: mejora notable percibida en la velocidad de carga del listado de Insights tras el deploy -- consistente con la hipotesis de esta migracion, pendiente de confirmarse con datos objetivos (ver EXP-004a).
 
 ## Decision
-Pendiente.
+Pendiente de datos objetivos de la ventana de medicion. Preliminarmente KEEP, sujeto a confirmacion.
+
+## Seguimiento pendiente
+Las dos recomendaciones operativas registradas arriba siguen vigentes: (1) cache de build -- ya implementado como EXP-006, primera mitad validada en produccion (ver EXP-006); (2) limpieza de public/assets/posts/ (405MB) -- ahora que el pipeline nuevo esta confirmado funcionando en produccion, este es un candidato valido para la proxima sesion, sujeto a aprobacion explicita separada de Salvador.
 
 ## Learning
 Para validaciones de gran escala en entornos con limite de tiempo de ejecucion por comando, es efectivo separar la validacion de "correctitud estructural" (schema, slugs, rutas -- rapida, se puede hacer sobre placeholders) de la validacion de "correctitud de procesamiento real" (compresion de imagenes -- mas lenta, se valida sobre una muestra representativa real). Ambas juntas dan cobertura equivalente a una validacion completa sin necesitar un build real de 141 imagenes en un entorno con limite de ~3 minutos por comando.

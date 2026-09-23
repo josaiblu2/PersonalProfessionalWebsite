@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import headshotImage from '../assets/Salvador_Headshot_Primary.png';
 ---
 <section class="py-20 md:py-32 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 bg-navy relative overflow-hidden px-6">
   <div class="absolute inset-0 bg-gradient-to-b from-teal/5 to-transparent pointer-events-none"></div>
@@ -29,9 +31,15 @@
   <div class="relative z-10 shrink-0">
     <div class="relative">
       <div class="absolute inset-0 bg-teal/20 rounded-full blur-2xl transform translate-y-4"></div>
-      <img 
-        src="/assets/Salvador_Headshot_Primary.png" 
-        alt="Salvador Ibarra" 
+      <Image
+        src={headshotImage}
+        width={800}
+        height={800}
+        format="webp"
+        quality={80}
+        loading="eager"
+        fetchpriority="high"
+        alt="Salvador Ibarra"
         class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-full border-2 border-[#14B8A6] shadow-2xl"
       />
     </div>
