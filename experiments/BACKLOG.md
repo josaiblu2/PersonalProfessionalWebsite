@@ -64,3 +64,24 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 **Risk:** Bajo. Cambio de configuracion de infraestructura de build, no toca codigo de la aplicacion ni contenido. Debe validarse que el cache efectivamente reduce el tiempo de build en un Deploy Preview real antes de confiar en el ahorro de creditos.
 
 **Reusability:** Alta -- aplica a cualquier proyecto Astro/Netlify que use optimizacion de imagenes en build.
+
+---
+
+## BL-004 -- Datos estructurados (JSON-LD) y lastmod en sitemap para los posts de Insights
+
+**Status:** Abierto -- agendado para proxima iteracion (no urgente, importante)
+**Registrado:** 2026-09-23 (detectado durante revision de campos del frontmatter con Salvador)
+
+**Observation:** El campo `pubDate` de cada post de Insights no tiene ninguna funcion de SEO actualmente. Se usa unicamente para ordenar el feed y mostrar la fecha visible al lector en la UI. No existen datos estructurados (JSON-LD) en las paginas de posts, y el sitemap generado por `@astrojs/sitemap` no expone `lastmod` por URL.
+
+**Evidence:** Revision del codigo (`src/layouts/MainLayout.astro`, `src/pages/insights/[slug].astro`, `astro.config.mjs`): `MainLayout.astro` no incluye ningun bloque `<script type="application/ld+json">`; la configuracion de `sitemap()` en `astro.config.mjs` no tiene una funcion `serialize` personalizada, por lo que no anota `lastmod` a partir de `pubDate`. Se confirmo mediante `grep` que `pubDate` solo aparece en `InsightsFeed.astro` (ordenamiento) y en `[slug].astro` (fecha visible), nunca en metadatos de SEO.
+
+**Impact:** Se pierden dos señales que Google usa activamente para contenido tipo articulo/blog: (1) datos estructurados `Article` (headline, description, image, datePublished, author) que habilitan resultados enriquecidos (rich results) en busqueda; (2) `lastmod` en el sitemap, que ayuda a Google a priorizar el rastreo de contenido nuevo o actualizado. Para un sitio cuyo objetivo es posicionamiento y autoridad en Telecomunicaciones/RAN, esto es una oportunidad de mejora mas directa que optimizaciones menores como `imageAlt` (que ya tiene funcion, aunque acotada).
+
+**Recommendation:** 1) Agregar un bloque JSON-LD tipo `Article` (o `BlogPosting`) en `src/pages/insights/[slug].astro`, poblado con `title`, `description`, `pubDate` (como `datePublished`), la imagen (`coverImage`/`image` resuelta), y datos del autor (Salvador Ibarra). 2) Configurar una funcion `serialize` en la integracion `sitemap()` de `astro.config.mjs` para anotar `lastmod` de cada URL de insight usando `pubDate` (y, si se agrega en el futuro, una fecha de actualizacion). Ambos cambios son aditivos, no requieren modificar el frontmatter existente de los 141 posts (ya cuentan con `pubDate`), y siguen la misma disciplina de "un cambio, una variable" antes de cualquier despliegue.
+
+**Priority:** Media (importante, no urgente -- identificado durante revision conjunta con Salvador el 2026-09-23).
+
+**Risk:** Bajo. Cambios aditivos en metadatos/build config, no tocan contenido editorial ni URLs existentes. Debe validarse con Google's Rich Results Test y una revision de sitemap.xml generado antes de considerar el cambio cerrado.
+
+**Reusability:** Alta -- el patron de JSON-LD `Article`/`BlogPosting` y `lastmod` en sitemap aplica a cualquier sitio Astro con contenido tipo blog/insights.
