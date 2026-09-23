@@ -1,0 +1,11 @@
+# BL-003: cachea el directorio de imagenes optimizadas por Astro entre
+# builds de Netlify (node_modules/.astro), para no reprocesar con Sharp las
+# imagenes que no cambiaron desde el build anterior. Plugin local, sin
+# dependencias externas -- ver netlify/plugins/cache-astro-images/index.js
+# y experiments/EXP-006-netlify-build-cache.md para el detalle completo.
+#
+# No se define aqui [build.command] ni [build.publish] a proposito, para no
+# sobreescribir la configuracion de build ya existente en el dashboard de
+# Netlify.
+[[plugins]]
+  package = "./netlify/plugins/cache-astro-images"

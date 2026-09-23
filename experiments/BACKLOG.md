@@ -49,9 +49,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 ---
 
-## BL-003 -- Cache de build de Netlify para el pipeline de optimizacion de imagenes
+## BL-003 -- Cache de build de Netlify para el pipeline de optimizacion de imagenes [PROMOVIDO A EXP-006]
 
-**Status:** Abierto -- agendado para proxima iteracion (no urgente, importante)
+**Status:** Promovido a experimento formal EXP-006 (ver experiments/EXP-006-netlify-build-cache.md) el 2026-09-23.
 **Registrado:** 2026-09-23 (detectado durante EXP-004b, migracion de imagenes)
 
 **Observation:** No existe archivo `netlify.toml` en el repositorio, por lo que no hay configuracion explicita de cache de build. A partir de EXP-004a/EXP-004b, cada build de produccion procesa con Sharp las imagenes de los posts que usan el nuevo campo `coverImage` (141 posts tras la migracion), algo que antes no ocurria (0 imagenes procesadas por build).
