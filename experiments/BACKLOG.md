@@ -89,9 +89,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 **Reusability:** Alta -- el patron de JSON-LD `Article`/`BlogPosting` y `lastmod` en sitemap aplica a cualquier sitio Astro con contenido tipo blog/insights.
 
-## BL-005 -- Imagen del Hero (headshot) sin optimizar, causando LCP movil de 8.7s en el homepage [PROMOVIDO A EXP-007]
+## BL-005 -- Imagen del Hero (headshot) sin optimizar, causando LCP movil de 8.7s en el homepage [CERRADO -- KEEP via EXP-007]
 
-**Status:** Promovido a experimento formal EXP-007 (ver experiments/EXP-007-hero-headshot-optimization.md) el 2026-09-23.
+**Status:** Promovido a experimento formal EXP-007 el 2026-09-23, implementado, mergeado a produccion y validado con datos reales de PageSpeed Insights. Decision: KEEP. Resultado: LCP movil 8.7s -> 4.4s (-49%), performance score movil 67 -> 75, imagen del Hero 1,030 KB -> 22.7 KB (-97.8%), sin regresion en desktop ni en las 141 imagenes de Insights. Ver experiments/EXP-007-hero-headshot-optimization.md para el detalle completo.
 **Registrado:** 2026-09-23 (detectado durante la primera linea base de PageSpeed Insights, tras el deploy de EXP-004a/EXP-004b/EXP-005/EXP-006)
 
 **Observation:** El homepage obtiene un Performance score de solo 67/100 en movil (vs. 92/100 en escritorio), con un Largest Contentful Paint (LCP) de **8.7 segundos** en movil -- calificacion "poor" segun los umbrales de Google (>4s). El mismo problema no aparece en escritorio (LCP 1.7s) ni en las paginas de Insights ya migradas a `astro:assets` en EXP-004a/EXP-004b.
