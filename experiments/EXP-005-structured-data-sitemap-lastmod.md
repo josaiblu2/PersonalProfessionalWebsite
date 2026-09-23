@@ -45,16 +45,16 @@ Rama: feat/image-optimization-pipeline. Archivos: astro.config.mjs, src/layouts/
 Se detecto que algunos posts tienen `pubDate` en el futuro respecto a la fecha actual (ej. varios posts con fechas de octubre 2026). Esto es un dato preexistente en el frontmatter, no introducido por este cambio -- `lastmod` simplemente refleja fielmente el `pubDate` que ya existia. Se deja como observacion para que Salvador confirme si es una practica intencional (p.ej. calendario editorial) o si algunos `pubDate` deberian corregirse; no se modifico ningun `pubDate` en este experimento.
 
 ## Approval status
-BL-004 aprobado por Salvador para promoverse a experimento formal el 2026-09-23 ("sigamos con BL-004"). Construccion y validacion local completadas; pendiente de aprobacion para commit.
+BL-004 aprobado por Salvador para promoverse a experimento formal el 2026-09-23 ("sigamos con BL-004"). Commit aprobado el mismo dia. Agrupado con EXP-004a/EXP-004b/EXP-006 en PR #4, validado en Deploy Preview #4 (JSON-LD BlogPosting verificado en pagina real via inspeccion de DOM/script tag, sitemap.xml verificado: 141/144 URLs con lastmod, coincidiendo exactamente con la validacion local) y mergeado a main por Salvador (commit de merge d9d71d5). Deploy de produccion en Netlify completado exitosamente.
 
 ## Measurement window
-No aplica todavia (no desplegado a produccion). Una vez en produccion, revisar Search Console periodicamente (cobertura de rich results / articulos) como parte del ciclo de revision bisemanal.
+Activa desde el deploy de produccion del 2026-09-23 (commit d9d71d5). Revisar Search Console periodicamente (cobertura de rich results / articulos) como parte del ciclo de revision bisemanal.
 
 ## Result
-Implementado y validado localmente, pendiente de commit, push, Deploy Preview y merge.
+Desplegado en produccion. JSON-LD y lastmod del sitemap confirmados sirviendose correctamente en el Deploy Preview antes del merge, con datos identicos a la validacion local.
 
 ## Decision
-Pendiente.
+Pendiente de datos de Search Console (impresiones de rich results) en la ventana de medicion. Preliminarmente KEEP, sujeto a confirmacion.
 
 ## Learning
 El mismo patron de validacion con placeholders usado en EXP-004b (reemplazar imagenes reales por miniaturas para acelerar el build, validar estructura/metadatos, restaurar y verificar por checksum) es reutilizable para cualquier cambio futuro que no dependa del contenido real de las imagenes, evitando el costo de tiempo del procesamiento real de Sharp sobre las 141 imagenes en este entorno.
