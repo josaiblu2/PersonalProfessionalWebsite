@@ -43,3 +43,24 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 **Risk:** Bajo.
 
 **Reusability:** N/A (fix especifico de este archivo).
+
+---
+
+## BL-003 -- Cache de build de Netlify para el pipeline de optimizacion de imagenes
+
+**Status:** Abierto -- agendado para proxima iteracion (no urgente, importante)
+**Registrado:** 2026-09-23 (detectado durante EXP-004b, migracion de imagenes)
+
+**Observation:** No existe archivo `netlify.toml` en el repositorio, por lo que no hay configuracion explicita de cache de build. A partir de EXP-004a/EXP-004b, cada build de produccion procesa con Sharp las imagenes de los posts que usan el nuevo campo `coverImage` (141 posts tras la migracion), algo que antes no ocurria (0 imagenes procesadas por build).
+
+**Evidence:** Validacion local de EXP-004b: un build limpio (sin cache) con las 141 imagenes reales excede varios minutos de procesamiento solo en la etapa de optimizacion de imagenes (estimado >3 minutos, extrapolado de una muestra real de 3 imagenes pesadas). Sin persistencia del cache de imagenes de Astro entre builds de Netlify, este costo se repetiria en cada deploy futuro, incluso para cambios que no toquen imagenes (ej. una correccion de texto en un solo post).
+
+**Impact:** Incremento en el tiempo de build de Netlify en cada deploy, lo cual consume minutos de build que forman parte del modelo de creditos del proyecto (300 creditos/mes). Si no se cachea, este costo se paga de forma innecesaria y repetida en cada iteracion futura, incluso cuando ninguna imagen cambio.
+
+**Recommendation:** Configurar el cache de build de Netlify (via `netlify.toml`, seccion `[build]` con `cache` o el mecanismo equivalente vigente en la documentacion de Netlify al momento de implementar) para persistir el directorio de cache de imagenes de Astro (tipicamente bajo `.astro/` o `node_modules/.astro/` -- confirmar la ruta exacta segun la version de Astro en uso al implementar) entre builds. Esto evitaria reprocesar imagenes que no cambiaron desde el build anterior.
+
+**Priority:** Media (importante, no urgente -- confirmado por Salvador).
+
+**Risk:** Bajo. Cambio de configuracion de infraestructura de build, no toca codigo de la aplicacion ni contenido. Debe validarse que el cache efectivamente reduce el tiempo de build en un Deploy Preview real antes de confiar en el ahorro de creditos.
+
+**Reusability:** Alta -- aplica a cualquier proyecto Astro/Netlify que use optimizacion de imagenes en build.
