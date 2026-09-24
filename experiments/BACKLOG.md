@@ -183,9 +183,9 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ---
 
-## BL-009 -- Canibalizacion de keywords entre pares de posts de Insights
+## BL-009 -- Canibalizacion de keywords entre pares de posts de Insights [PROMOVIDO A EXP-011]
 
-**Status:** Abierto -- pendiente de priorizacion
+**Status:** Promovido a EXP-011 el 2026-09-24, implementado en la misma rama que EXP-010 (`feat/canonical-trailing-slash`) a peticion de Salvador de agrupar ambos en un solo push/PR/merge. Validado localmente. Pendiente de Deploy Preview y aprobacion de merge.
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
 
 **Observation:** Dos pares de posts compiten entre si por las mismas queries de alto valor, en vez de que un solo post concentre toda la senal de relevancia para cada tema.
