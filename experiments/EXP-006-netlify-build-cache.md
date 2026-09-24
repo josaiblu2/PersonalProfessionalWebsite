@@ -50,17 +50,23 @@ Rama: feat/image-optimization-pipeline. Archivos nuevos: netlify.toml, netlify/p
 Aprobado por Salvador el 2026-09-23, incluyendo el cambio de enfoque (de plugin de terceros a plugin local sin dependencias) tras compartir los hallazgos de reputacion: "con esta nueva hallazgo, con esta version mas segura. Vamos, adelante." Agrupado con EXP-004a/EXP-004b/EXP-005 en PR #4, mergeado a main por Salvador (commit de merge d9d71d5).
 
 ## Measurement window
-Primer deploy de produccion tras el merge: 2026-09-23, commit d9d71d5 (build iniciado 3:16:35 PM, completado en 1m 3s). Falta el segundo deploy de produccion consecutivo para completar la comparacion.
+Primer deploy de produccion tras el merge: 2026-09-23, commit d9d71d5 (build iniciado 3:16:35 PM, completado en 1m 3s). Segundo deploy de produccion consecutivo: 2026-09-23, commit 1ba294b (EXP-007), build iniciado ~5:34:47 PM, completado en verde ~5:34 PM (confirmado por Salvador).
 
 ## Result
-**Primera mitad validada con datos reales de produccion (2026-09-23):** el log del deploy de produccion `main@d9d71d5` confirma la ejecucion esperada de ambos hooks del plugin:
-- `onPreBuild` (3:16:55 PM): `[cache-astro-images] sin cache previo (primer build o cache vacio): node_modules/.astro` -- esperado, ya que es el primer build con el plugin activo.
-- `onPostBuild` (3:17:20 PM): `[cache-astro-images] cache guardado para el proximo build: node_modules/.astro` -- confirma que el guardado hacia el cache de Netlify se ejecuto sin errores.
+**Validacion completa con datos reales de dos builds de produccion consecutivos (2026-09-23):**
 
-Pendiente: confirmar en el **siguiente** deploy de produccion que `onPreBuild` reporte `cache restaurado...` en vez de "sin cache previo", y comparar el tiempo de build entre ambos deploys para cuantificar el ahorro real.
+Primer build (`main@d9d71d5`), sin cache previo:
+- `onPreBuild` (3:16:55 PM): `[cache-astro-images] sin cache previo (primer build o cache vacio): node_modules/.astro` -- esperado, primer build con el plugin activo.
+- `onPostBuild` (3:17:20 PM): `[cache-astro-images] cache guardado para el proximo build: node_modules/.astro`.
+
+Segundo build (`main@1ba294b`, deploy de produccion de EXP-007), con cache del build anterior:
+- `onPreBuild` (5:34:48 PM): `[cache-astro-images] cache restaurado desde un build anterior: node_modules/.astro` -- **confirma que el cache efectivamente persiste entre builds**, no solo que se guarda una vez.
+- `onPostBuild` (5:34:53 PM): `[cache-astro-images] cache guardado para el proximo build: node_modules/.astro`.
+
+El mecanismo de restore/save funciona en ambas direcciones tal como se diseno, usando exclusivamente la API oficial `@netlify/cache-utils` sin dependencias de terceros. Comparacion de tiempo de build total entre ambos deploys: pendiente de confirmar con Salvador (dato visible en el resumen del deploy en Netlify, mismo lugar donde se obtuvo "1m 3s" para el primer build) -- no bloquea la decision, ya que el Guardrail KPI (build exitoso, cero cambios en el sitio construido) se cumplio en ambos builds y el mecanismo de cache en si quedo verificado de forma directa via los logs.
 
 ## Decision
-Pendiente -- se decidira tras observar el log y el tiempo de build del segundo deploy real de produccion consecutivo.
+**KEEP.** El mecanismo de cache de build funciona segun lo disenado: guarda el cache de imagenes optimizadas de Astro al final de un build y lo restaura correctamente al inicio del siguiente, confirmado con evidencia directa de los logs de dos builds de produccion reales y consecutivos. Sin ninguna regresion en el sitio construido. La cuantificacion exacta del ahorro de tiempo de build (segundos/minutos) queda como un dato complementario a registrar cuando este disponible, no como condicion para la decision.
 
 ## Learning
 Antes de adoptar un paquete de terceros para resolver un problema de infraestructura, vale la pena revisar si el paquete es solo un envoltorio delgado sobre una herramienta oficial ya disponible (en este caso, `@netlify/cache-utils`, expuesta automaticamente via `utils.cache` a cualquier build plugin) -- frecuentemente se puede lograr el mismo resultado sin sumar una dependencia externa, eliminando por completo su riesgo de mantenimiento o compatibilidad futura.

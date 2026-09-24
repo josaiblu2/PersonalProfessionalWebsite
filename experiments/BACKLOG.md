@@ -89,9 +89,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 **Reusability:** Alta -- el patron de JSON-LD `Article`/`BlogPosting` y `lastmod` en sitemap aplica a cualquier sitio Astro con contenido tipo blog/insights.
 
-## BL-005 -- Imagen del Hero (headshot) sin optimizar, causando LCP movil de 8.7s en el homepage [PROMOVIDO A EXP-007]
+## BL-005 -- Imagen del Hero (headshot) sin optimizar, causando LCP movil de 8.7s en el homepage [CERRADO -- KEEP via EXP-007]
 
-**Status:** Promovido a experimento formal EXP-007 (ver experiments/EXP-007-hero-headshot-optimization.md) el 2026-09-23.
+**Status:** Promovido a experimento formal EXP-007 el 2026-09-23, implementado, mergeado a produccion y validado con datos reales de PageSpeed Insights. Decision: KEEP. Resultado: LCP movil 8.7s -> 4.4s (-49%), performance score movil 67 -> 75, imagen del Hero 1,030 KB -> 22.7 KB (-97.8%), sin regresion en desktop ni en las 141 imagenes de Insights. Ver experiments/EXP-007-hero-headshot-optimization.md para el detalle completo.
 **Registrado:** 2026-09-23 (detectado durante la primera linea base de PageSpeed Insights, tras el deploy de EXP-004a/EXP-004b/EXP-005/EXP-006)
 
 **Observation:** El homepage obtiene un Performance score de solo 67/100 en movil (vs. 92/100 en escritorio), con un Largest Contentful Paint (LCP) de **8.7 segundos** en movil -- calificacion "poor" segun los umbrales de Google (>4s). El mismo problema no aparece en escritorio (LCP 1.7s) ni en las paginas de Insights ya migradas a `astro:assets` en EXP-004a/EXP-004b.
@@ -107,3 +107,55 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 **Risk:** Bajo. Cambio de una sola imagen en un solo componente (`Hero.astro`), mismo patron ya validado en produccion dos veces. Validar visualmente que el circulo del Hero se siga viendo nitido al nuevo ancho de renderizado antes de dar por cerrado el cambio.
 
 **Reusability:** Alta -- el mismo patron de auditoria (buscar imagenes servidas fuera de `astro:assets` via el detalle `network-requests` de PageSpeed Insights) es reutilizable para detectar cualquier imagen similar que se agregue al sitio en el futuro fuera del flujo de Insights.
+
+## BL-006 -- Script de Google Tag Manager sin `async`, bloqueando el render inicial del homepage [PROMOVIDO A EXP-008]
+
+**Status:** Promovido a experimento formal EXP-008 (ver experiments/EXP-008-gtag-async.md) el 2026-09-23, tras autorizacion de Salvador.
+
+**Registrado:** 2026-09-23 (detectado durante el re-medicion de PageSpeed Insights post-EXP-007 contra produccion)
+
+**Observation:** Con la imagen del Hero ya optimizada (EXP-007), el LCP movil del homepage bajo de 8.7s a 4.4s, pero el First Contentful Paint (FCP) no se movio (3.6s, igual que antes del fix). El nuevo elemento LCP de la pagina ya no es la imagen sino el titular `<h1>` ("Industrializing SON Outcomes via SMO-Driven Automation"), y el desglose de PageSpeed Insights (`lcp-breakdown-insight`) le atribuye un "Element render delay" de **2,363 ms** -- es decir, el texto del titular tarda mas de 2.3 segundos en pintarse una vez que el navegador ya podria hacerlo, porque algo esta bloqueando el render inicial.
+
+**Evidence:** El audit `render-blocking-insight` de la misma medicion identifica tres recursos render-blocking en el homepage, con su ahorro estimado si se corrigen:
+- `https://www.googletagmanager.com/gtag/js?id=G-Q023R5XBS1` -- 176,981 bytes de transferencia, **2,710 ms** de ahorro estimado (por mucho el mayor).
+- `https://fonts.googleapis.com/css2?family=Inter...&display=swap` (hoja de estilo de Google Fonts) -- 1,597 bytes, 751 ms de ahorro estimado.
+- `_astro/index.DV0xYDeC.css` (CSS critico propio del sitio) -- 8,682 bytes, 183 ms de ahorro estimado.
+
+Confirmado en codigo: `src/components/GoogleAnalytics.astro` linea 1 carga el script de GTM asi: `<script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-Q023R5XBS1"></script>` -- **sin el atributo `async` ni `defer`**. Por comportamiento estandar del navegador, un `<script>` externo sin `async`/`defer` bloquea el parseo del HTML (y por tanto el primer render) hasta que se descarga y ejecuta completamente. La guia oficial de Google para gtag.js recomienda explicitamente `<script async src="...">`. La hoja de fuentes de Google (`src/layouts/MainLayout.astro`, lineas 57-59) ya tiene `rel="preconnect"` a ambos dominios de Google Fonts (buena practica ya implementada), pero el `<link rel="stylesheet">` en si sigue siendo render-blocking por naturaleza de ese tipo de recurso.
+
+**Impact:** El homepage es la pagina de entrada principal del sitio. Aunque el hallazgo mas grande (BL-005, imagen del Hero) ya se corrigio, el LCP movil (4.4s) sigue en la zona "needs improvement" de Google (2.5s-4s) y muy cerca del umbral "poor" (4s) -- el render-blocking de gtag.js es, segun la propia estimacion de Lighthouse, el factor individual mas grande que queda por corregir para acercarse a "good" (<2.5s).
+
+**Recommendation:** Agregar el atributo `async` al script de GTM en `GoogleAnalytics.astro` (`<script async is:inline src="...">`), siguiendo la recomendacion oficial de Google. Este cambio no afecta la funcionalidad de medicion: el snippet inline que define `dataLayer`/`gtag()` ya funciona por diseno de cola (queue) independientemente de cuando termine de cargar el script externo, por lo que los eventos Tier 1 (`tier1_cv_download_conversion`, `tier1_contact_conversion`) seguiran disparando igual. Opcionalmente, en una iteracion posterior, evaluar si vale la pena aplicar la tecnica de carga no bloqueante para la hoja de estilo de Google Fonts (patron `media="print" onload`), aunque su impacto estimado (751 ms) es bastante menor que el de GTM.
+
+**Priority:** Alta -- es el mayor contribuyente identificado y cuantificado al render delay actual, y la correccion propuesta es un cambio de una sola palabra (`async`) en un solo archivo.
+
+**Risk:** Bajo. Cambio aditivo de un atributo HTML estandar, sin tocar la logica de medicion de GA4 ni los eventos Tier 1 ya validados. Debe validarse en Deploy Preview que los eventos `tier1_cv_download_conversion` y `tier1_contact_conversion` sigan disparando correctamente (usando la misma bandera de opt-out de GA4 que se uso para las validaciones anteriores) antes de dar por cerrado el cambio.
+
+**Reusability:** Alta -- `async`/`defer` en scripts de terceros no criticos para el primer render es una practica general aplicable a cualquier script de analytics/marketing que se agregue al sitio en el futuro.
+
+## BL-007 -- Limpieza de `public/assets/posts/` (405MB de imagenes originales sin optimizar, ya no utilizadas) [PROMOVIDO A EXP-009]
+
+**Status:** Promovido a experimento formal EXP-009 (ver experiments/EXP-009-cleanup-legacy-posts-assets.md) el 2026-09-23, tras autorizacion explicita de Salvador para el borrado.
+
+**Registrado:** 2026-09-23 (evaluado tras confirmar en produccion que EXP-004a/EXP-004b y EXP-007 funcionan correctamente)
+
+**Observation:** El directorio `public/assets/posts/` sigue existiendo en el repositorio con 148 archivos (405MB en total), dejado intencionalmente como red de seguridad durante EXP-004a/EXP-004b (ver Netlify Credit Model en el documento de gobernanza). Se evaluo si ya es seguro eliminarlo ahora que ambas migraciones de imagenes (Insights y Hero) estan confirmadas funcionando en produccion.
+
+**Evidence:** Verificacion exhaustiva en el codigo actual (2026-09-23):
+1. El esquema de la coleccion de contenido (`src/content/config.ts`, linea 17) define `coverImage: image().optional()` -- el campo moderno, optimizado por `astro:assets`.
+2. **Los 141 posts de Insights tienen el campo `coverImage` poblado; 0 posts dependen unicamente del campo legacy `image`** (verificado programaticamente sobre los 141 archivos de contenido).
+3. `coverImage` apunta a un archivo local dentro de la propia carpeta del post en `src/content/insights/<slug>/` (ejemplo verificado: `coverImage: "./l4-autonomous-networks.png"` en `src/content/insights/l4-autonomous-networks/`), **completamente independiente de `public/assets/posts/`**.
+4. Las unicas 3 referencias restantes a `assets/posts` en el codigo (`src/components/InsightsFeed.astro`, `src/pages/insights/[slug].astro`, y un comentario en `config.ts`) son ramas de **fallback legacy** (`post.data.coverImage ? <Image ...> : post.data.image && <img src={`/assets/posts/...`}>`), que solo se ejecutarian si un post NO tuviera `coverImage` -- condicion que hoy no se cumple para ningun post.
+
+En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no se sirve a ningun visitante real bajo el estado actual del contenido.
+
+**Impact:** Los 405MB no representan necesariamente consumo activo de creditos de ancho de banda de Netlify (solo se facturan bytes efectivamente servidos, y ningun codigo activo los solicita hoy), pero: (a) siguen incrementando el tamano del repositorio y el tiempo/peso de cada deploy, ya que Netlify publica todo el contenido de `public/` al CDN en cada build; y (b) URLs directas a estos archivos pudieron quedar indexadas externamente (buscadores, cache de redes sociales) de cuando el sitio los serviá activamente antes de EXP-004a/EXP-004b, por lo que podrian seguir generando trafico residual esporadico a archivos que ya no tienen proposito.
+
+**Recommendation:** Eliminar el directorio `public/assets/posts/` completo (148 archivos, 405MB) del repositorio, y en el mismo cambio retirar las dos ramas de fallback legacy en `InsightsFeed.astro` y `[slug].astro` que referencian esa ruta (simplificando el codigo, ya que nunca se ejecutan con el contenido actual). Esta es una accion de **borrado de contenido**, que segun la Governance del proyecto requiere autorizacion explicita del humano antes de ejecutarse, incluso estando confirmada como segura.
+
+**Priority:** Media -- no afecta ningun KPI de conversion ni de performance medido hoy (ya se confirmo que no se sirve), por lo que no es urgente, pero es limpieza de bajo esfuerzo con beneficio claro (tamano de repo/deploy) una vez autorizada.
+
+**Risk:** Bajo, condicionado a la verificacion ya realizada (0 posts dependen del campo legacy). El unico escenario de riesgo seria que, en el futuro, alguien agregue un post nuevo usando el campo `image` legacy en vez de `coverImage` -- por eso se recomienda retirar tambien esas ramas de fallback en el mismo cambio, para que el esquema de contenido quede consistente (solo `coverImage`) y no vuelva a depender silenciosamente de una carpeta que ya no existira.
+
+**Reusability:** Alta -- el patron de verificacion (confirmar en el esquema de contenido que 100% de los registros usan el campo moderno antes de borrar el legacy) es reutilizable para cualquier migracion futura de este tipo.
+
