@@ -52,13 +52,18 @@ Rama: feat/render-blocking-cleanup. Archivos: public/assets/posts/ (eliminado, 1
 BL-007 aprobado por Salvador para su implementacion el 2026-09-23 ("si, autorizo ambas"), incluyendo el borrado del contenido huerfano, junto con BL-006. Implementado y validado localmente.
 
 ## Measurement window
-No aplica un periodo de medicion de KPI de conversion/performance (es limpieza de mantenimiento). Verificacion post-deploy: confirmar visualmente en produccion que el listado de Insights y las paginas individuales de posts siguen mostrando sus imagenes correctamente, y que el tamano del proximo deploy en Netlify se redujo.
+Deploy Preview #6 validado visualmente (2026-09-23): homepage y pagina de post individual renderizando correctamente, 0 imagenes rotas. Mergeado a `main` y desplegado a produccion el mismo dia junto con EXP-008.
 
 ## Result
-Implementado y validado localmente (build exitoso, cero referencias residuales, render de imagenes confirmado). Pendiente: validacion visual en Deploy Preview y confirmacion del peso reducido del deploy en el dashboard de Netlify tras el merge.
+Confirmado en produccion (`https://salvadoribarra.tech/`, 2026-09-23) via PageSpeed Insights y verificacion directa en navegador:
+- **Cero referencias a `assets/posts`** en el detalle `network-requests` de la auditoria (antes de este cambio, esa carpeta ya no se serva activamente, pero ahora tampoco existe en el repositorio ni en el deploy).
+- 147 imagenes en el homepage, **0 rotas**.
+- Imagen del Hero: `statusCode: 200`, 23,197 bytes, sin cambios respecto a EXP-007.
+- Sin errores de consola en produccion.
+- Peso total de la pagina (`total-byte-weight`): 336,922 bytes -- consistente con la medicion anterior, sin ninguna regresion.
 
 ## Decision
-Pendiente de validacion en Deploy Preview y confirmacion visual en produccion tras el merge.
+**KEEP.** La limpieza se completo sin ninguna regresion visual ni funcional: los 141 posts de Insights y la imagen del Hero siguen renderizando correctamente en produccion, y el repositorio/deploy quedaron 405MB mas ligeros. El guardrail KPI (cero regresion) se cumplio integramente.
 
 ## Learning
-(a completar tras el deploy)
+La verificacion exhaustiva previa (confirmar programaticamente que 0 posts dependian del campo legacy antes de borrar) fue lo que permitio aprobar y ejecutar este borrado con confianza en una sola iteracion, sin necesidad de un periodo de observacion extendido -- a diferencia de un experimento de optimizacion de UX, una limpieza de contenido huerfano puede validarse completamente antes del deploy si la verificacion de dependencias es lo bastante rigurosa.

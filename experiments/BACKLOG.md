@@ -108,9 +108,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 **Reusability:** Alta -- el mismo patron de auditoria (buscar imagenes servidas fuera de `astro:assets` via el detalle `network-requests` de PageSpeed Insights) es reutilizable para detectar cualquier imagen similar que se agregue al sitio en el futuro fuera del flujo de Insights.
 
-## BL-006 -- Script de Google Tag Manager sin `async`, bloqueando el render inicial del homepage [PROMOVIDO A EXP-008]
+## BL-006 -- Script de Google Tag Manager sin `async`, bloqueando el render inicial del homepage [CERRADO -- KEEP via EXP-008]
 
-**Status:** Promovido a experimento formal EXP-008 (ver experiments/EXP-008-gtag-async.md) el 2026-09-23, tras autorizacion de Salvador.
+**Status:** Cerrado 2026-09-23 con decision KEEP (ver experiments/EXP-008-gtag-async.md). Confirmado con PageSpeed Insights real en produccion: `gtag.js` ya no aparece como render-blocking, FCP movil del homepage mejoro 19% (3.6s -> 2.9s). El LCP movil no bajo de 4.4s -- el cuello de botella restante es la hoja de estilo de Google Fonts, candidato natural para una futura iteracion.
 
 **Registrado:** 2026-09-23 (detectado durante el re-medicion de PageSpeed Insights post-EXP-007 contra produccion)
 
@@ -133,9 +133,9 @@ Confirmado en codigo: `src/components/GoogleAnalytics.astro` linea 1 carga el sc
 
 **Reusability:** Alta -- `async`/`defer` en scripts de terceros no criticos para el primer render es una practica general aplicable a cualquier script de analytics/marketing que se agregue al sitio en el futuro.
 
-## BL-007 -- Limpieza de `public/assets/posts/` (405MB de imagenes originales sin optimizar, ya no utilizadas) [PROMOVIDO A EXP-009]
+## BL-007 -- Limpieza de `public/assets/posts/` (405MB de imagenes originales sin optimizar, ya no utilizadas) [CERRADO -- KEEP via EXP-009]
 
-**Status:** Promovido a experimento formal EXP-009 (ver experiments/EXP-009-cleanup-legacy-posts-assets.md) el 2026-09-23, tras autorizacion explicita de Salvador para el borrado.
+**Status:** Cerrado 2026-09-23 con decision KEEP (ver experiments/EXP-009-cleanup-legacy-posts-assets.md). Confirmado en produccion: cero regresion en las 141 imagenes de Insights ni en el Hero, repositorio 405MB mas ligero.
 
 **Registrado:** 2026-09-23 (evaluado tras confirmar en produccion que EXP-004a/EXP-004b y EXP-007 funcionan correctamente)
 
