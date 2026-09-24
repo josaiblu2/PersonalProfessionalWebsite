@@ -1,7 +1,7 @@
 ---
 title: "AI IN RAN: WHERE IT ACTUALLY ADDS VALUE"
 pubDate: 2026-05-13
-description: "Explains where AI delivers real operational value in RAN by improving decision-making, optimization, and network performance management."
+description: "Where AI actually creates operational value in RAN beyond the hype -- through better decision-making, resource allocation, and root cause analysis, not through monitoring dashboards alone."
 coverImage: "./ai-in-ran-adds-value.png"
 imageAlt: "Realistic telecom operations center showing engineers using AI-assisted analytics and KPI monitoring tools to optimize RAN performance and network operations"
 
@@ -45,7 +45,7 @@ This is the first post in a series on AI in RAN.
 In the next posts, I’ll break down:
 
 * Where AI fails in real networks
-* Why data quality matters more than models
+* Why data quality matters more than models -- see [Data in RAN: More is not always better](/insights/data-in-ran) for the deep dive on RAN monitoring and analytics
 * The difference between AI-assisted and autonomous RAN
 * Whether AI can really replace traditional SON
 

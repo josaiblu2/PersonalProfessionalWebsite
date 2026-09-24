@@ -1,7 +1,7 @@
 ---
 title: "Data in RAN: More is not always better"
 pubDate: 2026-04-02
-description: "This post highlights how having more data in RAN does not necessarily lead to better decisions, emphasizing the importance of data quality, relevance, and context over sheer volume."
+description: "Why more RAN monitoring data does not equal better RAN analytics: a case for data quality, relevance, and context over sheer volume when monitoring and analyzing RAN performance."
 coverImage: "./data-in-ran.jpeg"
 linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-dataanalytics-share-7444945410533560321-wruI?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
