@@ -162,9 +162,9 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 **Reusability:** Alta -- el patron de verificacion (confirmar en el esquema de contenido que 100% de los registros usan el campo moderno antes de borrar el legacy) es reutilizable para cualquier migracion futura de este tipo.
 
 
-## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento
+## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento [PROMOVIDO A EXP-010]
 
-**Status:** Abierto -- pendiente de priorizacion
+**Status:** Promovido a EXP-010 el 2026-09-24, implementado en la rama `feat/canonical-trailing-slash`, validado localmente (build de 144 paginas sin errores, canonical y sitemap normalizados, redirects 301 generados). Pendiente de validacion en Deploy Preview y aprobacion de merge por Salvador.
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
 
 **Observation:** Multiples posts de Insights aparecen indexados por Google Search Console como dos URLs distintas -- con y sin `/` final (ej. `/insights/ee-tradeoff` y `/insights/ee-tradeoff/`) -- cada una acumulando impresiones por separado para las mismas queries.
