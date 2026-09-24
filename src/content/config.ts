@@ -12,8 +12,10 @@ const insightsCollection = defineCollection({
     image: z.string().optional(),
     // Nuevo campo opcional (EXP-004a): imagen colocada junto al .md,
     // optimizada automáticamente por Astro en build. El campo legacy
-    // 'image' (string, ruta en public/assets/posts/) se mantiene intacto
-    // para no romper los 140 posts existentes.
+    // 'image' se mantiene declarado por compatibilidad, pero desde BL-007
+    // (2026-09-23) ningun componente lo consume: los 141 posts usan
+    // coverImage y la carpeta public/assets/posts/ que 'image' referenciaba
+    // fue eliminada por estar huerfana.
     coverImage: image().optional(),
     imageAlt: z.string().optional(),
     linkedinUrl: z.string().url().optional(),

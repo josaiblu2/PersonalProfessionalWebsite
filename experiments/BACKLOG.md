@@ -108,7 +108,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 **Reusability:** Alta -- el mismo patron de auditoria (buscar imagenes servidas fuera de `astro:assets` via el detalle `network-requests` de PageSpeed Insights) es reutilizable para detectar cualquier imagen similar que se agregue al sitio en el futuro fuera del flujo de Insights.
 
-## BL-006 -- Script de Google Tag Manager sin `async`, bloqueando el render inicial del homepage
+## BL-006 -- Script de Google Tag Manager sin `async`, bloqueando el render inicial del homepage [PROMOVIDO A EXP-008]
+
+**Status:** Promovido a experimento formal EXP-008 (ver experiments/EXP-008-gtag-async.md) el 2026-09-23, tras autorizacion de Salvador.
 
 **Registrado:** 2026-09-23 (detectado durante el re-medicion de PageSpeed Insights post-EXP-007 contra produccion)
 
@@ -131,7 +133,9 @@ Confirmado en codigo: `src/components/GoogleAnalytics.astro` linea 1 carga el sc
 
 **Reusability:** Alta -- `async`/`defer` en scripts de terceros no criticos para el primer render es una practica general aplicable a cualquier script de analytics/marketing que se agregue al sitio en el futuro.
 
-## BL-007 -- Limpieza de `public/assets/posts/` (405MB de imagenes originales sin optimizar, ya no utilizadas)
+## BL-007 -- Limpieza de `public/assets/posts/` (405MB de imagenes originales sin optimizar, ya no utilizadas) [PROMOVIDO A EXP-009]
+
+**Status:** Promovido a experimento formal EXP-009 (ver experiments/EXP-009-cleanup-legacy-posts-assets.md) el 2026-09-23, tras autorizacion explicita de Salvador para el borrado.
 
 **Registrado:** 2026-09-23 (evaluado tras confirmar en produccion que EXP-004a/EXP-004b y EXP-007 funcionan correctamente)
 

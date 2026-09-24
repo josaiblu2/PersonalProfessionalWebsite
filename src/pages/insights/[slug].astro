@@ -14,15 +14,16 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-// EXP-004a: coverImage (nuevo, optimizado por Astro) tiene prioridad sobre
-// el campo legacy image (string en public/assets/posts/). MainLayout espera
-// un string. IMPORTANTE: acceder a coverImage.src directamente NO optimiza
-// la imagen (solo re-emite el archivo original); por eso para el og:image
-// se usa getImage() explicitamente, con un ancho acotado y formato jpeg
-// (maxima compatibilidad con los crawlers de LinkedIn/Facebook).
+// EXP-004a/BL-007: coverImage (optimizado por Astro) es el unico campo de
+// imagen en uso -- el fallback al campo legacy 'image' se retiro en BL-007
+// (2026-09-23) al confirmar que los 141 posts ya usan coverImage. MainLayout
+// espera un string. IMPORTANTE: acceder a coverImage.src directamente NO
+// optimiza la imagen (solo re-emite el archivo original); por eso para el
+// og:image se usa getImage() explicitamente, con un ancho acotado y formato
+// jpeg (maxima compatibilidad con los crawlers de LinkedIn/Facebook).
 const ogImage = post.data.coverImage
   ? (await getImage({ src: post.data.coverImage, width: 1200, format: 'jpeg' })).src
-  : (post.data.image ? `/assets/posts/${post.data.image}` : undefined);
+  : undefined;
 
 // Forzar el uso del dominio de producción para que LinkedIn y Facebook puedan extraer el preview
 const shareUrl = new URL(Astro.url.pathname, Astro.site || 'https://salvadoribarra.tech').toString();
@@ -90,18 +91,10 @@ const structuredData = {
         prose-a:text-teal prose-a:no-underline hover:prose-a:underline
         prose-blockquote:border-l-teal prose-blockquote:text-slate-300 prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r
       ">
-        {post.data.coverImage ? (
+        {post.data.coverImage && (
           <div class="mb-12 rounded-xl overflow-hidden bg-[#020617] flex justify-center border border-white/10 w-full">
             <Image 
               src={post.data.coverImage}
-              alt={post.data.imageAlt || post.data.title}
-              class="w-full max-h-[60vh] object-contain"
-            />
-          </div>
-        ) : post.data.image && (
-          <div class="mb-12 rounded-xl overflow-hidden bg-[#020617] flex justify-center border border-white/10 w-full">
-            <img 
-              src={`/assets/posts/${post.data.image}`} 
               alt={post.data.imageAlt || post.data.title}
               class="w-full max-h-[60vh] object-contain"
             />
