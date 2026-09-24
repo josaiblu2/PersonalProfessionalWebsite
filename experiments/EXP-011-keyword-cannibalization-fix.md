@@ -48,7 +48,7 @@ Rama: `feat/canonical-trailing-slash`. Archivos: `src/content/insights/data-in-r
 BL-009 propuesto por el agente (diferenciacion de angulo + enlace secundario->primario) y aprobado explicitamente por Salvador el 2026-09-24 ("ok, procede con tu sugerencia. Adelante"), para implementarse junto con BL-008/EXP-010 en el mismo PR y push.
 
 ## Measurement window
-2-4 semanas tras el despliegue y el recrawleo de Google, junto con el mismo periodo de EXP-010.
+2-4 semanas tras el despliegue y el recrawleo de Google, junto con el mismo periodo de EXP-010. Reloj iniciado el 2026-09-24 (reenvio manual del sitemap por Salvador en Search Console); revisar entre 2026-10-08 y 2026-10-22.
 
 ## Result
 Fusionado a `main` via PR #7 (merge commit `6c07776`) junto con EXP-010, confirmado en produccion el 2026-09-24. Verificado en vivo en salvadoribarra.tech: el enlace `data-in-ran` visible en `ai-ran-where-adds-value` (`href="/insights/data-in-ran"`) y el enlace `network-slicing-automation` visible en `networkslicing` (`href="/insights/network-slicing-automation"`) renderizan correctamente en produccion. Resultado tecnico: exitoso y sin regresiones. Resultado de negocio (consolidacion de posicion/impresiones en los pares canibalizados): pendiente del periodo de medicion -- proxima revision estimada ~2026-10-08 a 2026-10-22.
