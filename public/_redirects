@@ -8,5 +8,12 @@
 # Deliberadamente NO se toca /success/ (accion del formulario de contacto
 # en Contact.astro): es un flujo de conversion Tier 1 ya validado en
 # produccion y esta fuera del alcance de este cambio (Causal Discipline).
-/insights/           /insights            301
-/insights/:slug/     /insights/:slug      301
+#
+# El "!" al final fuerza la regla: por defecto, Netlify IGNORA un redirect
+# cuando la ruta de origen coincide con un archivo estatico ya existente
+# (aqui, dist/insights/<slug>/index.html realmente existe), y sirve ese
+# archivo directamente en vez de aplicar la regla. Confirmado empiricamente
+# en el Deploy Preview #7: sin el "!", ambas reglas devolvian 200 en vez de
+# 301 para /insights/ee-tradeoff/ y /insights/massive-mimo-not-deliver-gains/.
+/insights/           /insights            301!
+/insights/:slug/     /insights/:slug      301!
