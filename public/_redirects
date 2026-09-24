@@ -9,11 +9,25 @@
 # en Contact.astro): es un flujo de conversion Tier 1 ya validado en
 # produccion y esta fuera del alcance de este cambio (Causal Discipline).
 #
-# El "!" al final fuerza la regla: por defecto, Netlify IGNORA un redirect
-# cuando la ruta de origen coincide con un archivo estatico ya existente
-# (aqui, dist/insights/<slug>/index.html realmente existe), y sirve ese
-# archivo directamente en vez de aplicar la regla. Confirmado empiricamente
-# en el Deploy Preview #7: sin el "!", ambas reglas devolvian 200 en vez de
-# 301 para /insights/ee-tradeoff/ y /insights/massive-mimo-not-deliver-gains/.
-/insights/           /insights            301!
-/insights/:slug/     /insights/:slug      301!
+# NOTA IMPORTANTE (2026-09-24, Deploy Preview #7): se probo forzar estas
+# reglas con "!" para que apliquen incluso cuando existe un archivo estatico
+# coincidente (Astro genera cada post como insights/<slug>/index.html,
+# formato "directorio"). Eso causo un LOOP INFINITO de redirecciones:
+# la regla forzada quita la diagonal final -> Netlify, al servir un
+# directorio, la vuelve a agregar internamente -> la regla forzada la
+# vuelve a quitar -> bucle. Confirmado con dos herramientas distintas
+# (fetch automatizado y navegador real), ambas reportando "demasiadas
+# redirecciones". Esto habria roto las 141 paginas de Insights si se
+# hubiera fusionado, no solo las 2 URLs duplicadas originales.
+#
+# Por eso estas reglas se dejan SIN forzar (solo "301", no "301!"):
+# Netlify las ignora cuando existe el archivo estatico coincidente
+# (comportamiento por defecto, confirmado seguro -- sin loop), por lo
+# que en la practica no redirigen activamente las URLs con diagonal
+# final ya indexadas. La consolidacion de esas URLs en Google se logra
+# de todos modos via el canonical tag corregido (MainLayout.astro) y el
+# sitemap.xml corregido (astro.config.mjs), que ya se validaron sin
+# ningun riesgo de loop. Ver experiments/EXP-010 para el detalle
+# completo de esta decision.
+/insights/           /insights            301
+/insights/:slug/     /insights/:slug      301
