@@ -1,7 +1,7 @@
 ---
 title: "Network Slicing Will Fail – Unless We Change The Commercial Model"
 pubDate: 2026-02-19
-description: "Network slicing is one of the most powerful capabilities introduced with 5G"
+description: "Why network slicing needs a commercial and pricing overhaul -- not just technical readiness -- to succeed as a real 5G monetization strategy in the network slicing market."
 coverImage: "./NetworkSlicing.png"
 linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_network-slicing-is-one-of-the-most-powerful-activity-7430272495238266880-X7fV?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
@@ -60,6 +60,8 @@ If we keep thinking like network engineers, slicing will remain a technical succ
 If we think like solution providers, slicing can become the foundation of differentiated 5G monetization.
 The technology is ready.
 The question is: is the business model?
+
+*(If you're looking for the technical side of that readiness -- the closed-loop automation slicing actually requires -- see [Network Slicing: The Ultimate Test for Closed-Loop Automation](/insights/network-slicing-automation).)*
 
 #5G
 #NetworkSlicing

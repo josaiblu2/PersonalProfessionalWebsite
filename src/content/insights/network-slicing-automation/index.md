@@ -18,4 +18,6 @@ This is where traditional, siloed SON fails. We need a **Service Management and 
 
 Without closed-loop automation, Network Slicing is just a manual configuration nightmare. With it, it becomes the foundation for the next generation of digital services.
 
+*(Getting the automation right is only half the equation -- for the commercial and pricing side of making slicing a viable business, see [Network Slicing Will Fail -- Unless We Change The Commercial Model](/insights/networkslicing).)*
+
 #5G #NetworkSlicing #Automation #SON #SMO #ORAN #TelecomInnovation #NetworkOptimization

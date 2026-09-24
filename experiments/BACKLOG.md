@@ -41,7 +41,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 **Recommendation:** Corregir en un ciclo futuro de mantenimiento/limpieza tecnica, como cambio aislado de una sola variable, no combinado con cambios funcionales.
 
-**Priority:** Baja.
+**Verificacion adicional (2026-09-23, durante auditoria de SEO/adquisicion):** Se confirmo mediante inspeccion directa de `dist/index.html` (build de produccion) que el compilador de Astro infiere y cierra correctamente el `<div>` y el `<section>` faltantes en el HTML generado (`...</script></div></section> </main> <footer...`). **No existe ningun defecto de renderizado, anidacion de DOM ni impacto en SEO en produccion hoy.** El hallazgo sigue siendo valido como deuda tecnica en el codigo fuente (riesgo de que una edicion futura del archivo, combinada con un cambio en el compilador de Astro, produzca un resultado distinto), pero se confirma que no es causa contribuyente de los problemas de posicionamiento identificados en la auditoria de la Fase 3.
+
+**Priority:** Baja (confirmado: no aporta a la falta de posicionamiento).
 
 **Risk:** Bajo.
 
@@ -108,9 +110,9 @@ Este archivo registra hallazgos y mejoras identificadas que aun no se convierten
 
 **Reusability:** Alta -- el mismo patron de auditoria (buscar imagenes servidas fuera de `astro:assets` via el detalle `network-requests` de PageSpeed Insights) es reutilizable para detectar cualquier imagen similar que se agregue al sitio en el futuro fuera del flujo de Insights.
 
-## BL-006 -- Script de Google Tag Manager sin `async`, bloqueando el render inicial del homepage [PROMOVIDO A EXP-008]
+## BL-006 -- Script de Google Tag Manager sin `async`, bloqueando el render inicial del homepage [CERRADO -- KEEP via EXP-008]
 
-**Status:** Promovido a experimento formal EXP-008 (ver experiments/EXP-008-gtag-async.md) el 2026-09-23, tras autorizacion de Salvador.
+**Status:** Cerrado 2026-09-23 con decision KEEP (ver experiments/EXP-008-gtag-async.md). Confirmado con PageSpeed Insights real en produccion: `gtag.js` ya no aparece como render-blocking, FCP movil del homepage mejoro 19% (3.6s -> 2.9s). El LCP movil no bajo de 4.4s -- el cuello de botella restante es la hoja de estilo de Google Fonts, candidato natural para una futura iteracion.
 
 **Registrado:** 2026-09-23 (detectado durante el re-medicion de PageSpeed Insights post-EXP-007 contra produccion)
 
@@ -133,9 +135,9 @@ Confirmado en codigo: `src/components/GoogleAnalytics.astro` linea 1 carga el sc
 
 **Reusability:** Alta -- `async`/`defer` en scripts de terceros no criticos para el primer render es una practica general aplicable a cualquier script de analytics/marketing que se agregue al sitio en el futuro.
 
-## BL-007 -- Limpieza de `public/assets/posts/` (405MB de imagenes originales sin optimizar, ya no utilizadas) [PROMOVIDO A EXP-009]
+## BL-007 -- Limpieza de `public/assets/posts/` (405MB de imagenes originales sin optimizar, ya no utilizadas) [CERRADO -- KEEP via EXP-009]
 
-**Status:** Promovido a experimento formal EXP-009 (ver experiments/EXP-009-cleanup-legacy-posts-assets.md) el 2026-09-23, tras autorizacion explicita de Salvador para el borrado.
+**Status:** Cerrado 2026-09-23 con decision KEEP (ver experiments/EXP-009-cleanup-legacy-posts-assets.md). Confirmado en produccion: cero regresion en las 141 imagenes de Insights ni en el Hero, repositorio 405MB mas ligero.
 
 **Registrado:** 2026-09-23 (evaluado tras confirmar en produccion que EXP-004a/EXP-004b y EXP-007 funcionan correctamente)
 
@@ -159,3 +161,127 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 **Reusability:** Alta -- el patron de verificacion (confirmar en el esquema de contenido que 100% de los registros usan el campo moderno antes de borrar el legacy) es reutilizable para cualquier migracion futura de este tipo.
 
+
+## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento [PROMOVIDO A EXP-010]
+
+**Status:** Promovido a EXP-010 el 2026-09-24, implementado en la rama `feat/canonical-trailing-slash`, validado localmente (build de 144 paginas sin errores, canonical y sitemap normalizados, redirects 301 generados). Pendiente de validacion en Deploy Preview y aprobacion de merge por Salvador.
+**Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
+
+**Observation:** Multiples posts de Insights aparecen indexados por Google Search Console como dos URLs distintas -- con y sin `/` final (ej. `/insights/ee-tradeoff` y `/insights/ee-tradeoff/`) -- cada una acumulando impresiones por separado para las mismas queries.
+
+**Evidence:** Consulta de Search Console (`dimensions=["query","page"]`, 2026-06-21 a 2026-09-21) muestra el par duplicado para al menos 2 posts de alto trafico: `ee-tradeoff` (138 impresiones sin slash vs. 2 con slash) y `massive-mimo-not-deliver-gains` (121 vs. 153 impresiones, practicamente divididas a la mitad). Verificado en codigo: `astro.config.mjs` no define `trailingSlash`, por lo que Astro usa el default (`ignore`) y genera `dist/insights/<slug>/index.html`, servible por Netlify en ambas formas de URL. Ademas, `MainLayout.astro` linea 18 genera el canonical como `new URL(Astro.url.pathname, siteUrl)` -- es decir, **el canonical se autorreferencia a la URL exacta solicitada, en vez de apuntar siempre a una sola forma fija**. Esto significa que ambas variantes se autodeclaran como "canonicas de si mismas" ante Google, en lugar de que una le diga a Google "la version correcta es la otra". El tag canonical existe (no es una ausencia total de la senal), pero esta implementado de una forma que no resuelve la duplicacion -- la refuerza.
+
+**Impact:** Medio-Alto para las paginas afectadas. Fragmentar impresiones/clics entre dos URLs diluye la senal de relevancia que Google usa para posicionar; consolidar podria, en el mejor caso, sumar el potencial de ambas variantes en una sola URL con mas autoridad.
+
+**Recommendation:** (1) Fijar `trailingSlash: 'never'` (o `'always'`, a decidir, pero una sola forma) en `astro.config.mjs`; (2) corregir el calculo de `canonicalURL` en `MainLayout.astro` para que siempre normalice a la forma elegida, sin importar la URL con la que se accedio a la pagina; (3) agregar una regla de redireccion 301 en Netlify (`netlify.toml` o `_redirects`) de la forma no elegida hacia la elegida, para consolidar tambien las URLs ya indexadas por Google.
+
+**Priority:** Alta.
+
+**Risk:** Medio -- un cambio de redireccion mal configurado puede afectar temporalmente URLs ya indexadas o enlaces externos existentes (ej. los `linkedinUrl` en el frontmatter no se ven afectados, pero conviene validar en Deploy Preview antes de fusionar).
+
+**Reusability:** Alta -- el fix en `astro.config.mjs` y `MainLayout.astro` corrige el problema para las 141 paginas de Insights a la vez, no solo las 2 identificadas con evidencia directa.
+
+---
+
+## BL-009 -- Canibalizacion de keywords entre pares de posts de Insights [PROMOVIDO A EXP-011]
+
+**Status:** Promovido a EXP-011 el 2026-09-24, implementado en la misma rama que EXP-010 (`feat/canonical-trailing-slash`) a peticion de Salvador de agrupar ambos en un solo push/PR/merge. Validado localmente. Pendiente de Deploy Preview y aprobacion de merge.
+**Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
+
+**Observation:** Dos pares de posts compiten entre si por las mismas queries de alto valor, en vez de que un solo post concentre toda la senal de relevancia para cada tema.
+
+**Evidence:** Search Console (mismo periodo) muestra: (1) para "ran monitoring", `data-in-ran` (154 impr., pos. 84.4) y `ai-ran-where-adds-value` (105 impr., pos. 78.9) compiten; para "ran analytics", el mismo par vuelve a competir (`data-in-ran` 113 impr. pos. 70.0 vs. `ai-ran-where-adds-value` 27 impr. pos. 92.9). (2) Para "network slicing automation", `network-slicing-automation` (92 impr., pos. 47.5 -- la mejor posicion de toda la auditoria) compite con `networkslicing` (35 impr., pos. 81.9).
+
+**Impact:** Medio. La canibalizacion no solo divide impresiones -- historicamente Google puede alternar cual de las dos paginas muestra para una misma query de una busqueda a otra, lo que genera inestabilidad de posicion ademas de dilucion de autoridad.
+
+**Recommendation:** Para cada par: (1) decidir explicitamente cual pagina es la "primaria" para cada query (recomendacion inicial basada en posicion actual: `network-slicing-automation` como primaria de las queries de slicing/automation; entre `data-in-ran` y `ai-ran-where-adds-value` se requiere diferenciar mejor el angulo -- uno enfocado en "monitoring/observability" y el otro en "AI value-add" -- antes de declarar un ganador); (2) diferenciar el enfoque de contenido de cada pagina para que targeteen sub-intenciones distintas en vez de la misma query exacta; (3) enlazar internamente de la pagina secundaria hacia la primaria con anchor text relacionado, para consolidar autoridad en vez de competir.
+
+**Priority:** Media-Alta.
+
+**Risk:** Bajo -- es un cambio de contenido/enlaces, reversible, sin tocar codigo de infraestructura.
+
+**Reusability:** Media -- el patron de diagnostico (cruzar query-page de Search Console para detectar canibalizacion) es reutilizable para el resto del catalogo de 141 posts en auditorias futuras.
+
+---
+
+## BL-010 -- Ausencia total de encabezados H2/H3 y de enlaces internos entre los posts de Insights de alto valor
+
+**Status:** Abierto -- pendiente de priorizacion
+**Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
+
+**Observation:** Los 7 posts que generan impresiones en las 9 queries de expertise de Salvador tienen exactamente 0 encabezados `##`/`###` cada uno (solo el H1 del titulo, seguido de parrafos corridos), y no existe ni un solo enlace interno de un post de Insights hacia otro.
+
+**Evidence:** Verificado directamente en el codigo fuente (`grep -c "^##"` = 0 en los 7 archivos `.md` de `network-slicing-automation`, `networkslicing`, `data-in-ran`, `ai-ran-where-adds-value`, `ee-tradeoff`, `cloud-ran`, `oran-plain`), y busqueda de enlaces internos (`href="/insights/` o `](/insights/` dentro del contenido de los posts) con resultado vacio.
+
+**Impact:** Medio. La estructura de encabezados ayuda a Google a segmentar semanticamente el contenido (y es requisito practico para aparecer en featured snippets / "People Also Ask"); el enlazado interno entre contenido relacionado es una practica estandar de topic clusters que ayuda a distribuir autoridad y a que Google entienda la relacion tematica entre paginas (relevante tambien para mitigar BL-009).
+
+**Recommendation:** Al reescribir/expandir cada post (ver BL-011), estructurar el contenido en 3-5 secciones con encabezados `##` que incluyan variaciones naturales de las queries objetivo, y agregar 2-3 enlaces internos contextuales hacia otros posts relacionados del catalogo.
+
+**Priority:** Media.
+
+**Risk:** Bajo.
+
+**Reusability:** Alta -- aplica como estandar de calidad para los 141 posts existentes y para todo contenido futuro.
+
+---
+
+## BL-011 -- Profundidad de contenido insuficiente en los posts insignia de expertise (278-422 palabras)
+
+**Status:** Abierto -- pendiente de priorizacion
+**Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
+
+**Observation:** Los 7 posts auditados tienen entre 278 y 422 palabras de cuerpo. Para terminos B2B tecnicos competitivos (ej. "o-ran", "cloud ran", "network slicing automation"), el contenido que suele posicionar en la primera pagina de resultados normalmente tiene mayor profundidad (multiples secciones, ejemplos, datos o cifras de respaldo).
+
+**Evidence:** Conteo de palabras verificado directamente en los 7 archivos `.md` (`wc -w`): `network-slicing-automation` 278, `networkslicing` 384, `data-in-ran` 422, `ai-ran-where-adds-value` 371, `ee-tradeoff` 410, `cloud-ran` 396, `oran-plain` 345.
+
+**Impact:** Medio. Nota importante de honestidad de diagnostico: incluso los posts con mejor alineacion de titulo a la query exacta (`cloud-ran` para "cloud ran", `oran-plain` para "o-ran") solo alcanzan posicion 66-73, no primera pagina -- por lo que la profundidad de contenido por si sola probablemente no sea suficiente para saltar a primera pagina (ver BL-012 sobre autoridad de dominio), pero es una palanca de bajo costo con impacto incremental razonable.
+
+**Recommendation:** Expandir los 7 posts identificados (prioridad) y progresivamente el resto del catalogo, incorporando: mas profundidad tecnica/ejemplos concretos de la experiencia de Salvador, encabezados H2/H3 (BL-010), y alineacion mas precisa de titulo/primer parrafo con la query objetivo donde aplique (ver BL-009 para los casos de titulo desalineado: `networkslicing` no menciona "market" pese a targetear "network slicing market"; `data-in-ran`/`ai-ran-where-adds-value` no mencionan "monitoring"/"analytics" explicitamente).
+
+**Priority:** Media.
+
+**Risk:** Bajo. Nota de esfuerzo: a diferencia de la mayoria de items tecnicos de este backlog, este requiere trabajo de redaccion/contenido sostenido, no un cambio de codigo puntual.
+
+**Reusability:** Alta -- el mismo trabajo de expansion aplica al resto del catalogo de posts.
+
+---
+
+## BL-012 -- Autoridad de dominio y perfil de backlinks casi nulo como factor estructural (no resoluble solo con cambios on-page)
+
+**Status:** Abierto -- para discusion estrategica, no es un fix de codigo
+**Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
+
+**Observation:** El dominio `salvadoribarra.tech` tiene aproximadamente 7 meses de antiguedad (primer commit del repositorio: 2026-02-04) y, hasta donde esta auditoria puede verificar con las herramientas disponibles (Search Console, GA4, PSI -- ninguna mide backlinks de terceros), no hay evidencia de un perfil de enlaces externos hacia el sitio.
+
+**Evidence:** Fecha del primer commit verificada en el historial de git. GA4 (2026-06-21 a 2026-09-21, `sessionDefaultChannelGroup`) muestra 102 sesiones "Direct", 12 "Organic Search" y 2 "Organic Social" en 3 meses -- ningun canal de "Referral" (enlaces desde otros sitios) aparece en absoluto, lo cual es consistente con (aunque no prueba de forma concluyente) un perfil de backlinks minimo o nulo.
+
+**Impact:** Alto, pero de plazo largo. Este es el matiz mas importante a compartir sobre el diagnostico de Salvador (ver seccion de respuesta al punto 4, mas abajo): incluso si BL-008 a BL-011 se implementan perfectamente, es razonable esperar que un dominio de 7 meses sin backlinks tarde varios meses adicionales en escalar posiciones para terminos B2B tecnicos competitivos, independientemente de la calidad del contenido on-page. No es un defecto corregible con un cambio de codigo.
+
+**Recommendation:** Complementar el trabajo on-page con una estrategia de autoridad externa: (1) enlazar desde los posts de LinkedIn (donde Salvador ya publica cada Insight, segun el campo `linkedinUrl`) hacia la version del sitio, en vez de que el contenido viva solo nativamente en LinkedIn; (2) buscar oportunidades de contribucion/mencion en publicaciones o directorios reconocidos del sector RAN/O-RAN/5G; (3) considerar que la ventana de tiempo esperada para ver movimiento en posicionamiento por autoridad de dominio se mide en meses, no en semanas -- ajustar expectativas de medicion de KPI en consecuencia.
+
+**Priority:** Alta (estrategica), pero fuera del ciclo normal de "experimento de codigo" de este proyecto.
+
+**Risk:** N/A -- no es un cambio tecnico.
+
+**Reusability:** N/A.
+
+---
+
+## BL-013 -- Hoja de estilos de Google Fonts bloqueando el render (780ms estimados)
+
+**Status:** Abierto -- pendiente de priorizacion (candidato ya identificado durante el cierre de EXP-008, formalizado ahora)
+**Registrado:** 2026-09-23 (formalizado durante Fase 3; identificado originalmente el 2026-09-23 al cerrar EXP-008)
+
+**Observation:** Tras resolver el render-blocking de `gtag.js` en EXP-008, el audit `render-blocking-insight` de PageSpeed Insights sigue mostrando la hoja de estilos de Google Fonts como recurso render-blocking, con un ahorro estimado de 751-780ms. El LCP movil del homepage se mantuvo sin cambio (4.4s) tras EXP-008 pese a la mejora de FCP, lo que sugiere que este recurso podria estar co-bloqueando el elemento LCP (el `<h1>` del titular).
+
+**Evidence:** Documentado en `experiments/EXP-008-gtag-async.md` (seccion Evidence) y en `claude/pagespeed-insights-readonly-access.md` (Project doc), medicion de produccion del 2026-09-23.
+
+**Impact:** Medio para performance/UX; indirecto para SEO (Core Web Vitals es un factor de posicionamiento menor, pero no es la causa principal del problema de adquisicion diagnosticado en esta sesion -- ver respuesta al punto 4).
+
+**Recommendation:** Evaluar la tecnica `media="print" onload="this.media='all'"` para la hoja de estilos de Google Fonts, o alternativamente autoalojar (`self-host`) las fuentes para eliminar la dependencia de un origen externo.
+
+**Priority:** Media.
+
+**Risk:** Bajo.
+
+**Reusability:** N/A (fix especifico de este recurso).
