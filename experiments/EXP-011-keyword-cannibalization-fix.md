@@ -51,10 +51,10 @@ BL-009 propuesto por el agente (diferenciacion de angulo + enlace secundario->pr
 2-4 semanas tras el despliegue y el recrawleo de Google, junto con el mismo periodo de EXP-010.
 
 ## Result
-(a completar tras el despliegue y el periodo de medicion en Search Console)
+Fusionado a `main` via PR #7 (merge commit `6c07776`) junto con EXP-010, confirmado en produccion el 2026-09-24. Verificado en vivo en salvadoribarra.tech: el enlace `data-in-ran` visible en `ai-ran-where-adds-value` (`href="/insights/data-in-ran"`) y el enlace `network-slicing-automation` visible en `networkslicing` (`href="/insights/network-slicing-automation"`) renderizan correctamente en produccion. Resultado tecnico: exitoso y sin regresiones. Resultado de negocio (consolidacion de posicion/impresiones en los pares canibalizados): pendiente del periodo de medicion -- proxima revision estimada ~2026-10-08 a 2026-10-22.
 
 ## Decision
-Pendiente de validacion en Deploy Preview (junto con EXP-010) y de la confirmacion de merge por parte de Salvador.
+KEEP. Sujeto a confirmacion en el proximo corte de Search Console: si pasadas 2-4 semanas `data-in-ran` y `network-slicing-automation` no muestran mejora de posicion/consolidacion frente a sus pares, reevaluar si la diferenciacion de angulo fue suficiente o si se requiere expandir contenido (ver BL-011, thin content) ademas del enlazado.
 
 ## Learning
-(a completar tras el despliegue y el periodo de medicion en Search Console)
+El diagnostico de canibalizacion (cruzar dimensiones `query`+`page` de Search Console) y la correccion (diferenciar meta description + enlace direccional secundario->primario) resultaron en un cambio de bajo riesgo y alta reutilizacion: el mismo patron aplica a cualquier otro par de posts del catalogo de 141 que compita por la misma query, sin necesidad de tocar codigo de infraestructura.

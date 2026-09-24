@@ -164,7 +164,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento [PROMOVIDO A EXP-010]
 
-**Status:** Promovido a EXP-010 el 2026-09-24, implementado en la rama `feat/canonical-trailing-slash`, validado localmente (build de 144 paginas sin errores, canonical y sitemap normalizados, redirects 301 generados). Pendiente de validacion en Deploy Preview y aprobacion de merge por Salvador.
+**Status:** [EN PRODUCCION desde 2026-09-24] Fusionado a `main` (PR #7, commit 6c07776) y confirmado en vivo en salvadoribarra.tech: canonical normalizado sin diagonal final, sitemap sin URLs con diagonal final, sin loop de redirecciones. Redirect 301 activo revertido a su forma sin forzar (`!`) tras detectar un loop infinito en Deploy Preview -- la consolidacion de las 2 URLs ya indexadas depende del canonical+sitemap corregidos, no de un redirect activo (ver EXP-010, seccion Result). En periodo de medicion de negocio (Search Console) hasta ~2026-10-22.
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
 
 **Observation:** Multiples posts de Insights aparecen indexados por Google Search Console como dos URLs distintas -- con y sin `/` final (ej. `/insights/ee-tradeoff` y `/insights/ee-tradeoff/`) -- cada una acumulando impresiones por separado para las mismas queries.
@@ -185,7 +185,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ## BL-009 -- Canibalizacion de keywords entre pares de posts de Insights [PROMOVIDO A EXP-011]
 
-**Status:** Promovido a EXP-011 el 2026-09-24, implementado en la misma rama que EXP-010 (`feat/canonical-trailing-slash`) a peticion de Salvador de agrupar ambos en un solo push/PR/merge. Validado localmente. Pendiente de Deploy Preview y aprobacion de merge.
+**Status:** [EN PRODUCCION desde 2026-09-24] Fusionado a `main` (PR #7, commit 6c07776) junto con EXP-010. Confirmado en vivo: los 4 enlaces internos y las 3 descripciones actualizadas estan publicados en salvadoribarra.tech. En periodo de medicion de negocio (Search Console) hasta ~2026-10-22.
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
 
 **Observation:** Dos pares de posts compiten entre si por las mismas queries de alto valor, en vez de que un solo post concentre toda la senal de relevancia para cada tema.
