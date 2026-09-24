@@ -1,0 +1,12 @@
+# BL-008: consolida URLs duplicadas con/sin diagonal final en Insights.
+# Forma canonica elegida: SIN diagonal final (coincide con los enlaces
+# internos ya existentes en todo el sitio, ej. `/insights/${post.slug}`
+# en InsightsFeed.astro y en [slug].astro -- ningun enlace interno usa la
+# forma con '/', por lo que esta eleccion no requiere tocar ningun otro
+# componente). Ver experiments/BACKLOG.md BL-008 y experiments/EXP-010.
+#
+# Deliberadamente NO se toca /success/ (accion del formulario de contacto
+# en Contact.astro): es un flujo de conversion Tier 1 ya validado en
+# produccion y esta fuera del alcance de este cambio (Causal Discipline).
+/insights/           /insights            301
+/insights/:slug/     /insights/:slug      301

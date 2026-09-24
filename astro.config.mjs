@@ -30,9 +30,27 @@ if (fs.existsSync(insightsDir)) {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://salvadoribarra.tech',
+  // BL-008: forma canonica de URL fijada explicitamente en 'never' (sin
+  // diagonal final), para que coincida con la convencion ya usada por todos
+  // los enlaces internos del sitio (ej. `/insights/${post.slug}`). Antes no
+  // se definia y Astro usaba el default 'ignore', lo que permitia que
+  // Google indexara la misma pagina en dos formas de URL distintas
+  // (con y sin '/' final), dividiendo la senal de posicionamiento entre
+  // ambas -- ver experiments/BACKLOG.md BL-008 y experiments/EXP-010.
+  trailingSlash: 'never',
   integrations: [
     sitemap({
       serialize(item) {
+        // BL-008: normaliza toda URL del sitemap a la forma canonica sin
+        // diagonal final (excepto la raiz '/'), independientemente de la
+        // forma que haya generado el integration por defecto, para que el
+        // sitemap nunca vuelva a anunciarle a Google la variante con '/'
+        // que ya no queremos que indexe.
+        const url = new URL(item.url);
+        if (url.pathname !== '/' && url.pathname.endsWith('/')) {
+          url.pathname = url.pathname.slice(0, -1);
+          item = { ...item, url: url.toString() };
+        }
         const match = item.url.match(/\/insights\/([^/]+)\/?$/);
         if (match) {
           const lastmod = insightPubDates[match[1].toLowerCase()];

@@ -15,7 +15,16 @@ const {
 } = Astro.props;
 
 const siteUrl = Astro.site || 'https://salvadoribarra.tech';
-const canonicalURL = new URL(Astro.url.pathname, siteUrl).toString();
+// BL-008: el canonical ya no se autorreferencia a la URL exacta con la que
+// se accedio a la pagina (lo que dejaba que /insights/slug y /insights/slug/
+// se autodeclararan cada una como su propia canonica ante Google). Ahora se
+// normaliza siempre a la forma sin diagonal final (salvo la raiz '/'), que
+// es la unica forma canonica del sitio -- ver experiments/BACKLOG.md BL-008.
+const normalizedPathname =
+  Astro.url.pathname !== '/' && Astro.url.pathname.endsWith('/')
+    ? Astro.url.pathname.slice(0, -1)
+    : Astro.url.pathname;
+const canonicalURL = new URL(normalizedPathname, siteUrl).toString();
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 ---
 
