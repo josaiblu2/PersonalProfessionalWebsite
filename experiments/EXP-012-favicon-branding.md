@@ -53,16 +53,18 @@ Rama: `feat/favicon-si-monogram`. Commit de codigo: 3dd168b. Archivos: 8 en `pub
 4. Verificacion visual en Chromium headless: pestana clara/oscura a 16px, PNG 16, ICO, SVG a 64px y apple-touch-icon con mascara iOS -- el monograma es legible y nitido en todos.
 
 ## Approval status
-Implementacion solicitada explicitamente por Salvador (2026-09-25). **Pendiente:** revision visual de Salvador en Deploy Preview de Netlify (pestana, marcadores, icono en movil) antes de aprobar el merge. No se ha hecho push ni merge.
+Implementacion solicitada explicitamente por Salvador (2026-09-25). Deploy Preview #8 revisado y aprobado por Salvador; merge de PR #8 a `main` realizado por Salvador el 2026-09-25 (merge commit f6c9b14).
 
 ## Measurement window
-N/A (sin KPI). Solo la revision visual en Deploy Preview.
+N/A (sin KPI). Validacion tecnica en Deploy Preview #8 (2026-09-25): las 6 etiquetas de icono presentes una sola vez, los 8 recursos responden 200, manifest con 2 iconos, 0 errores de consola, render visual correcto a 16/32 px, ICO, iOS 180 y Android. Observacion menor: Netlify sirve `site.webmanifest` como `application/octet-stream`; los navegadores lo interpretan igual, sin impacto (corregirlo requeriria tocar configuracion de Netlify, fuera del alcance del agente).
 
 ## Result
-Pendiente de revision en Deploy Preview.
+Confirmado en produccion (`https://salvadoribarra.tech/`, 2026-09-25): el `<head>` declara el set completo de iconos, los 8 recursos responden 200, `favicon.svg` ya es el monograma "SI" (el path del logotipo de Astro ya no existe), 0 errores de consola. En el mismo deploy se publico el `linkedinUrl` del post `6g-design-principles` (commit 352740b), verificado en produccion.
 
 ## Decision
-Pendiente.
+**KEEP.** Guardrail cumplido (cero regresion funcional); mejora de branding visible en pestana, marcadores e iconos moviles.
 
 ## Learning
-(Por completar tras la revision.) Nota operativa: el trazado vectorial desde un PNG de alta resolucion con fondo plano produce un SVG mas nitido y ligero que incrustar el bitmap, y permite derivar todos los tamanos raster desde una sola fuente.
+1. Un cambio de branding sin KPI puede seguir el mismo flujo (rama -> Deploy Preview -> merge) y aprovechar el deploy para agrupar otros cambios pendientes, sin costo adicional de creditos.
+2. Este deploy origino la norma v1.9 "Pre-Push LinkedIn URL Sync": antes de cada push se barren los `linkedinUrl` pendientes en local para incluirlos en el mismo deploy.
+3. Nota operativa: el trazado vectorial desde un PNG de alta resolucion con fondo plano produce un SVG mas nitido y ligero que incrustar el bitmap, y permite derivar todos los tamanos raster desde una sola fuente.
