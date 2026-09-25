@@ -48,13 +48,15 @@ Rama: `feat/canonical-trailing-slash`. Archivos: `src/content/insights/data-in-r
 BL-009 propuesto por el agente (diferenciacion de angulo + enlace secundario->primario) y aprobado explicitamente por Salvador el 2026-09-24 ("ok, procede con tu sugerencia. Adelante"), para implementarse junto con BL-008/EXP-010 en el mismo PR y push.
 
 ## Measurement window
-2-4 semanas tras el despliegue y el recrawleo de Google, junto con el mismo periodo de EXP-010.
+2-4 semanas tras el despliegue y el recrawleo de Google, junto con el mismo periodo de EXP-010. Reloj iniciado el 2026-09-24 (reenvio manual del sitemap por Salvador en Search Console); revisar entre 2026-10-08 y 2026-10-22.
 
 ## Result
-(a completar tras el despliegue y el periodo de medicion en Search Console)
+Fusionado a `main` via PR #7 (merge commit `6c07776`) junto con EXP-010, confirmado en produccion el 2026-09-24. Verificado en vivo en salvadoribarra.tech: el enlace `data-in-ran` visible en `ai-ran-where-adds-value` (`href="/insights/data-in-ran"`) y el enlace `network-slicing-automation` visible en `networkslicing` (`href="/insights/network-slicing-automation"`) renderizan correctamente en produccion. Resultado tecnico: exitoso y sin regresiones. Resultado de negocio (consolidacion de posicion/impresiones en los pares canibalizados): pendiente del periodo de medicion -- proxima revision estimada ~2026-10-08 a 2026-10-22.
+
+**Actualizacion checkpoint semanal (2026-09-25, 1 dia post-deploy):** mismo hallazgo que en EXP-010: Search Console solo tiene datos hasta 2026-09-23 (un dia antes del deploy), por lo que aun no existe ningun dato real post-fix para "ran monitoring"/"ran analytics" ni "network slicing automation". Como referencia de contexto (no comparable directamente, ventana mas corta y aun pre-deploy): en los ultimos 30 dias, `data-in-ran` no aparece para "ran monitoring" (solo `ai-ran-where-adds-value`, 75 impr., pos. 79.0) y si aparece para "ran analytics" (27 impr., pos. 71.3, vs. 17 impr./pos. 93.1 de `ai-ran-where-adds-value`); `network-slicing-automation` aparece solo para "network slicing automation" (18 impr., pos. 48.1), `networkslicing` no aparece en esa consulta en esta ventana. Nada de esto es atribuible al fix todavia -- sin datos post-deploy, es ruido normal de una ventana corta. Proxima revision con datos reales: ~2026-10-02 en adelante.
 
 ## Decision
-Pendiente de validacion en Deploy Preview (junto con EXP-010) y de la confirmacion de merge por parte de Salvador.
+KEEP. Sujeto a confirmacion en el proximo corte de Search Console: si pasadas 2-4 semanas `data-in-ran` y `network-slicing-automation` no muestran mejora de posicion/consolidacion frente a sus pares, reevaluar si la diferenciacion de angulo fue suficiente o si se requiere expandir contenido (ver BL-011, thin content) ademas del enlazado.
 
 ## Learning
-(a completar tras el despliegue y el periodo de medicion en Search Console)
+El diagnostico de canibalizacion (cruzar dimensiones `query`+`page` de Search Console) y la correccion (diferenciar meta description + enlace direccional secundario->primario) resultaron en un cambio de bajo riesgo y alta reutilizacion: el mismo patron aplica a cualquier otro par de posts del catalogo de 141 que compita por la misma query, sin necesidad de tocar codigo de infraestructura.
