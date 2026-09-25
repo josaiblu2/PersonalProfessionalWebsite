@@ -4,6 +4,7 @@ pubDate: 2026-09-25
 description: "Learn the 6G design principles RAN engineers should study today, from AI native design and sensing to upper mid band spectrum and energy efficiency."
 coverImage: "./6g-design-principles.png"
 imageAlt: "Futuristic 6G radio access network architecture with holographic layers for AI native RAN, integrated sensing, upper mid band spectrum and non terrestrial links, in deep blue and teal tones"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_6g-5gadvanced-ran-activity-7509269276546174976-fQ9r?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # 6G DESIGN PRINCIPLES RAN ENGINEERS SHOULD LEARN NOW
