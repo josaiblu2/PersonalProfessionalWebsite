@@ -52,16 +52,21 @@ Rama `feat/cv-stable-filename`: 67630ea (CV + Hero.astro), e93e721 (sync linkedi
 4. Control: en el siguiente review, comparar `tier1_cv_download_conversion` vs. entradas del formulario `cv-request` en Netlify; deben coincidir (sin eventos "fantasma" de pruebas).
 
 ## Approval status
-Solicitado explicitamente por Salvador (2026-09-30). Pendiente: push de la rama, revision del Deploy Preview y merge por Salvador.
+Solicitado explicitamente por Salvador (2026-09-30). Deploy Preview #9 revisado (lectura server-side del HTML/PDF, sin JavaScript: 0 hits GA4, 0 envios de formulario) y aprobado; merge de PR #9 a `main` realizado por Salvador el 2026-09-30 (merge commit 3cf92da).
 
 ## Measurement window
 N/A (sin KPI).
 
 ## Result
-Pendiente de deploy.
+Confirmado en produccion (`https://salvadoribarra.tech/`, 2026-09-30), verificado sin ejecutar JavaScript (0 page_views/eventos GA4, 0 envios a Netlify Forms):
+- El homepage referencia unicamente `/assets/cv/Salvador_Ibarra_Luna_CV.pdf`; 0 apariciones de `Master_v1_3`; boton "Request CV" presente.
+- El PDF publicado es la version nueva (encabezado "Senior SON & RAN Automation Architect | O-RAN/SMO Specialist | AI-Enabled Closed-Loop Network Operations", con PROFESSIONAL SUMMARY).
+- La URL antigua `..._Master_v1_3.pdf` responde 404 (esperado; redirect 301 no implementado, pendiente de decision de Salvador).
+- `linkedinUrl` publicados en `vonr5gsa`, `ai-ran-where-adds-value` y `son-is-not-dead`.
+- Copia local de Salvador sincronizada con `origin/main` (3cf92da), sin archivos de bloqueo de git.
 
 ## Decision
-Pendiente.
+**KEEP.** Guardrail cumplido (cero regresion funcional); CV nuevo servido bajo nombre estable.
 
 ## Learning
 Un cambio "cosmetico" sobre un flujo de conversion se puede validar end-to-end sin tocar las metricas: bloquear el trafico a GA4 y simular el endpoint de Netlify Forms en el navegador de prueba aisla por completo la validacion de los KPIs de produccion.
