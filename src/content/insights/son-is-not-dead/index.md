@@ -4,6 +4,7 @@ pubDate: 2026-09-28
 description: "Explore why SON still matters and how SMO guardrails, policies, conflict detection and rollback make closed loop automation safe in O-RAN networks."
 coverImage: "./son-is-not-dead.jpeg"
 imageAlt: "Futuristic RAN automation architecture with an SMO orchestration layer governing rApps, xApps and self organizing network loops over a 5G cell grid, with guardrail boundaries, in deep blue and teal tones"
+linkedinUrl: "https://lnkd.in/p/eaTStZyr"
 ---
 
 # SON IS NOT DEAD: WHY CLOSED LOOP NEEDS SMO GUARDRAILS
