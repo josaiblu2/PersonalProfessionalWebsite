@@ -4,6 +4,7 @@ pubDate: 2026-09-30
 description: "Descubre cómo VoNR en 5G SA convierte la calidad de voz en un tema de RAN: cobertura UL, movilidad a LTE, scheduling, EPS Fallback y KPIs clave."
 coverImage: "./VoNR-5g-sa.png"
 imageAlt: "Arquitectura técnica de voz sobre 5G NR con una celda 5G SA, un flujo de paquetes de voz hacia IMS y una transición hacia LTE en el borde de cobertura, en tonos azul profundo y verde azulado"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_vonr-5g-5gsa-activity-7511077767459942400-2nBo?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # VONR EN 5G SA: LO QUE CAMBIA PARA EL INGENIERO RAN

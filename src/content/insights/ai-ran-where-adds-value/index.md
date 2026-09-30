@@ -4,6 +4,7 @@ pubDate: 2026-05-13
 description: "Where AI actually creates operational value in RAN beyond the hype -- through better decision-making, resource allocation, and root cause analysis, not through monitoring dashboards alone."
 coverImage: "./ai-in-ran-adds-value.png"
 imageAlt: "Realistic telecom operations center showing engineers using AI-assisted analytics and KPI monitoring tools to optimize RAN performance and network operations"
+linkedinUrl: "https://lnkd.in/p/eVNgKkVY"
 
 ---
 
