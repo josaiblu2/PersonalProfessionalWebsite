@@ -30,25 +30,25 @@ if (fs.existsSync(insightsDir)) {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://salvadoribarra.tech',
-  // BL-008: forma canonica de URL fijada explicitamente en 'never' (sin
-  // diagonal final), para que coincida con la convencion ya usada por todos
-  // los enlaces internos del sitio (ej. `/insights/${post.slug}`). Antes no
-  // se definia y Astro usaba el default 'ignore', lo que permitia que
-  // Google indexara la misma pagina en dos formas de URL distintas
-  // (con y sin '/' final), dividiendo la senal de posicionamiento entre
-  // ambas -- ver experiments/BACKLOG.md BL-008 y experiments/EXP-010.
-  trailingSlash: 'never',
+  // EXP-014 (corrige BL-008/EXP-010): forma canonica de URL CON diagonal
+  // final. EXP-010 habia fijado 'never', pero Astro genera cada pagina en
+  // formato directorio (insights/<slug>/index.html) y Netlify sirve los
+  // directorios redirigiendo con 301 /insights/<slug> -> /insights/<slug>/.
+  // Resultado: canonical, sitemap y enlaces internos apuntaban a una URL que
+  // redirige, y Google elegia la version con '/' ignorando el canonical
+  // (alerta "Pagina con redireccion" de Search Console, 2026-10-07).
+  // 'always' alinea las senales declaradas con lo que el servidor realmente
+  // sirve y con lo que Google ya tenia indexado. Ver experiments/EXP-014.
+  trailingSlash: 'always',
   integrations: [
     sitemap({
       serialize(item) {
-        // BL-008: normaliza toda URL del sitemap a la forma canonica sin
-        // diagonal final (excepto la raiz '/'), independientemente de la
-        // forma que haya generado el integration por defecto, para que el
-        // sitemap nunca vuelva a anunciarle a Google la variante con '/'
-        // que ya no queremos que indexe.
+        // EXP-014: normaliza toda URL del sitemap a la forma canonica CON
+        // diagonal final, para que ninguna URL anunciada a Google sea una
+        // redireccion (antes: forma sin '/', que Netlify redirige con 301).
         const url = new URL(item.url);
-        if (url.pathname !== '/' && url.pathname.endsWith('/')) {
-          url.pathname = url.pathname.slice(0, -1);
+        if (!url.pathname.endsWith('/')) {
+          url.pathname = url.pathname + '/';
           item = { ...item, url: url.toString() };
         }
         const match = item.url.match(/\/insights\/([^/]+)\/?$/);

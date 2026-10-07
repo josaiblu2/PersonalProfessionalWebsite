@@ -46,7 +46,7 @@ This is the first post in a series on AI in RAN.
 In the next posts, I’ll break down:
 
 * Where AI fails in real networks
-* Why data quality matters more than models -- see [Data in RAN: More is not always better](/insights/data-in-ran) for the deep dive on RAN monitoring and analytics
+* Why data quality matters more than models -- see [Data in RAN: More is not always better](/insights/data-in-ran/) for the deep dive on RAN monitoring and analytics
 * The difference between AI-assisted and autonomous RAN
 * Whether AI can really replace traditional SON
 

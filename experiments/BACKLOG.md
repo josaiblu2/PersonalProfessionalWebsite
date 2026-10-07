@@ -162,7 +162,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 **Reusability:** Alta -- el patron de verificacion (confirmar en el esquema de contenido que 100% de los registros usan el campo moderno antes de borrar el legacy) es reutilizable para cualquier migracion futura de este tipo.
 
 
-## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento [PROMOVIDO A EXP-010]
+## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento [PROMOVIDO A EXP-010, CORREGIDO EN EXP-014]
 
 **Status:** [EN PRODUCCION desde 2026-09-24] Fusionado a `main` (PR #7, commit 6c07776) y confirmado en vivo en salvadoribarra.tech: canonical normalizado sin diagonal final, sitemap sin URLs con diagonal final, sin loop de redirecciones. Redirect 301 activo revertido a su forma sin forzar (`!`) tras detectar un loop infinito en Deploy Preview -- la consolidacion de las 2 URLs ya indexadas depende del canonical+sitemap corregidos, no de un redirect activo (ver EXP-010, seccion Result). En periodo de medicion de negocio (Search Console) hasta ~2026-10-22.
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)

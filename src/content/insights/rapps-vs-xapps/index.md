@@ -4,6 +4,7 @@ pubDate: 2026-10-05
 description: "Learn where intelligence lives in O-RAN by comparing rApps on the Non-RT RIC and xApps on the Near-RT RIC, and how A1 and E2 connect their control loops."
 coverImage: "./rAppsVsxApps.png"
 imageAlt: "Layered O-RAN architecture showing the SMO with Non-RT RIC and rApps above a Near-RT RIC with xApps, connected through A1 and E2 interfaces to a 5G RAN, in deep blue and teal tones"
+linkedinUrl: "https://lnkd.in/p/e3c8PQ6P"
 ---
 
 # RAPPS VS XAPPS: WHERE INTELLIGENCE LIVES IN O-RAN

@@ -4,6 +4,7 @@ pubDate: 2026-10-02
 description: "Discover how intent based RAN operations replace reactive KPI dashboards with outcome driven policies, closed loops and SMO enforcement in 5G networks."
 coverImage: "./intent-based-ran.png"
 imageAlt: "Futuristic RAN operations center where a wall of KPI dashboards transitions into a single intent statement feeding SMO policies and closed loops over a 5G cell grid, in deep blue and teal tones"
+linkedinUrl: "https://lnkd.in/p/edXPukHZ"
 ---
 
 # FROM KPI DASHBOARDS TO INTENT BASED RAN OPERATIONS

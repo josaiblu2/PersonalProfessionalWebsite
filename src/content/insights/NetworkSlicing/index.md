@@ -61,7 +61,7 @@ If we think like solution providers, slicing can become the foundation of differ
 The technology is ready.
 The question is: is the business model?
 
-*(If you're looking for the technical side of that readiness -- the closed-loop automation slicing actually requires -- see [Network Slicing: The Ultimate Test for Closed-Loop Automation](/insights/network-slicing-automation).)*
+*(If you're looking for the technical side of that readiness -- the closed-loop automation slicing actually requires -- see [Network Slicing: The Ultimate Test for Closed-Loop Automation](/insights/network-slicing-automation/).)*
 
 #5G
 #NetworkSlicing
