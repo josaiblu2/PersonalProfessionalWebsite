@@ -18,7 +18,7 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
         <article class="bg-navy-light/50 border border-teal/20 rounded-xl overflow-hidden hover:border-teal/50 transition-all group flex flex-col h-full">
             {post.data.coverImage && (
                 <a 
-                    href={`/insights/${post.slug}`}
+                    href={`/insights/${post.slug}/`}
                     class="h-48 overflow-hidden relative w-full text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-teal/50 bg-[#020617] block"
                 >
                     <Image 
@@ -39,7 +39,7 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
                 
                 <h4 class="text-xl text-white font-bold mb-3 group-hover:text-teal transition-colors">
                     <a 
-                        href={`/insights/${post.slug}`}
+                        href={`/insights/${post.slug}/`}
                         class="text-left hover:underline decoration-teal underline-offset-4 focus:outline-none"
                     >
                         {post.data.title}
@@ -51,7 +51,7 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
                 </p>
                 
                 <a 
-                    href={`/insights/${post.slug}`}
+                    href={`/insights/${post.slug}/`}
                     class="inline-flex items-center text-teal font-bold text-sm hover:text-white transition-colors cursor-pointer"
                 >
                     Read More 

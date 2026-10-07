@@ -15,15 +15,13 @@ const {
 } = Astro.props;
 
 const siteUrl = Astro.site || 'https://salvadoribarra.tech';
-// BL-008: el canonical ya no se autorreferencia a la URL exacta con la que
-// se accedio a la pagina (lo que dejaba que /insights/slug y /insights/slug/
-// se autodeclararan cada una como su propia canonica ante Google). Ahora se
-// normaliza siempre a la forma sin diagonal final (salvo la raiz '/'), que
-// es la unica forma canonica del sitio -- ver experiments/BACKLOG.md BL-008.
-const normalizedPathname =
-  Astro.url.pathname !== '/' && Astro.url.pathname.endsWith('/')
-    ? Astro.url.pathname.slice(0, -1)
-    : Astro.url.pathname;
+// BL-008/EXP-014: el canonical no se autorreferencia a la URL exacta con la
+// que se accedio; se normaliza siempre a la forma CON diagonal final, que es
+// la que Netlify sirve sin redireccion (formato directorio de Astro). EXP-010
+// usaba la forma sin '/', que redirige con 301 -- ver experiments/EXP-014.
+const normalizedPathname = Astro.url.pathname.endsWith('/')
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
 const canonicalURL = new URL(normalizedPathname, siteUrl).toString();
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 ---
@@ -81,7 +79,7 @@ const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 				</a>
 				<div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
 					<a href="/#expertise" class="hover:text-teal transition-colors">Expertise</a>
-					<a href="/insights" class="hover:text-teal transition-colors">Insights</a>
+					<a href="/insights/" class="hover:text-teal transition-colors">Insights</a>
 					<a href="/#case-studies" class="hover:text-teal transition-colors">Case Studies</a>
 					<a href="/#contact" class="hover:text-teal transition-colors">Contact</a>
 				</div>

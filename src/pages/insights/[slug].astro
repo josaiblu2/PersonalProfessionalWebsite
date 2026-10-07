@@ -26,7 +26,9 @@ const ogImage = post.data.coverImage
   : undefined;
 
 // Forzar el uso del dominio de producción para que LinkedIn y Facebook puedan extraer el preview
-const shareUrl = new URL(Astro.url.pathname, Astro.site || 'https://salvadoribarra.tech').toString();
+// EXP-014: misma forma canonica (con diagonal final) que el canonical de MainLayout.
+const sharePath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const shareUrl = new URL(sharePath, Astro.site || 'https://salvadoribarra.tech').toString();
 
 // BL-004: datos estructurados JSON-LD (BlogPosting) para habilitar resultados
 // enriquecidos en Google Search. Reutiliza shareUrl (URL canonica, ya calculada
@@ -58,7 +60,7 @@ const structuredData = {
     
     {/* Navigation */}
     <div class="mb-12">
-      <a href="/insights" class="inline-flex items-center text-teal font-medium hover:text-white transition-colors group">
+      <a href="/insights/" class="inline-flex items-center text-teal font-medium hover:text-white transition-colors group">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
@@ -137,7 +139,7 @@ const structuredData = {
         </div>
 
         <div class="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-6">
-          <a href="/insights" class="inline-flex items-center text-teal font-medium hover:text-white transition-colors group">
+          <a href="/insights/" class="inline-flex items-center text-teal font-medium hover:text-white transition-colors group">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
