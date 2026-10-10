@@ -4,6 +4,7 @@ pubDate: 2026-10-07
 description: "Descubre cómo AI-RAN convierte la red de acceso en una plataforma de cómputo, con sus tres frentes: AI for RAN, AI and RAN y AI on RAN."
 coverImage: "./ai-ran-red-acceso.jpeg"
 imageAlt: "Sitio celular 5G con servidores de cómputo y GPU integrados, flujos de datos de IA y de radio compartiendo la misma infraestructura, en una arquitectura de AI-RAN con tonos azul profundo y verde azulado"
+linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_airan-5g-6g-activity-7513621812417863682-SJtV?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
 ---
 
 # AI-RAN: LA RED DE ACCESO SE VUELVE PLATAFORMA DE IA

@@ -4,6 +4,7 @@ pubDate: 2026-10-09
 description: "Learn how to build a closed loop for AI for RAN energy saving, from traffic prediction and rApp decisions to KPI verification, guardrails and rollback."
 coverImage: "./energy-saving-smo.png"
 imageAlt: "Closed loop diagram for AI driven RAN energy saving, with traffic prediction, an rApp in the SMO switching off capacity layers on a 5G cell grid, KPI verification and rollback, in deep blue and teal tones"
+linkedinUrl: "https://lnkd.in/p/eVec5vgs"
 ---
 
 # AI FOR RAN ENERGY SAVING: A REAL CLOSED LOOP USE CASE

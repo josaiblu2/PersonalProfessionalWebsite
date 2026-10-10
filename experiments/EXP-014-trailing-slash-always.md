@@ -64,7 +64,12 @@ Opcion A aprobada explicitamente por Salvador el 2026-10-07. Pendiente: revision
 2026-10-07 + 2-4 semanas (recrawl). Primera revision ~2026-10-21. Sustituye la ventana de medicion de negocio de EXP-010 (prevista 2026-10-08 a 10-22), que medía una consolidacion que no estaba ocurriendo en la direccion prevista.
 
 ## Result
-Pendiente.
+**Verificacion post-merge (2026-10-10, pendientes 1 y 2 de "Pendiente post-merge" cerrados):**
+1. **Produccion** (navegador real del equipo de Salvador, `fetch` con `redirect: "manual"` para exponer cada salto, no WebFetch): `/insights/ee-tradeoff/` -> 200; `/insights/massive-mimo-not-deliver-gains/` -> 200; `/insights/` -> 200; `/` -> 200; `/success/` -> 200. Las formas sin `/` (`/insights/ee-tradeoff`, `/insights`) -> 3xx hacia la forma con `/` (esperado: ya no estan en el sitemap ni se enlazan). En `ee-tradeoff/`: canonical, `og:url` y JSON-LD `@id` = `https://salvadoribarra.tech/insights/ee-tradeoff/`; enlaces "Insights" y "volver" -> `/insights/`. `sitemap-0.xml`: 144 `<loc>`, 0 sin `/` final. Homepage: formulario `contact` con `action="/success/"` intacto; CV en `/assets/cv/Salvador_Ibarra_Luna_CV.pdf`. Sin loops de redireccion. Nota: abrir la pagina en el navegador pudo registrar 1 page_view interno en GA4 (2026-10-10); las verificaciones de estado se hicieron con `fetch`, que no dispara GA4.
+2. **Sitemap** (`get_sitemaps_status()`, solo lectura): `sitemap-index.xml` reenviado 2026-10-07T23:40:44Z (~2 min despues del merge de PR #10), descargado por Google 2026-10-08T00:08:13Z, 0 errores, 0 advertencias, 144 URLs enviadas.
+3. Pendiente opcional 3 ("Validar correccion" en el informe "Pagina con redireccion"): **DESCARTADO (2026-10-10).** Las URLs de ese informe son las variantes SIN `/`, que siguen redirigiendo a proposito (comportamiento correcto y deseado tras EXP-014). "Validar correccion" pide a Google confirmar que esas URLs ya no redirigen; como si redirigen, la validacion terminaria en "Fallida", sin ningun beneficio de indexacion y con una senal confusa en el informe. "Pagina con redireccion" no es un error en este caso: es la clasificacion correcta de una URL alternativa. La correccion real ya ocurrio (el sitemap y los enlaces ya no apuntan a URLs que redirigen) y Google la procesara en su recrawl normal. Se mantiene la misma conclusion a la que Salvador ya habia llegado en una sesion anterior con Claude (no registrada en el ledger en su momento).
+
+Resultado tecnico: exitoso, guardrails cumplidos. Resultado de negocio (desaparicion de "Pagina con redireccion" para URLs del sitemap, consolidacion por post): pendiente de la ventana de medicion, primera revision ~2026-10-21.
 
 ## Decision
 Pendiente.
