@@ -4,6 +4,7 @@ pubDate: 2026-10-16
 description: "Apply a layered troubleshooting pyramid for RAN: alarms, transport, configuration, RF, capacity and user experience to find root causes faster."
 coverImage: "./ran-troubleshooting-pyramid.png"
 imageAlt: "RAN troubleshooting pyramid with six stacked layers from base to top: alarms and hardware, transport and sync, configuration, RF, capacity and user experience, set against a cell site network"
+linkedinUrl: "https://lnkd.in/p/eN6yzRq5"
 ---
 
 # The RAN Engineer's Troubleshooting Pyramid
