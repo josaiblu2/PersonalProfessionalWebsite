@@ -78,10 +78,33 @@ Aprobado por Salvador el 2026-10-16: tecnica "autoalojar fuentes" (frente a `med
 Inmediata para el resultado tecnico (PageSpeed en produccion tras el deploy, minimo 2-3 corridas por estrategia por la variacion de laboratorio). El checkpoint semanal del 2026-10-23 repite la medicion.
 
 ## Result
-Pendiente.
+PR #12 (merge e61f72c) desplegado a produccion el 2026-10-16 (deploy verde). Segundo deploy del ciclo, excepcion autorizada por Salvador.
+
+**Verificacion en produccion (2026-10-16, ~15:45 CDMX)**, con `fetch` desde una pestana de `sitemap-index.xml` (sin GA4): `/`, `/insights/`, `/insights/ee-tradeoff/`, `/success/` y los 3 posts con LinkedIn sincronizado responden 200, canonical con `/`, 0 referencias a Google Fonts, preload de `inter-latin-700-normal.Yt3aPRUw.woff2` (200, `font/woff2`); CSS `index.BIVdLDgH.css` con 8 `@font-face`, los 8 woff2 responden 200; forma sin `/` redirige; contact -> `/success/`, cv-request presente, CV estable 200; GTM `async` intacto; sitemap 150 URLs, 0 sin `/`; LinkedIn correcto en los 3 posts.
+
+**PageSpeed Insights, homepage de produccion.** Mobile: 3 corridas independientes (21:47, 21:49 y 21:51 UTC; la API devuelve en cache corridas consecutivas con el mismo `fetchTime`, por lo que se espaciaron >60 s). Desktop: 2 corridas independientes. Se reporta la mediana.
+
+| Metrica | Mobile antes (10-16) | Mobile despues (mediana) | Cambio | Desktop antes | Desktop despues (mediana) |
+|---|---|---|---|---|---|
+| Performance score | 75 | **82** (80, 82, 82) | +7 | 99 | 98 (98, 98) |
+| LCP | 4.5 s | **4.30 s** (4.23-4.37) | -4% | 0.9 s | 0.94 s |
+| FCP | 2.9 s | **1.80 s** (identico en las 3) | **-38%** | 0.8 s | **0.38 s** |
+| CLS | 0 | 0 | = | 0.002 | 0 |
+| TBT | 130 ms | 85 ms (51-130) | dentro del ruido | 40 ms | ~90 ms (ruido; GTM, no fuentes) |
+| Speed Index | 4.6 s | 4.27 s | -7% | 0.8 s | 0.63-0.81 s |
+
+**render-blocking-insight:** Google Fonts **ya no aparece** (antes 780 ms mobile / 201 ms desktop). Unico recurso restante: el CSS propio de Astro (171-183 ms mobile, 75-105 ms desktop). 0 peticiones a fonts.googleapis.com / fonts.gstatic.com; 8 woff2 servidos desde `/_astro/`.
+
+**LCP breakdown (mobile):** el elemento LCP sigue siendo el `<h1>` del Hero; "Element render delay" 2,269-2,357 ms (vs. 2,377 ms medido en EXP-008). Es decir, el FCP mejoro claramente pero el H1 se sigue pintando ~2.4 s despues del primer contenido: la hoja de Google Fonts no era el cuello de botella principal del LCP movil. La causa restante no esta identificada con la evidencia actual (no se infiere).
+
+**Hallazgos colaterales:**
+1. El homepage descarga tambien los 4 woff2 latin-ext (~85 KB). Los provocan 12 acentos combinantes (U+0301/U+0303: texto en forma Unicode descompuesta NFD, p. ej. "e" + acento suelto) y 5 flechas (U+2192, U+2194) en el contenido visible. En la simulacion de red lenta de Lighthouse compiten por ancho de banda.
+2. Los woff2 con hash de `/_astro/` se sirven con `cache-control: public,max-age=0,must-revalidate` (default de Netlify): las visitas repetidas revalidan en vez de usar cache inmutable. Cambiarlo es configuracion de despliegue (`netlify.toml` / `_headers`), fuera del alcance del agente por la seccion Security; decision de Salvador.
 
 ## Decision
-Pendiente.
+**KEEP.** El cambio cumplio su objetivo tecnico directo (eliminar el render-blocking de Google Fonts: confirmado, 780 ms -> 0) con mejora real y estable del FCP movil (-38%, 2.9 s -> 1.8 s) y del score (75 -> 82), sin regresion visual, de CLS, de desktop ni de conversion. La hipotesis sobre el LCP movil solo se cumplio marginalmente (4.5 s -> 4.3 s, aun en "needs improvement"); se registra como aprendizaje, no como fallo del cambio.
 
 ## Learning
-Pendiente.
+1. Para el LCP movil del homepage, el render-blocking de Google Fonts era un factor del FCP, no el principal del LCP: tras EXP-008 y EXP-015 el "Element render delay" del H1 sigue en ~2.3 s. Siguiente paso: diagnostico dirigido (traza de Lighthouse / Performance panel del H1) antes de proponer otro cambio, en lugar de seguir atacando recursos por eliminacion.
+2. PageSpeed Insights API cachea resultados de la misma URL por ~1 min: varias corridas "seguidas" pueden ser la misma medicion. Espaciar >60 s y verificar `fetchTime` distinto.
+3. Candidatos de seguimiento (no aprobados): normalizar a NFC el texto con acentos descompuestos del homepage (evita descargar latin-ext; cambio de contenido) y cabeceras de cache inmutable para `/_astro/*` (configuracion de despliegue, decision de Salvador).

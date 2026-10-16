@@ -269,7 +269,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ## BL-013 -- Hoja de estilos de Google Fonts bloqueando el render (780ms estimados)
 
-**Status:** Promovido a EXP-015 (2026-10-16, aprobado por Salvador: autoalojar fuentes; rama feat/self-host-fonts). Antes: abierto -- pendiente de priorizacion (candidato ya identificado durante el cierre de EXP-008, formalizado ahora)
+**Status:** Cerrado -- EXP-015 KEEP (2026-10-16, PR #12, merge e61f72c): Google Fonts fuera de render-blocking; FCP movil 2.9 s -> 1.8 s, score 75 -> 82; LCP movil 4.5 s -> 4.3 s (marginal). Promovido a EXP-015 el mismo dia (aprobado por Salvador: autoalojar fuentes; rama feat/self-host-fonts). Antes: abierto -- pendiente de priorizacion (candidato ya identificado durante el cierre de EXP-008, formalizado ahora)
 **Registrado:** 2026-09-23 (formalizado durante Fase 3; identificado originalmente el 2026-09-23 al cerrar EXP-008)
 
 **Observation:** Tras resolver el render-blocking de `gtag.js` en EXP-008, el audit `render-blocking-insight` de PageSpeed Insights sigue mostrando la hoja de estilos de Google Fonts como recurso render-blocking, con un ahorro estimado de 751-780ms. El LCP movil del homepage se mantuvo sin cambio (4.4s) tras EXP-008 pese a la mejora de FCP, lo que sugiere que este recurso podria estar co-bloqueando el elemento LCP (el `<h1>` del titular).
