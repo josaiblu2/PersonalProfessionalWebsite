@@ -285,3 +285,25 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 **Risk:** Bajo.
 
 **Reusability:** N/A (fix especifico de este recurso).
+
+## BL-014 -- Las visitas de verificacion de Salvador cuentan en GA4 como trafico normal
+
+**Status:** Abierto -- punto para la evaluacion de la proxima semana (registrado a peticion de Salvador; sin implementar nada). La decision se toma en la evaluacion.
+**Registrado:** 2026-10-16
+
+**Observation:** Salvador visita su propio sitio para verificar actualizaciones (despues de deploys, contenido nuevo, etc.). Esas visitas cargan GA4 igual que las de cualquier visitante, por lo que inflan `page_view`, `session_start`, `first_visit` y los canales (probablemente "Direct").
+
+**Evidence:** `src/components/GoogleAnalytics.astro` configura `gtag('config', 'G-Q023R5XBS1')` sin ninguna exclusion de trafico interno. Volumen de contexto del checkpoint del 2026-10-16 (desde 2026-09-24): 102 `page_view`, 45 `session_start`, 36 sesiones Direct. Con un volumen tan bajo, unas pocas visitas propias pueden ser una fraccion relevante; con los datos actuales **no se puede cuantificar** cuantas son de Salvador (GA4 no lo distingue de forma retroactiva). Las validaciones del agente ya evitan GA4 (fetch desde una pestana de sitemap o la bandera `ga-disable` puesta en la consola antes de cargar).
+
+**Impact:** Medio para la calidad de los KPI de contexto (Tier 2/Tier 3, trafico, canales). Nulo para Tier 1 mientras Salvador no envie formularios ni descargue el CV en sus pruebas (hoy ambos en 0). Si llega a probar esos flujos en produccion sin exclusion, contaminaria directamente el KPI principal.
+
+**Recommendation (opciones a discutir):**
+1. **Opt-out en sus navegadores.** (a) Complemento oficial de Google "Google Analytics Opt-out" en los navegadores de escritorio: sin tocar el sitio, pero bloquea GA en todos los sitios y no cubre el celular. (b) Hacer persistente la bandera `ga-disable-G-Q023R5XBS1` con una marca local (p. ej. visitar una URL especial una vez y guardar un indicador en el navegador): cubre tambien el celular, pero requiere un cambio de codigo en `GoogleAnalytics.astro` (cambio de configuracion de analitica -> requiere aprobacion explicita).
+2. **Filtro de trafico interno por IP en GA4** (regla "internal traffic" en el flujo de datos + filtro de datos activado). Sin tocar el sitio, pero es cambio de configuracion de GA4 (requiere aprobacion y lo hace Salvador en la interfaz; la cuenta de servicio es solo lectura). Limitaciones: si la IP de su proveedor es dinamica, o navega con datos moviles, el filtro deja de aplicar; solo actua hacia adelante, no limpia datos pasados. Conviene probar primero en modo "Prueba" antes de "Activo".
+Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para la evaluacion: si las corridas de PageSpeed/Lighthouse generan hits en GA4 (no verificado).
+
+**Priority:** Media (barata; mejora la confiabilidad de los datos sobre los que se toman decisiones).
+
+**Risk:** Bajo. Opcion 1b toca codigo de analitica (riesgo de dejar de medir a visitantes reales si se implementa mal; se valida en Deploy Preview).
+
+**Reusability:** Alta: todo tenant necesita excluir el trafico propio; el patron (opt-out persistente o filtro por IP) es reutilizable.
