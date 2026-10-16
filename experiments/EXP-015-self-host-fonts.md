@@ -52,8 +52,14 @@ Bajo. 3 archivos (2 de dependencias). Rollback: revertir el commit de EXP-015. R
 ## Implementation reference
 Rama: feat/self-host-fonts (desde main ed595f7).
 
-## Validacion realizada
-Pendiente (ver seccion siguiente al completar el Quality Gate).
+## Validacion realizada (2026-10-16, Quality Gate local)
+Clon limpio de GitHub (main ed595f7) + los commits de la rama aplicados con `git am`; `npm ci` + `npm run build` en el entorno de nube (el build sobre la carpeta del equipo excede el limite de tiempo por llamada del puente).
+1. Build: 150 paginas, 0 errores. Sitemap: 150 URLs, 0 sin `/`.
+2. HTML generado: 0 referencias a fonts.googleapis.com / fonts.gstatic.com en todo `dist/`. `<link rel="preload">` de `inter-latin-700-normal.*.woff2` con el mismo hash que referencia el CSS (sin doble descarga).
+3. Ajuste durante la validacion: la primera version importaba todos los subconjuntos de Fontsource (26 bloques `@font-face`, ~27 KB dentro del CSS render-blocking). Se limito a latin + latin-ext (8 bloques, 1.9 KB); CSS del sitio 58.9 KB sin comprimir / 9.2 KB gzip. Commit aparte en la rama.
+4. Enlaces internos: 151 HTML, 3,578 referencias internas, 0 rotas. Formulario de contacto con `action="/success/"`; `/success/` presente.
+5. Navegador headless (Chromium, viewport movil 412x900) sobre `/`, `/insights/`, `/insights/ee-tradeoff/`, `/success/`: `document.fonts.check` true para Inter 400/700 y JetBrains Mono; `h1` con `font-family: Inter`; todas las fuentes servidas desde `/_astro/`; 0 peticiones a Google Fonts. Unico error de consola: `googletagmanager.com/gtag/js` bloqueado por el proxy del entorno de pruebas (ERR_TUNNEL_CONNECTION_FAILED), no atribuible al sitio. Captura visual del Hero correcta (Inter en titular, JetBrains Mono en "SENIOR SON ARCHITECT").
+Pendiente: Deploy Preview en Netlify (visual + consola + GA4 Tier 1 con bandera de opt-out) antes del merge.
 
 ## Approval status
 Aprobado por Salvador el 2026-10-16: tecnica "autoalojar fuentes" (frente a `media=print` + onload). Autorizo ademas, como **excepcion explicita a la regla de un deploy por ciclo quincenal**, un deploy de produccion esta misma semana (segundo del ciclo tras PR #11 del 2026-10-10; 15 creditos adicionales). Merge y push siguen siendo accion manual de Salvador.
