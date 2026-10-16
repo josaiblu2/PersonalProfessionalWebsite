@@ -4,6 +4,7 @@ pubDate: 2026-10-12
 description: "Diagnose 5G TDD synchronization failures: how GNSS loss, atmospheric ducting and frame misalignment create uplink interference disguised as RF issues."
 coverImage: "./5g-tdd-synchronization-uplink-interference.png"
 imageAlt: "5G TDD synchronization diagram showing gNB towers with misaligned downlink and uplink time slots, GNSS timing signals and atmospheric ducting causing uplink interference across a cell cluster"
+linkedinUrl: "https://lnkd.in/p/eGqhyS_F"
 ---
 
 # TDD 5G: Why Timing Can Become an RF Problem

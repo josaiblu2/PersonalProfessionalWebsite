@@ -4,6 +4,7 @@ pubDate: 2026-10-14
 description: "Analiza cómo la altura de antena afecta la cobertura RF: overshooting, nulos del patrón vertical e interferencia en redes LTE y 5G."
 coverImage: "./altura-de-antena-cobertura-rf.png"
 imageAlt: "Comparación de altura de antena en dos sitios celulares: torre alta con overshooting e interferencia hacia celdas vecinas frente a torre baja con huella de cobertura RF contenida en entorno urbano denso"
+linkedinUrl: "https://lnkd.in/p/eJqt6Dwa"
 ---
 
 # ¿Por qué una antena más alta no siempre mejora la cobertura?
