@@ -59,7 +59,17 @@ Clon limpio de GitHub (main ed595f7) + los commits de la rama aplicados con `git
 3. Ajuste durante la validacion: la primera version importaba todos los subconjuntos de Fontsource (26 bloques `@font-face`, ~27 KB dentro del CSS render-blocking). Se limito a latin + latin-ext (8 bloques, 1.9 KB); CSS del sitio 58.9 KB sin comprimir / 9.2 KB gzip. Commit aparte en la rama.
 4. Enlaces internos: 151 HTML, 3,578 referencias internas, 0 rotas. Formulario de contacto con `action="/success/"`; `/success/` presente.
 5. Navegador headless (Chromium, viewport movil 412x900) sobre `/`, `/insights/`, `/insights/ee-tradeoff/`, `/success/`: `document.fonts.check` true para Inter 400/700 y JetBrains Mono; `h1` con `font-family: Inter`; todas las fuentes servidas desde `/_astro/`; 0 peticiones a Google Fonts. Unico error de consola: `googletagmanager.com/gtag/js` bloqueado por el proxy del entorno de pruebas (ERR_TUNNEL_CONNECTION_FAILED), no atribuible al sitio. Captura visual del Hero correcta (Inter en titular, JetBrains Mono en "SENIOR SON ARCHITECT").
-Pendiente: Deploy Preview en Netlify (visual + consola + GA4 Tier 1 con bandera de opt-out) antes del merge.
+
+### Deploy Preview #12 (2026-10-16, PR #12)
+URL: https://deploy-preview-12--stellular-strudel-c35baa.netlify.app. Verificado desde el navegador integrado del equipo de Salvador con `fetch` (`redirect: "manual"`) desde una pestana con `sitemap-index.xml` (no carga GA4), para no contaminar KPIs.
+1. `/`, `/insights/`, `/insights/ee-tradeoff/`, `/success/` y los 3 posts con LinkedIn sincronizado: 200; canonical con `/` hacia salvadoribarra.tech; 0 referencias a fonts.googleapis.com / fonts.gstatic.com; `<link rel="preload">` de `inter-latin-700-normal.Yt3aPRUw.woff2` en todas.
+2. `/insights/ee-tradeoff` (sin `/`) responde redirect (opaqueredirect), igual que en produccion.
+3. CSS `/_astro/index.BIVdLDgH.css`: 58,900 bytes, 8 `@font-face`, referencia el mismo woff2 que se precarga. Los 8 woff2 responden 200; el precargado con `content-type: font/woff2`, 24,356 bytes.
+4. LinkedIn: 5g-tdd-synchronization-rf-interference -> lnkd.in/p/eGqhyS_F; altura-antena-cobertura-rf -> lnkd.in/p/eJqt6Dwa; ran-troubleshooting-pyramid -> lnkd.in/p/eN6yzRq5. ee-tradeoff sin cambios.
+5. Formularios: contact -> `/success/`, cv-request presente; CV estable `/assets/cv/Salvador_Ibarra_Luna_CV.pdf` 200. Sitemap 150 URLs, 0 sin `/`.
+6. GA4: script de GTM con `async` y los dos eventos Tier 1 presentes en el HTML (GoogleAnalytics.astro no se modifico). No se disparo GA4 en esta validacion.
+7. Render visual movil (390x844) del homepage en un iframe sin los scripts de GA4: Inter 400/700 y JetBrains Mono cargadas (`document.fonts.check` true), `h1` con Inter, solo peticiones de fuentes a `/_astro/`; titular, subtitulo monoespaciado y colores identicos a produccion; sin errores de consola.
+Resultado: listo para merge.
 
 ## Approval status
 Aprobado por Salvador el 2026-10-16: tecnica "autoalojar fuentes" (frente a `media=print` + onload). Autorizo ademas, como **excepcion explicita a la regla de un deploy por ciclo quincenal**, un deploy de produccion esta misma semana (segundo del ciclo tras PR #11 del 2026-10-10; 15 creditos adicionales). Merge y push siguen siendo accion manual de Salvador.
