@@ -1,4 +1,15 @@
 ---
+// BL-013 / EXP-015: fuentes autoalojadas (antes Google Fonts, render-blocking)
+// Solo subconjuntos latin y latin-ext (espanol/ingles): menos @font-face en el CSS bloqueante
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/inter/latin-ext-400.css';
+import '@fontsource/inter/latin-ext-700.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-700.css';
+import '@fontsource/jetbrains-mono/latin-ext-400.css';
+import '@fontsource/jetbrains-mono/latin-ext-700.css';
+import interLatin700 from '@fontsource/inter/files/inter-latin-700-normal.woff2?url';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
@@ -67,9 +78,8 @@ const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 			<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 		)}
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+		<!-- BL-013 / EXP-015: precarga de Inter 700 (fuente del H1, elemento LCP) -->
+		<link rel="preload" href={interLatin700} as="font" type="font/woff2" crossorigin>
 	</head>
 	<body class="bg-navy text-slate min-h-screen flex flex-col font-sans">
 		<header class="sticky top-0 z-50 bg-navy/90 backdrop-blur-md border-b border-teal/10 transition-all duration-300">
