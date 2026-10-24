@@ -288,7 +288,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ## BL-014 -- Las visitas de verificacion de Salvador cuentan en GA4 como trafico normal
 
-**Status:** Abierto -- punto para la evaluacion de la proxima semana (registrado a peticion de Salvador; sin implementar nada). La decision se toma en la evaluacion.
+**Status:** Metodo aprobado por Salvador el 2026-10-23 (aprobacion explicita de cambio de analitica): opcion 1b -- interruptor persistente por navegador (`?internal=on` / `?internal=off`, marca local que activa `ga-disable-G-Q023R5XBS1` antes de `gtag('config')`), mas exclusion de visitas con user agent de Lighthouse/PageSpeed. Implementacion pospuesta por Salvador al 2026-10-24 (pendiente de crear EXP). Antes: Abierto -- punto para la evaluacion de la proxima semana.
 **Registrado:** 2026-10-16
 
 **Observation:** Salvador visita su propio sitio para verificar actualizaciones (despues de deploys, contenido nuevo, etc.). Esas visitas cargan GA4 igual que las de cualquier visitante, por lo que inflan `page_view`, `session_start`, `first_visit` y los canales (probablemente "Direct").
