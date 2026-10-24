@@ -310,9 +310,9 @@ Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para l
 
 ---
 
-## BL-015 -- El sitemap y los datos estructurados no reflejan actualizaciones sustanciales de un post [PROMOVIDO A EXP-017]
+## BL-015 -- El sitemap y los datos estructurados no reflejan actualizaciones sustanciales de un post [CERRADO -- KEEP via EXP-017]
 
-**Status:** Promovido a EXP-017 el 2026-10-23 (aprobado por Salvador: "actualizalo... si no es complicado, no rompe nada, no hay riesgos, adelante"). Rama `feat/updated-date`, pendiente de push/Deploy Preview.
+**Status:** Cerrado 2026-10-23 con decision KEEP de EXP-017 (PR #14, merge 70ed7f0; `data-in-ran/` con `lastmod` y `dateModified` 2026-10-23 en produccion, sitemap reenviado 2026-10-24T04:01:56Z). Antes: Promovido a EXP-017 el 2026-10-23 (aprobado por Salvador: "actualizalo... si no es complicado, no rompe nada, no hay riesgos, adelante"). Rama `feat/updated-date`, pendiente de push/Deploy Preview.
 **Registrado:** 2026-10-23 (detectado al verificar EXP-016 en produccion)
 
 **Observation:** Tras ampliar `data-in-ran` (EXP-016), el `lastmod` del sitemap siguio en 2026-04-02 porque se deriva de `pubDate` (BL-004), y el JSON-LD `BlogPosting` no tiene `dateModified`. Google no recibe una senal explicita de que el contenido cambio.

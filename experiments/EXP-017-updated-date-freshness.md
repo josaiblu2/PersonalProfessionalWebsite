@@ -38,10 +38,14 @@ URL: https://deploy-preview-14--stellular-strudel-c35baa.netlify.app. Verificado
 Resultado: listo para merge.
 
 ## Result
-Pendiente (produccion).
+Fusionado a `main` via PR #14 (merge commit `70ed7f0`, 2026-10-23 ~22:00 hora CDMX); deploy de produccion en verde segun Salvador. Dentro de la excepcion de creditos autorizada por Salvador (2026-10-19 a 2026-11-18).
+**Verificacion en produccion (2026-10-23, navegador integrado, sin GA4):** `data-in-ran/` 200 con `datePublished` 2026-04-02, `dateModified` 2026-10-23 y etiqueta "Updated October 23, 2026"; sitemap `lastmod` 2026-10-23. Los otros 146 posts: 0 con `dateModified` distinto de `datePublished`, 0 con etiqueta; `ee-tradeoff/` conserva `lastmod` 2026-06-15. Sitemap 150 URLs, las 150 en 200. `/` y `/success/` 200.
+**Sitemap reenviado** (`submit_sitemap()`): `lastSubmitted` **2026-10-24T04:01:56Z**, 150 URLs, 0 errores, 0 advertencias. Google habia descargado el envio anterior (EXP-016) el 2026-10-24T03:44:07Z, segundos despues de reenviarlo; esa descarga aun tenia `lastmod` 2026-04-02 para `data-in-ran/`.
+KPI tecnico cumplido. KPI de contexto (fecha de ultimo rastreo de `data-in-ran/`, impresiones nuevas) se sigue en el checkpoint semanal bajo EXP-016.
 
 ## Decision
-Pendiente.
+**KEEP (tecnico, 2026-10-23).** El cambio cumple su objetivo directo (senal de actualizacion en sitemap, JSON-LD y pagina) sin efecto en los otros 146 posts ni en el listado. No tiene KPI de negocio propio: su efecto se observa a traves de EXP-016.
 
 ## Learning
-Pendiente.
+1. Para senalar una actualizacion sustancial no se toca `pubDate` (orden del listado y fecha de publicacion real): se usa `updatedDate`. Regla de uso: solo ante cambios reales de contenido (proximas ampliaciones de BL-011), nunca para refrescar fechas sin cambios.
+2. Las fechas mostradas con `toLocaleDateString` dependen de la zona horaria de la maquina que compila (el sandbox mostraba "April 1"; Netlify, en UTC, "April 2"). La etiqueta nueva fija `timeZone: 'UTC'`; la fecha de publicacion existente no se cambio (candidato menor para alinear).
