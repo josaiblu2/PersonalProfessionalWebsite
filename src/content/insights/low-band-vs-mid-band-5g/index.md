@@ -4,6 +4,7 @@ pubDate: 2026-10-19
 description: "Compare low band and mid band physics in 5G: path loss, penetration, bandwidth, beamforming gain and uplink budget for smarter RAN layer design."
 coverImage: "./low-band-vs-mid-band-5g-physics.png"
 imageAlt: "Low band vs mid band 5G coverage comparison showing a wide 700 MHz coverage layer reaching deep indoors and a narrower 3.5 GHz Massive MIMO beamforming layer delivering capacity in a dense urban area"
+linkedinUrl: "https://lnkd.in/p/ejAFVM4k"
 ---
 
 # Low Band vs Mid Band: The Physics Every RAN Engineer Needs
