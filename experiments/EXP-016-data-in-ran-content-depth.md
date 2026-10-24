@@ -36,8 +36,18 @@ Ver Evidence (checkpoint 2026-10-23). A nivel pagina (todas las queries), 2026-0
 Clon de GitHub (`origin/main` e61f72c) + los 7 commits locales aplicados como parches (`git format-patch`; el bundle del repo completo excede el limite de tiempo del puente). `npm ci` + `npm run build`: **150 paginas, 0 errores**, sitemap 150 URLs (incluye `data-in-ran/`). HTML del post: `<title>` y `meta description` nuevos, canonical `https://salvadoribarra.tech/insights/data-in-ran/`, JSON-LD `headline` actualizado, 8 H2 / 8 H3, enlaces a `/insights/ai-ran-where-adds-value/` y `/#contact` presentes, boton de LinkedIn intacto. **0 enlaces internos rotos** en todo el sitio. Chromium headless (`astro preview`), escritorio 1280 px y movil 390 px: HTTP 200, 0 imagenes rotas, sin scroll horizontal; unico error de consola = `googletagmanager.com` bloqueado por el proxy del sandbox (esperado, no es del sitio). Los 3 `linkedinUrl` sincronizados verificados en el HTML.
 Hallazgo colateral (no cambiado): los 147 posts renderizan 2 `<h1>` (el layout pinta el `title` y el cuerpo Markdown repite `# titulo`). Patron preexistente de todo el catalogo; candidato a BL propio.
 
+## Deploy Preview #13 (2026-10-23, PR #13)
+URL: https://deploy-preview-13--stellular-strudel-c35baa.netlify.app. Verificado desde el navegador integrado del equipo de Salvador con `fetch` (`redirect: "manual"`) desde una pestana con `sitemap-index.xml` (no carga GA4), para no contaminar KPIs; mismo metodo que Deploy Preview #12.
+1. `/`, `/insights/`, `/success/`, `/insights/data-in-ran/`, `/insights/ai-ran-where-adds-value/`, `/insights/ee-tradeoff/` y los 3 posts con LinkedIn sincronizado: 200, canonical con `/` hacia salvadoribarra.tech, 0 referencias a Google Fonts, GTM con `async`.
+2. `data-in-ran/`: `<title>` y meta description nuevos, 8 H2 / 8 H3, ~1,080 palabras de texto visible, enlaces a `/insights/ai-ran-where-adds-value/` y `/#contact`, imagen `/_astro/data-in-ran.*.webp`, boton "Discuss on LinkedIn" con la URL original. `/insights/data-in-ran` (sin `/`) responde redirect, igual que en produccion.
+3. LinkedIn sincronizado: downtilt-antena-cobertura-rf -> lnkd.in/p/eNk8r8Wm; energy-aware-ran -> lnkd.in/p/eEVEjFXw; low-band-vs-mid-band-5g -> lnkd.in/p/ejAFVM4k.
+4. Sitemap: 150 URLs, 0 sin `/`, incluye `data-in-ran/`; las 150 responden 200 sin redireccion. 150 enlaces internos distintos (de todas las paginas): 0 rotos. 155 recursos del homepage y del post (imagenes, CSS, JS, preload): 0 fallidos.
+5. Formularios: contact -> `/success/`, cv-request presente; CV `/assets/cv/Salvador_Ibarra_Luna_CV.pdf` 200 `application/pdf`. Eventos Tier 1 presentes en el HTML del homepage (GoogleAnalytics.astro no se modifico). No se disparo GA4 en esta validacion.
+6. Render visual del post en un iframe sin los scripts de GA4: Inter cargada (`document.fonts.check` true, `h1` en Inter), 0 imagenes rotas, sin scroll horizontal; titulo, descripcion, cuerpo, H2 y Key takeaways correctos. 0 errores de consola, 0 peticiones a dominios de Google.
+Resultado: listo para merge.
+
 ## Result
-Pendiente (Deploy Preview y produccion).
+Pendiente (produccion).
 
 ## Decision
 Pendiente.
