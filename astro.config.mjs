@@ -18,7 +18,10 @@ if (fs.existsSync(insightsDir)) {
     const indexPath = path.join(insightsDir, entry.name, 'index.md');
     if (!fs.existsSync(indexPath)) continue;
     const raw = fs.readFileSync(indexPath, 'utf-8');
-    const match = raw.match(/^pubDate:\s*(\S+)\s*$/m);
+    // BL-015/EXP-017: si el post declara updatedDate (actualizacion sustancial),
+    // esa fecha manda en el lastmod; si no, se usa pubDate como antes.
+    const updated = raw.match(/^updatedDate:\s*(\S+)\s*$/m);
+    const match = updated || raw.match(/^pubDate:\s*(\S+)\s*$/m);
     if (match) {
       // El slug real que genera Astro para colecciones legacy es el nombre
       // de carpeta en minusculas (verificado empiricamente en EXP-004b).

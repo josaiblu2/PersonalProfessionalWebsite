@@ -307,3 +307,33 @@ Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para l
 **Risk:** Bajo. Opcion 1b toca codigo de analitica (riesgo de dejar de medir a visitantes reales si se implementa mal; se valida en Deploy Preview).
 
 **Reusability:** Alta: todo tenant necesita excluir el trafico propio; el patron (opt-out persistente o filtro por IP) es reutilizable.
+
+---
+
+## BL-015 -- El sitemap y los datos estructurados no reflejan actualizaciones sustanciales de un post [PROMOVIDO A EXP-017]
+
+**Status:** Promovido a EXP-017 el 2026-10-23 (aprobado por Salvador: "actualizalo... si no es complicado, no rompe nada, no hay riesgos, adelante"). Rama `feat/updated-date`, pendiente de push/Deploy Preview.
+**Registrado:** 2026-10-23 (detectado al verificar EXP-016 en produccion)
+
+**Observation:** Tras ampliar `data-in-ran` (EXP-016), el `lastmod` del sitemap siguio en 2026-04-02 porque se deriva de `pubDate` (BL-004), y el JSON-LD `BlogPosting` no tiene `dateModified`. Google no recibe una senal explicita de que el contenido cambio.
+
+**Recommendation:** Campo opcional `updatedDate` en el schema de insights. Si existe: `lastmod` del sitemap, `dateModified` del JSON-LD y una etiqueta visible "Updated <fecha>" en el post. `pubDate` no cambia (fecha original, orden del listado, `datePublished`). Se descarto modificar `pubDate`: alteraria el orden del listado y declararia una fecha de publicacion falsa.
+
+**Priority:** Media (bajo costo, habilita la medicion de EXP-016 y de futuras ampliaciones de BL-011).
+
+**Risk:** Bajo. Campo opcional: los posts sin `updatedDate` conservan su comportamiento (dateModified = pubDate, mismo lastmod). Regla de uso: solo ante cambios sustanciales de contenido, nunca para "refrescar" fechas sin cambios reales.
+
+---
+
+## BL-016 -- Doble `<h1>` en todos los posts de Insights
+
+**Status:** Abierto -- pendiente de priorizacion
+**Registrado:** 2026-10-23 (hallazgo colateral del Quality Gate de EXP-016)
+
+**Observation:** Los 147 posts renderizan dos `<h1>`: el layout pinta `title` como `<h1>` y el cuerpo Markdown repite `# titulo`.
+
+**Recommendation:** Quitar el `# titulo` del Markdown de los posts (o degradarlo en el render). Cambio masivo de contenido: validar en Deploy Preview que no se pierde ningun titulo.
+
+**Priority:** Baja-Media (senal on-page menor; no rompe nada).
+
+**Risk:** Bajo, pero toca 147 archivos: hacerlo en un PR propio, separado de experimentos con KPI.

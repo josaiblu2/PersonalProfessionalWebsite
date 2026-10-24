@@ -43,6 +43,8 @@ const structuredData = {
   "description": post.data.description,
   ...(absoluteImageUrl ? { "image": [absoluteImageUrl] } : {}),
   "datePublished": post.data.pubDate.toISOString(),
+  // BL-015/EXP-017: dateModified = updatedDate si existe; si no, pubDate.
+  "dateModified": (post.data.updatedDate ?? post.data.pubDate).toISOString(),
   "author": { "@type": "Person", "name": "Salvador Ibarra Luna", "url": siteOrigin },
   "publisher": { "@type": "Person", "name": "Salvador Ibarra Luna" }
 };
@@ -75,6 +77,11 @@ const structuredData = {
           <span class="text-sm text-teal font-mono uppercase tracking-widest font-bold">
             {post.data.pubDate.toLocaleDateString('en-US', { day:'numeric', month: 'long', year: 'numeric' })}
           </span>
+          {post.data.updatedDate && (
+            <span class="block text-xs text-slate-400 font-mono uppercase tracking-widest">
+              Updated <time datetime={post.data.updatedDate.toISOString().slice(0, 10)}>{post.data.updatedDate.toLocaleDateString('en-US', { day:'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}</time>
+            </span>
+          )}
           <h1 class="text-3xl md:text-5xl text-white font-bold leading-tight font-sans">
             {post.data.title}
           </h1>

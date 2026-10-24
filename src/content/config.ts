@@ -8,6 +8,11 @@ const insightsCollection = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     pubDate: z.date(),
+    // BL-015/EXP-017: fecha opcional de actualizacion sustancial del contenido.
+    // pubDate conserva la fecha original (orden del listado y datePublished);
+    // updatedDate alimenta dateModified (JSON-LD), el lastmod del sitemap y la
+    // etiqueta "Updated" del post. Usar solo ante cambios reales de contenido.
+    updatedDate: z.date().optional(),
     description: z.string(),
     image: z.string().optional(),
     // Nuevo campo opcional (EXP-004a): imagen colocada junto al .md,
