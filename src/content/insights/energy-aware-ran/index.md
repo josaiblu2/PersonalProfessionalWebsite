@@ -4,6 +4,7 @@ pubDate: 2026-10-23
 description: "Explore how energy-aware RAN goes beyond timer-based energy saving with traffic prediction, Rel-18 cell DTX/DRX and O-RAN rApps with guardrails."
 coverImage: "./energy-aware-ran-smo-rapps.png"
 imageAlt: "Energy-aware RAN concept showing cell sites dimming and waking based on AI traffic prediction, coordinated by an O-RAN SMO with rApps balancing energy, coverage and capacity"
+linkedinUrl: "https://lnkd.in/p/eEVEjFXw"
 ---
 
 # From Energy Saving to Energy-Aware RAN

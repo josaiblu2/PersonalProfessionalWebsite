@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# documentos de gobernanza locales del proyecto AI Closed-Loop (fuera de git a proposito: repo publico)
+/AI-Closed-Loop-Website-Optimization/

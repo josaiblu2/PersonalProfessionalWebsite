@@ -162,9 +162,9 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 **Reusability:** Alta -- el patron de verificacion (confirmar en el esquema de contenido que 100% de los registros usan el campo moderno antes de borrar el legacy) es reutilizable para cualquier migracion futura de este tipo.
 
 
-## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento [PROMOVIDO A EXP-010, CORREGIDO EN EXP-014]
+## BL-008 -- Canonical tag auto-referencial y ausencia de `trailingSlash` fijo -- duplicacion de URLs (con/sin `/` final) fragmentando la senal de posicionamiento [CERRADO -- KEEP via EXP-014 (corrige EXP-010)]
 
-**Status:** [EN PRODUCCION desde 2026-09-24] Fusionado a `main` (PR #7, commit 6c07776) y confirmado en vivo en salvadoribarra.tech: canonical normalizado sin diagonal final, sitemap sin URLs con diagonal final, sin loop de redirecciones. Redirect 301 activo revertido a su forma sin forzar (`!`) tras detectar un loop infinito en Deploy Preview -- la consolidacion de las 2 URLs ya indexadas depende del canonical+sitemap corregidos, no de un redirect activo (ver EXP-010, seccion Result). En periodo de medicion de negocio (Search Console) hasta ~2026-10-22.
+**Status:** Cerrado 2026-10-23 con decision KEEP de EXP-014 (ver experiments/EXP-014-trailing-slash-always.md). Objetivo cumplido y estable: una sola URL por post, la forma con `/` (canonica desde EXP-014, PR #10, 2026-10-07), por cuarta revision consecutiva del checkpoint semanal; 0 URLs sin `/` con impresiones en todo el sitio en la semana 2026-10-15 a 10-21 (0 de 56, vs. 7 de 52 antes de EXP-014); sitemap con 0 errores y 0 advertencias. Retirado del checkpoint semanal (Work Project Instructions v1.25). Historial: la direccion original de EXP-010 (sin `/`) quedo superada por EXP-014. Antes: [EN PRODUCCION desde 2026-09-24] Fusionado a `main` (PR #7, commit 6c07776) y confirmado en vivo en salvadoribarra.tech: canonical normalizado sin diagonal final, sitemap sin URLs con diagonal final, sin loop de redirecciones. Redirect 301 activo revertido a su forma sin forzar (`!`) tras detectar un loop infinito en Deploy Preview -- la consolidacion de las 2 URLs ya indexadas depende del canonical+sitemap corregidos, no de un redirect activo (ver EXP-010, seccion Result). En periodo de medicion de negocio (Search Console) hasta ~2026-10-22.
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
 
 **Observation:** Multiples posts de Insights aparecen indexados por Google Search Console como dos URLs distintas -- con y sin `/` final (ej. `/insights/ee-tradeoff` y `/insights/ee-tradeoff/`) -- cada una acumulando impresiones por separado para las mismas queries.
@@ -225,9 +225,9 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ---
 
-## BL-011 -- Profundidad de contenido insuficiente en los posts insignia de expertise (278-422 palabras)
+## BL-011 -- Profundidad de contenido insuficiente en los posts insignia de expertise (278-422 palabras) [PROMOVIDO A EXP-016 -- piloto `data-in-ran`]
 
-**Status:** Abierto -- pendiente de priorizacion
+**Status:** Promovido a EXP-016 el 2026-10-23 (aprobado por Salvador): piloto en `data-in-ran` (422 -> ~1,050 palabras, foco "RAN monitoring"), rama `content/bl-011-data-in-ran`, pendiente de push/Deploy Preview. Formato acordado con Salvador: la version larga vive solo en el sitio; LinkedIn lleva un post corto con el enlace en el primer comentario (no se duplica el texto completo como articulo de LinkedIn). El resto del catalogo queda abierto para iteraciones posteriores. Antes: Abierto -- pendiente de priorizacion
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
 
 **Observation:** Los 7 posts auditados tienen entre 278 y 422 palabras de cuerpo. Para terminos B2B tecnicos competitivos (ej. "o-ran", "cloud ran", "network slicing automation"), el contenido que suele posicionar en la primera pagina de resultados normalmente tiene mayor profundidad (multiples secciones, ejemplos, datos o cifras de respaldo).
@@ -269,7 +269,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ## BL-013 -- Hoja de estilos de Google Fonts bloqueando el render (780ms estimados)
 
-**Status:** Promovido a EXP-015 (2026-10-16, aprobado por Salvador: autoalojar fuentes; rama feat/self-host-fonts). Antes: abierto -- pendiente de priorizacion (candidato ya identificado durante el cierre de EXP-008, formalizado ahora)
+**Status:** Cerrado -- EXP-015 KEEP (2026-10-16, PR #12, merge e61f72c): Google Fonts fuera de render-blocking; FCP movil 2.9 s -> 1.8 s, score 75 -> 82; LCP movil 4.5 s -> 4.3 s (marginal). Promovido a EXP-015 el mismo dia (aprobado por Salvador: autoalojar fuentes; rama feat/self-host-fonts). Antes: abierto -- pendiente de priorizacion (candidato ya identificado durante el cierre de EXP-008, formalizado ahora)
 **Registrado:** 2026-09-23 (formalizado durante Fase 3; identificado originalmente el 2026-09-23 al cerrar EXP-008)
 
 **Observation:** Tras resolver el render-blocking de `gtag.js` en EXP-008, el audit `render-blocking-insight` de PageSpeed Insights sigue mostrando la hoja de estilos de Google Fonts como recurso render-blocking, con un ahorro estimado de 751-780ms. El LCP movil del homepage se mantuvo sin cambio (4.4s) tras EXP-008 pese a la mejora de FCP, lo que sugiere que este recurso podria estar co-bloqueando el elemento LCP (el `<h1>` del titular).
@@ -285,3 +285,25 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 **Risk:** Bajo.
 
 **Reusability:** N/A (fix especifico de este recurso).
+
+## BL-014 -- Las visitas de verificacion de Salvador cuentan en GA4 como trafico normal
+
+**Status:** Abierto -- punto para la evaluacion de la proxima semana (registrado a peticion de Salvador; sin implementar nada). La decision se toma en la evaluacion.
+**Registrado:** 2026-10-16
+
+**Observation:** Salvador visita su propio sitio para verificar actualizaciones (despues de deploys, contenido nuevo, etc.). Esas visitas cargan GA4 igual que las de cualquier visitante, por lo que inflan `page_view`, `session_start`, `first_visit` y los canales (probablemente "Direct").
+
+**Evidence:** `src/components/GoogleAnalytics.astro` configura `gtag('config', 'G-Q023R5XBS1')` sin ninguna exclusion de trafico interno. Volumen de contexto del checkpoint del 2026-10-16 (desde 2026-09-24): 102 `page_view`, 45 `session_start`, 36 sesiones Direct. Con un volumen tan bajo, unas pocas visitas propias pueden ser una fraccion relevante; con los datos actuales **no se puede cuantificar** cuantas son de Salvador (GA4 no lo distingue de forma retroactiva). Las validaciones del agente ya evitan GA4 (fetch desde una pestana de sitemap o la bandera `ga-disable` puesta en la consola antes de cargar).
+
+**Impact:** Medio para la calidad de los KPI de contexto (Tier 2/Tier 3, trafico, canales). Nulo para Tier 1 mientras Salvador no envie formularios ni descargue el CV en sus pruebas (hoy ambos en 0). Si llega a probar esos flujos en produccion sin exclusion, contaminaria directamente el KPI principal.
+
+**Recommendation (opciones a discutir):**
+1. **Opt-out en sus navegadores.** (a) Complemento oficial de Google "Google Analytics Opt-out" en los navegadores de escritorio: sin tocar el sitio, pero bloquea GA en todos los sitios y no cubre el celular. (b) Hacer persistente la bandera `ga-disable-G-Q023R5XBS1` con una marca local (p. ej. visitar una URL especial una vez y guardar un indicador en el navegador): cubre tambien el celular, pero requiere un cambio de codigo en `GoogleAnalytics.astro` (cambio de configuracion de analitica -> requiere aprobacion explicita).
+2. **Filtro de trafico interno por IP en GA4** (regla "internal traffic" en el flujo de datos + filtro de datos activado). Sin tocar el sitio, pero es cambio de configuracion de GA4 (requiere aprobacion y lo hace Salvador en la interfaz; la cuenta de servicio es solo lectura). Limitaciones: si la IP de su proveedor es dinamica, o navega con datos moviles, el filtro deja de aplicar; solo actua hacia adelante, no limpia datos pasados. Conviene probar primero en modo "Prueba" antes de "Activo".
+Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para la evaluacion: si las corridas de PageSpeed/Lighthouse generan hits en GA4 (no verificado).
+
+**Priority:** Media (barata; mejora la confiabilidad de los datos sobre los que se toman decisiones).
+
+**Risk:** Bajo. Opcion 1b toca codigo de analitica (riesgo de dejar de medir a visitantes reales si se implementa mal; se valida en Deploy Preview).
+
+**Reusability:** Alta: todo tenant necesita excluir el trafico propio; el patron (opt-out persistente o filtro por IP) es reutilizable.

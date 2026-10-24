@@ -4,6 +4,7 @@ pubDate: 2026-10-21
 description: "Calcula el impacto del downtilt en cobertura RF: geometría del haz, tilt mecánico vs eléctrico, RET y Massive MIMO con un ejemplo práctico."
 coverImage: "./downtilt-antena-geometria-haz.png"
 imageAlt: "Geometría de downtilt de antena en sitio celular a 30 metros, comparando 6 grados con huella de cobertura contenida y 4 grados con borde superior del haz extendido varios kilómetros hacia celdas vecinas"
+linkedinUrl: "https://lnkd.in/p/eNk8r8Wm"
 ---
 
 # Downtilt: unos pocos grados pueden cambiar toda una red
