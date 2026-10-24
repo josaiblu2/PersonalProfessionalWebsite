@@ -47,7 +47,11 @@ URL: https://deploy-preview-13--stellular-strudel-c35baa.netlify.app. Verificado
 Resultado: listo para merge.
 
 ## Result
-Pendiente (produccion).
+Fusionado a `main` via PR #13 (merge commit `98fc33c`, 2026-10-23 ~21:40 hora CDMX = 2026-10-24 ~03:40 UTC); deploy de produccion en verde segun Salvador.
+**Verificacion en produccion (2026-10-23, navegador integrado, `fetch` desde `sitemap-index.xml`, sin cargar GA4):** `/insights/data-in-ran/` 200 con `<title>`, meta description, JSON-LD `headline` nuevos, canonical `https://salvadoribarra.tech/insights/data-in-ran/`, 8 H2 / 8 H3, enlaces a `/insights/ai-ran-where-adds-value/` y `/#contact`, boton de LinkedIn con la URL original. Los 3 `linkedinUrl` sincronizados en vivo (lnkd.in/p/eNk8r8Wm, eEVEjFXw, ejAFVM4k). Sitemap: 150 URLs, 0 sin `/`, las 150 en 200 sin redireccion. `/`, `/insights/`, `/success/` 200; CV 200.
+**Sitemap reenviado** (`submit_sitemap()`, sitemap-index.xml): `lastSubmitted` **2026-10-24T03:44:06Z**, 150 URLs web, 0 errores, 0 advertencias, `isPending: true` (normal justo despues del envio). Inicio de la ventana de medicion de negocio.
+Nota: el `lastmod` de `data-in-ran/` en el sitemap sigue siendo `pubDate` (2026-04-02), porque el sitemap lo deriva de `pubDate` (BL-004); Google no recibe una senal de frescura por esa via. El reenvio del sitemap y el recrawl son la senal disponible sin cambiar el schema.
+Medicion de negocio: checkpoint semanal (desde v6 del prompt), ventana de 4 semanas hasta ~2026-11-20.
 
 ## Decision
 Pendiente.
