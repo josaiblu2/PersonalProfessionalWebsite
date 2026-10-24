@@ -1,6 +1,7 @@
 ---
 title: "RAN Monitoring Starts with Data: Building Observability That Operations Can Trust"
 pubDate: 2026-04-02
+updatedDate: 2026-10-23
 description: "A practical guide to RAN monitoring and observability: how PM, CM and FM data should be collected, correlated and validated before any analytics or AI can deliver results."
 coverImage: "./data-in-ran.jpeg"
 linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_5g-ran-dataanalytics-share-7444945410533560321-wruI?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
