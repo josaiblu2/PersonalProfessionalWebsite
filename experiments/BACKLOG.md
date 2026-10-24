@@ -225,9 +225,9 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 ---
 
-## BL-011 -- Profundidad de contenido insuficiente en los posts insignia de expertise (278-422 palabras)
+## BL-011 -- Profundidad de contenido insuficiente en los posts insignia de expertise (278-422 palabras) [PROMOVIDO A EXP-016 -- piloto `data-in-ran`]
 
-**Status:** Abierto -- pendiente de priorizacion
+**Status:** Promovido a EXP-016 el 2026-10-23 (aprobado por Salvador): piloto en `data-in-ran` (422 -> ~1,050 palabras, foco "RAN monitoring"), rama `content/bl-011-data-in-ran`, pendiente de push/Deploy Preview. Formato acordado con Salvador: la version larga vive solo en el sitio; LinkedIn lleva un post corto con el enlace en el primer comentario (no se duplica el texto completo como articulo de LinkedIn). El resto del catalogo queda abierto para iteraciones posteriores. Antes: Abierto -- pendiente de priorizacion
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
 
 **Observation:** Los 7 posts auditados tienen entre 278 y 422 palabras de cuerpo. Para terminos B2B tecnicos competitivos (ej. "o-ran", "cloud ran", "network slicing automation"), el contenido que suele posicionar en la primera pagina de resultados normalmente tiene mayor profundidad (multiples secciones, ejemplos, datos o cifras de respaldo).
