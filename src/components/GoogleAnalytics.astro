@@ -1,3 +1,48 @@
+<script is:inline>
+  // BL-014 / EXP-018: exclusion del trafico propio en GA4.
+  // - Visitar cualquier pagina con ?internal=on guarda una marca local en ESTE
+  //   navegador; ?internal=off la borra. Con la marca, se activa el mecanismo
+  //   oficial de Google `ga-disable-<ID>` ANTES de gtag('config'): no se envia
+  //   ningun hit (page_view, eventos Tier 1, etc.). Visitantes sin marca: sin cambios.
+  // - Tambien se desactiva para el user agent de Lighthouse / PageSpeed Insights
+  //   (mediciones de laboratorio del checkpoint semanal, no son visitantes).
+  // - gtag() sigue definida, por lo que los formularios y la descarga del CV
+  //   funcionan igual (no esperan respuesta de GA4).
+  (function () {
+    var GA_ID = 'G-Q023R5XBS1';
+    var KEY = 'sib_internal_traffic';
+    var toggled = null;
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var mode = params.get('internal');
+      if (mode === 'on') { localStorage.setItem(KEY, '1'); toggled = 'on'; }
+      if (mode === 'off') { localStorage.removeItem(KEY); toggled = 'off'; }
+      if (toggled) {
+        params.delete('internal');
+        var qs = params.toString();
+        history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+      }
+      if (localStorage.getItem(KEY) === '1') window['ga-disable-' + GA_ID] = true;
+    } catch (e) { /* almacenamiento no disponible: GA4 se comporta como siempre */ }
+    if (/Chrome-Lighthouse|Google Page Speed Insights/i.test(navigator.userAgent)) {
+      window['ga-disable-' + GA_ID] = true;
+    }
+    if (toggled) {
+      var msg = toggled === 'on'
+        ? 'GA4 desactivado en este navegador (trafico interno).'
+        : 'GA4 reactivado en este navegador.';
+      if (window.console) console.info('[BL-014] ' + msg);
+      document.addEventListener('DOMContentLoaded', function () {
+        var n = document.createElement('div');
+        n.setAttribute('role', 'status');
+        n.textContent = msg;
+        n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;max-width:calc(100% - 32px);padding:10px 16px;border-radius:8px;background:#0f766e;color:#fff;font:600 14px/1.4 system-ui,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.35)';
+        document.body.appendChild(n);
+        setTimeout(function () { n.remove(); }, 5000);
+      });
+    }
+  })();
+</script>
 <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Q023R5XBS1"></script>
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
