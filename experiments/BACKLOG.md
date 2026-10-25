@@ -286,9 +286,9 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 **Reusability:** N/A (fix especifico de este recurso).
 
-## BL-014 -- Las visitas de verificacion de Salvador cuentan en GA4 como trafico normal
+## BL-014 -- Las visitas de verificacion de Salvador cuentan en GA4 como trafico normal [PROMOVIDO A EXP-018]
 
-**Status:** Abierto -- punto para la evaluacion de la proxima semana (registrado a peticion de Salvador; sin implementar nada). La decision se toma en la evaluacion.
+**Status:** Promovido a EXP-018 el 2026-10-24 (rama `feat/internal-traffic-optout`, pendiente de push/Deploy Preview). Metodo aprobado por Salvador el 2026-10-23 (aprobacion explicita de cambio de analitica): opcion 1b -- interruptor persistente por navegador (`?internal=on` / `?internal=off`, marca local que activa `ga-disable-G-Q023R5XBS1` antes de `gtag('config')`), mas exclusion de visitas con user agent de Lighthouse/PageSpeed. Implementacion pospuesta por Salvador al 2026-10-24 (pendiente de crear EXP). Antes: Abierto -- punto para la evaluacion de la proxima semana.
 **Registrado:** 2026-10-16
 
 **Observation:** Salvador visita su propio sitio para verificar actualizaciones (despues de deploys, contenido nuevo, etc.). Esas visitas cargan GA4 igual que las de cualquier visitante, por lo que inflan `page_view`, `session_start`, `first_visit` y los canales (probablemente "Direct").
@@ -310,9 +310,9 @@ Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para l
 
 ---
 
-## BL-015 -- El sitemap y los datos estructurados no reflejan actualizaciones sustanciales de un post [PROMOVIDO A EXP-017]
+## BL-015 -- El sitemap y los datos estructurados no reflejan actualizaciones sustanciales de un post [CERRADO -- KEEP via EXP-017]
 
-**Status:** Promovido a EXP-017 el 2026-10-23 (aprobado por Salvador: "actualizalo... si no es complicado, no rompe nada, no hay riesgos, adelante"). Rama `feat/updated-date`, pendiente de push/Deploy Preview.
+**Status:** Cerrado 2026-10-23 con decision KEEP de EXP-017 (PR #14, merge 70ed7f0; `data-in-ran/` con `lastmod` y `dateModified` 2026-10-23 en produccion, sitemap reenviado 2026-10-24T04:01:56Z). Antes: Promovido a EXP-017 el 2026-10-23 (aprobado por Salvador: "actualizalo... si no es complicado, no rompe nada, no hay riesgos, adelante"). Rama `feat/updated-date`, pendiente de push/Deploy Preview.
 **Registrado:** 2026-10-23 (detectado al verificar EXP-016 en produccion)
 
 **Observation:** Tras ampliar `data-in-ran` (EXP-016), el `lastmod` del sitemap siguio en 2026-04-02 porque se deriva de `pubDate` (BL-004), y el JSON-LD `BlogPosting` no tiene `dateModified`. Google no recibe una senal explicita de que el contenido cambio.

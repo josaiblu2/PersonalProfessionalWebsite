@@ -52,6 +52,8 @@ Fusionado a `main` via PR #13 (merge commit `98fc33c`, 2026-10-23 ~21:40 hora CD
 **Sitemap reenviado** (`submit_sitemap()`, sitemap-index.xml): `lastSubmitted` **2026-10-24T03:44:06Z**, 150 URLs web, 0 errores, 0 advertencias, `isPending: true` (normal justo despues del envio). Inicio de la ventana de medicion de negocio.
 Nota: el `lastmod` de `data-in-ran/` en el sitemap sigue siendo `pubDate` (2026-04-02), porque el sitemap lo deriva de `pubDate` (BL-004); Google no recibe una senal de frescura por esa via. El reenvio del sitemap y el recrawl son la senal disponible sin cambiar el schema.
 Medicion de negocio: checkpoint semanal (desde v6 del prompt), ventana de 4 semanas hasta ~2026-11-20.
+**Actualizacion (2026-10-23, EXP-017):** `data-in-ran` declara `updatedDate: 2026-10-23`; desde PR #14 el sitemap anuncia `lastmod` 2026-10-23 y el JSON-LD `dateModified` 2026-10-23. Sitemap reenviado 2026-10-24T04:01:56Z.
+**Trafico propio conocido (2026-10-23, noche, hora CDMX):** Salvador visito `data-in-ran/` en produccion para revisar el resultado, con GA4 activo (BL-014 aun sin implementar). Esa visita cuenta en GA4 (page_view/sesion, probablemente canal Direct); tenerlo en cuenta al leer el trafico de esta pagina y los canales de esa fecha.
 
 ## Decision
 Pendiente.
