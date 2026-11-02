@@ -54,6 +54,7 @@ Nota: el `lastmod` de `data-in-ran/` en el sitemap sigue siendo `pubDate` (2026-
 Medicion de negocio: checkpoint semanal (desde v6 del prompt), ventana de 4 semanas hasta ~2026-11-20.
 **Actualizacion (2026-10-23, EXP-017):** `data-in-ran` declara `updatedDate: 2026-10-23`; desde PR #14 el sitemap anuncia `lastmod` 2026-10-23 y el JSON-LD `dateModified` 2026-10-23. Sitemap reenviado 2026-10-24T04:01:56Z.
 **Trafico propio conocido (2026-10-23, noche, hora CDMX):** Salvador visito `data-in-ran/` en produccion para revisar el resultado, con GA4 activo (BL-014 aun sin implementar). Esa visita cuenta en GA4 (page_view/sesion, probablemente canal Direct); tenerlo en cuenta al leer el trafico de esta pagina y los canales de esa fecha.
+**Factores externos a tener en cuenta (BL-012, 2026-10-25/26):** (1) `data-in-ran/` se agrego como tarjeta en Destacados de LinkedIn: trafico de referencia desde LinkedIn (no afecta las metricas de busqueda organica que mide este experimento, pero si las visitas a la pagina en GA4). (2) `ai-ran-where-adds-value` -- el post que compite con `data-in-ran` por "ran monitoring" -- se republico en Medium el 2026-10-26 con el sitio como fuente original; eso le da una senal externa adicional al competidor durante la ventana de medicion. Impacto esperado bajo, pero si `ai-ran-where-adds-value/` mejora en "ran monitoring" en las proximas semanas, considerar este factor antes de concluir.
 
 ## Decision
 Pendiente.

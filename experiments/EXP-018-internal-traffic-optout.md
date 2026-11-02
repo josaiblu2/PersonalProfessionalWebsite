@@ -63,8 +63,75 @@ Corte de datos: a partir del 2026-10-24 (noche, CDMX) los conteos de GA4 excluye
 
 ## Decision
 **KEEP (tecnico, 2026-10-25).** Cumple el KPI tecnico (0 hits desde navegadores marcados, con el `gtag.js` real) sin cambiar la medicion de visitantes reales ni los formularios.
+**Iteracion abierta 2026-11-02 (ITERATE):** `?no_ga=1` para las mediciones de PageSpeed Insights, porque el user agent de PSI ya no contiene `Chrome-Lighthouse`. Ver la seccion "Iteracion 2026-11-02" al final.
 
 ## Learning
 1. La marca vive en `localStorage` por sitio y por navegador: se pierde al borrar datos del sitio, no aplica en incognito y hay que activarla en cada navegador o dispositivo nuevo. Comprobacion: volver a entrar con `?internal=on` (el aviso solo aparece al cambiar la marca).
 2. Validar cambios de analitica sin contaminar la propiedad: poner la marca desde una pagina sin GA4 del mismo origen antes de cargar paginas con GA4; el caso "sin marca" se prueba con un stub local de `gtag.js`.
 3. Los envios de formularios de prueba siguen llegando a Netlify Forms aunque GA4 no los registre: las pruebas de formulario se hacen en Deploy Preview.
+
+
+## Iteracion 2026-11-02 -- `?no_ga=1` para las mediciones de PageSpeed Insights (ITERATE en curso)
+
+**Origen:** Reporte-SEO-2026-10-30 (checkpoint semanal, hallazgo "EXP-018"). Se registra como iteracion de este experimento, por instruccion de Salvador; la decision KEEP del 2026-10-25 sigue vigente para el interruptor `?internal=on/off`.
+
+**Observation:** En las 4 corridas de PSI del 2026-10-30 (Lighthouse 13.6.0), el user agent de red fue `Mozilla/5.0 (Linux; Android 11; moto g power (2022)) ... Chrome/153 Mobile Safari` (host `HeadlessChrome`), sin el token `Chrome-Lighthouse`. El filtro `/Chrome-Lighthouse|Google Page Speed Insights/` de `GoogleAnalytics.astro` no lo detecta: `gtag.js` cargo y `g/collect` respondio 204 en las 4 corridas.
+
+**Hypothesis:** Si nuestras mediciones de PSI piden la URL con `?no_ga=1` y el sitio, al ver ese parametro, no descarga `gtag.js`, esas corridas no pueden generar ningun hit en GA4, sin importar el user agent que use PSI.
+
+**Target KPI:** Tecnico: 0 descargas de `gtag.js` y 0 peticiones a `/g/collect` en una carga con `?no_ga=1`; sin el parametro, comportamiento identico al actual.
+
+**Guardrail KPI:** `page_view`, `tier1_contact_conversion` y `tier1_cv_download_conversion` de visitantes reales sin cambios; formularios y CV funcionan con y sin el parametro; GTM sigue sin bloquear el render (EXP-008); 0 errores de JavaScript.
+
+**Approval status:** Cambio de configuracion de analitica pedido explicitamente por Salvador (sesion del 2026-10-30 / 2026-11-02, puntos 1-3). El merge y el deploy siguen siendo decision suya.
+
+**Pre-change commit (rollback point):** `e222474` (main local) / `cb8ec01` (origin/main, produccion).
+
+**Proposed change (rama `feat/psi-no-ga`, commit `b19b21e`, sin push):** solo `src/components/GoogleAnalytics.astro` (+17/-1 lineas):
+1. El script inicial (el de `?internal=on/off` y el filtro de Lighthouse, sin cambios) ahora tambien lee `no_ga`: si vale `1`, activa `ga-disable-G-Q023R5XBS1` y guarda `window.__sibNoGa = true`. No se guarda marca: aplica solo a esa carga de pagina, y la URL no se modifica.
+2. La etiqueta estatica `<script async src=".../gtag/js?id=G-Q023R5XBS1">` se sustituye por una insercion dinamica (`document.createElement('script')`, `async = true`) despues de `gtag('config')`, y solo si `__sibNoGa` no esta activo. Un script insertado dinamicamente es asincrono por definicion, asi que se conserva el no-bloqueo de EXP-008. `dataLayer`, `gtag()`, `gtag('js')` y `gtag('config')` no cambian: los eventos Tier 1 siguen llamando a una `gtag()` definida, y con `no_ga=1` solo se encolan localmente.
+- Script de medicion (fuera del repo): `get_pagespeed_report(..., no_ga=True)` en `analytics_readonly.py` (carpeta de credenciales y documento del Proyecto) agrega `no_ga=1` a la URL por defecto, respetando los parametros y el `#` existentes, y sin duplicarlo. `summarize_pagespeed_report()` agrega `requestedUrl`, `fetchTime` y `lighthouseVersion`. Documentado en `claude/pagespeed-insights-readonly-access.md`.
+
+**Quality Gate (2026-11-02, clon limpio de `feat/psi-no-ga` en el equipo de Salvador):** `npm ci` + `npm run build` en verde, 0 errores; 154 HTML (153 paginas con GA4 + `forms.html`). En las 153: orden `internal`/Lighthouse -> `no_ga` -> `gtag('config')` -> insercion de `gtag.js`, y 0 etiquetas estaticas de GTM. 3,196 enlaces internos, 0 rotos, 0 sin `/`.
+Las pruebas en Chromium headless se hicieron con un servidor local y un stub de `gtag.js` que respeta `ga-disable`. `googletagmanager.com` y `google-analytics.com` estaban interceptados, asi que ningun hit llego a la propiedad real.
+| Escenario | Descargas de `gtag.js` | Hits | Otros |
+|---|---|---|---|
+| A. Visitante normal, `/` | 1 (async) | `page_view` | -- |
+| B. `/?no_ga=1` | 0 | ninguno | `ga-disable` activo, `gtag()` definida, URL intacta |
+| B2. `/insights/data-in-ran/?utm_source=linkedin&no_ga=1#x` | 0 | ninguno | URL intacta |
+| B3. `/?no_ga=0` | 1 | `page_view` | solo `1` desactiva |
+| C. `/?no_ga=1` y despues `/insights/` sin parametro | 1 (segunda pagina) | `page_view` | no persiste |
+| D. UA con `Chrome-Lighthouse` (regla existente) | 1 | ninguno | sin cambio |
+| D2. UA de PSI sin token, sin `no_ga` (hueco del 10-30) | 1 | `page_view` | reproduce el hallazgo |
+| D3. UA de PSI sin token + `?no_ga=1` | 0 | ninguno | hueco cubierto |
+| E. `?internal=on` y otra pagina (regla existente) | 2 | ninguno | sin cambio |
+| F1. Formulario de contacto, visitante normal | 2 | `page_view`, `tier1_contact_conversion`, `page_view` (`/success/`) | POST a `/success/` |
+| F2. Formulario de contacto con `?no_ga=1` | 1 (`/success/`) | `page_view` de `/success/` | sin evento Tier 1; POST intacto |
+| G1. Descarga de CV, visitante normal | 1 | `page_view`, `tier1_cv_download_conversion` | vista de exito visible |
+| G2. Descarga de CV con `?no_ga=1` | 0 | ninguno | vista de exito visible |
+0 errores de JavaScript en todos los escenarios. Limite: el stub replica el comportamiento documentado de `ga-disable`. En produccion, el caso `?no_ga=1` se verifica con el `gtag.js` real: debe haber 0 peticiones a `googletagmanager.com` y a `/g/collect`, lo que tampoco genera hits.
+
+**Linea base corregida de GA4 (consulta de solo lectura, 2026-11-02; `dateHourMinute` en hora CDMX, la zona de la propiedad):**
+Ventana 2026-09-24 a 2026-10-31: **122 `page_view` / 63 `session_start`**. Ventanas de PSI cotejadas (UTC-6):
+| Corridas de PSI | Ventana CDMX | Hits en GA4 con perfil PSI (Android/moto g, movil, EE.UU.) |
+|---|---|---|
+| Checkpoint 2026-10-16 (2 corridas del checkpoint, ~20:11Z y ~20:34Z; mobile + desktop) | 14:00-14:50 | 0 |
+| EXP-015 post-deploy 2026-10-16 (mobile 21:47/21:49/21:51Z + 2 desktop) | 15:40-16:00 | 0. En el mismo minuto hay 4 hits (15:50-15:51), pero son del navegador de Salvador (Windows 11, 1536x960, Chrome 153.0.8010.54, es-MX): la verificacion de EXP-015 en produccion (~15:45 CDMX) |
+| Checkpoint 2026-10-23 (3 mobile + 1 desktop, ~20:1xZ) | 13:55-14:30 | 0 |
+| Checkpoint 2026-10-30 (mobile 20:10:20Z, 20:11:36Z, 20:12:51Z + 1 desktop) | 13:55-14:30 | 0 (re-verificado el 2026-11-02, ya con los datos procesados) |
+En todo el periodo no hay ningun hit con dispositivo Android 11 / moto g ni con perfil movil de EE.UU. que coincida con PSI.
+**Correccion por PSI = 0 `page_view` / 0 `session_start`.** Las corridas del 10-16 y del 10-23 ocurrieron cuando el sitio aun no tenia ningun filtro y `gtag.js` cargaba sin restriccion, y aun asi no aparecen en GA4. Lo mas probable es que GA4 ya descartaba esos hits (exclusion automatica de bots conocidos). `g/collect` 204 no implica que el hit se registre. Con eso, `no_ga=1` queda como defensa en profundidad e independencia del user agent de PSI, no como correccion de un sesgo medido.
+Desglose heuristico de los 122/63 (por huella de dispositivo, solo como contexto; no es un filtro aplicado):
+| Grupo | page_view | session_start | Criterio |
+|---|---|---|---|
+| Trafico propio de Salvador (antes del corte del 2026-10-24) | 88 | 32 | Cuautitlan Izcalli / Ecatepec / Ojo de Agua, o Mexico + Direct + Chrome 152.0.7977 / 153.0.8010 |
+| Sospechoso de centro de datos (no es PSI) | 9 | 8 | EE.UU., Direct, homepage, UA reducido `x.0.0.0`: San Jose 10-10 y 10-27 (x3), 10-30 12:36 (4/3), The Dalles 10-31 |
+| Resto (probables visitantes reales) | 25 | 23 | incluye 10-14 (EE.UU., Chrome 142, 4/2), tambien dudoso |
+Lectura: ~72% de los `page_view` del periodo son trafico propio anterior a EXP-018. El ruido automatizado que queda (centros de datos con UA reducido) no viene de PSI y `no_ga=1` no lo filtra; candidato a un BL aparte si se quiere atacar (p. ej. filtro de bots/IP en GA4, que se configura en la interfaz).
+
+**Pendiente:**
+1. Salvador: push de `feat/psi-no-ga`, Deploy Preview y merge. Dentro de la excepcion de creditos (2026-10-19 a 2026-11-18). Puede viajar en el mismo deploy que la tanda de contenido del lunes 2026-11-02.
+2. Verificacion en produccion con el `gtag.js` real: `/?no_ga=1` -> 0 peticiones a `googletagmanager.com` y `/g/collect`; sin el parametro, `gtag.js` async cargado.
+3. **Medicion puente** (primera corrida despues del merge): homepage mobile, 3 corridas con `no_ga=1` y 3 sin el, registradas en `claude/pagespeed-insights-readonly-access.md`. Desde entonces la serie de PSI usa `no_ga=1`.
+4. Checkpoint semanal: actualizar su prompt (v7) para usar `get_pagespeed_report()` con `no_ga=True` y registrar `lighthouseVersion`. El prompt se cambia en la sesion del merge.
+5. Decision de esta iteracion: KEEP tecnico si el punto 2 pasa.

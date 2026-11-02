@@ -4,6 +4,7 @@ pubDate: 2026-10-26
 description: "Explore how a RAN digital twin can safely validate SON, rApps and AI policies before live deployment on the path to L4 autonomous networks."
 coverImage: "./ran-digital-twin-autonomous-network.webp"
 imageAlt: "Split view of a live urban 5G network and its RAN digital twin replica, with synchronized data streams carrying CM and PM data between the physical cells and the virtual model used to validate rApps"
+linkedinUrl: "https://lnkd.in/p/eHPaSPbm"
 ---
 
 # Can a Digital Twin Become the Sandbox for Autonomous RAN?
