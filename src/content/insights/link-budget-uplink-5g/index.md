@@ -4,6 +4,7 @@ pubDate: 2026-10-26
 description: "Entiende el link budget de uplink en 5G: por qué el UE limita la cobertura en TDD mid band y cómo cerrarlo con SUL, EN-DC y Massive MIMO."
 coverImage: "./link-budget-uplink-5g.webp"
 imageAlt: "Diagrama técnico del link budget de uplink en 5G entre un smartphone y una antena Massive MIMO en 3.5 GHz, con pérdidas de penetración, márgenes de fading y potencia del UE"
+linkedinUrl: "https://lnkd.in/p/edRUPgay"
 ---
 
 # Link budget de uplink en 5G: qué es y por qué importa
