@@ -339,3 +339,25 @@ Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para l
 **Priority:** Baja-Media (senal on-page menor; no rompe nada).
 
 **Risk:** Bajo, pero toca 147 archivos: hacerlo en un PR propio, separado de experimentos con KPI.
+
+## BL-017 -- Trafico automatizado de centros de datos (EE.UU., user agent reducido) contado en GA4 como visitas Direct al homepage
+
+**Status:** Abierto. Registrado 2026-11-02 durante la iteracion de EXP-018 (analisis de solo lectura). Sin accion todavia; pendiente de decision de Salvador.
+**Registrado:** 2026-11-02
+
+**Observation:** Entre el 2026-09-24 y el 2026-10-31, GA4 registra visitas Direct al homepage desde centros de datos de EE.UU. Su navegador reporta una version reducida (`Chrome 152/154/155/156.0.0.0`), sin modelo de dispositivo y a veces sin ciudad. No son PSI (no coinciden con ninguna corrida ni con su perfil) y `?no_ga=1` / `?internal=on` no las filtran.
+
+**Evidence:** GA4 Data API, `dateHourMinute` + dispositivo/navegador/ciudad (detalle en EXP-018, iteracion 2026-11-02). Casos: San Jose 2026-10-10 23:19 y 2026-10-27 06:18/07:24/07:41 (1600x1200, Chrome 154.0.0.0); 2026-10-30 12:36 (Windows 10, 1920x1080, Chrome 155/152.0.0.0, 4 `page_view` / 3 `session_start`); The Dalles 2026-10-31 07:04 (1280x1280, Chrome 156.0.0.0). En total 9 `page_view` / 8 `session_start` de 122/63. Dudoso, aunque no incluido en ese total: 2026-10-14 21:02 (EE.UU., Chrome 142, 4/2).
+
+**Impact:** Bajo en volumen absoluto, pero relevante en proporcion. Desde el corte de EXP-018 (2026-10-24) el trafico real es muy bajo, asi que estas visitas inflan `session_start`, `first_visit` y el canal Direct. No afectan Tier 1 (0 eventos de conversion en esos hits).
+
+**Recommendation (opciones a discutir):**
+1. No hacer nada y descontarlo en los reportes con el mismo criterio heuristico (barato, pero manual).
+2. Explorar en GA4 (interfaz, cambio de configuracion de Salvador) si un filtro de datos o una exclusion de referencias/IP aplica; la cuenta de servicio es solo lectura.
+3. Agregar al checkpoint semanal un conteo informativo de "visitas sospechosas de centro de datos" con el criterio de arriba, sin filtrar nada.
+
+**Priority:** Baja.
+
+**Risk:** Bajo. Cualquier filtro mal definido podria excluir visitantes reales (p. ej. usuarios corporativos con Chrome reducido); por eso la opcion 3 es la menos riesgosa.
+
+**Reusability:** Alta. El cruce por minuto y huella de dispositivo (`dateHourMinute` + `deviceCategory`/`screenResolution`/`browserVersion`/`city`) sirve para auditar cualquier fuente de trafico no humano en otros tenants.
