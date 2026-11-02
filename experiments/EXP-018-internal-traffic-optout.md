@@ -135,3 +135,35 @@ Lectura: ~72% de los `page_view` del periodo son trafico propio anterior a EXP-0
 3. **Medicion puente** (primera corrida despues del merge): homepage mobile, 3 corridas con `no_ga=1` y 3 sin el, registradas en `claude/pagespeed-insights-readonly-access.md`. Desde entonces la serie de PSI usa `no_ga=1`.
 4. Checkpoint semanal: actualizar su prompt (v7) para usar `get_pagespeed_report()` con `no_ga=True` y registrar `lighthouseVersion`. El prompt se cambia en la sesion del merge.
 5. Decision de esta iteracion: KEEP tecnico si el punto 2 pasa.
+
+**Deploy Preview #17 (2026-11-02, PR #17, rama `feat/psi-no-ga` en `8374897`; incluye la tanda de contenido 2026-11-02 y 2 syncs de LinkedIn).** Navegador integrado del equipo de Salvador, con el `gtag.js` real de Google:
+1. Sitemap con 156 URLs: las 156 en 200 sin redireccion, todas con el orden `internal`/Lighthouse -> `no_ga` -> `config` -> insercion de `gtag.js` y 0 etiquetas estaticas de GTM. 164 enlaces internos unicos, 0 rotos. `/success/` 200.
+2. **`/?no_ga=1` SIN la marca interna** (marca borrada a proposito para probar `no_ga` de forma aislada): `ga-disable` activo, `__sibNoGa` true, `gtag()` definida, **0 peticiones a `googletagmanager.com` y 0 a `/g/collect`** tras scroll completo y 4 s de espera. 0 errores de consola.
+3. Marca interna restablecida desde esa misma pagina (sin GA4 cargado). Despues, `/` sin parametro: `gtag.js` cargado (1 peticion, script `async`), `google_tag_manager` presente y 0 peticiones a `/g/collect` (por la marca). Formularios `cv-request` y `contact` y el disparador del CV presentes. 0 errores de consola.
+4. Posts nuevos (`5g-pci-planning`, `ai-ran-data-quality`, `rsrp-5g-experiencia-usuario`): portada y `og:image` en 200 y primeros en el listado. LinkedIn correcto en `link-budget-uplink-5g` (`lnkd.in/p/edRUPgay`) y `ran-digital-twin-autonomous-networks` (`lnkd.in/p/eHPaSPbm`).
+Resultado: listo para merge.
+
+**Resultado de la iteracion (2026-11-02).** PR #17 fusionado por Salvador (merge `a80b6ac`, deploy en verde confirmado por Salvador a las 09:35 CDMX). Deploy dentro de la excepcion de creditos (2026-10-19 a 2026-11-18); salio junto con la tanda de contenido de la semana (15 creditos en total).
+**Verificacion en produccion** (navegador integrado, con la marca interna activa):
+- Sitemap: 156 URLs, todas en 200, sin redireccion y con el orden correcto. 0 etiquetas estaticas de GTM. 164 enlaces internos unicos, 0 rotos. Los 3 posts nuevos estan publicados. `/success/` y el CV (`/assets/cv/Salvador_Ibarra_Luna_CV.pdf`) responden 200. La forma sin `/` redirige.
+- `/?no_ga=1`: 0 peticiones a `googletagmanager.com` y 0 a `/g/collect`; `gtag()` definida.
+- `/` sin el parametro: `gtag.js` real cargado una vez, `async`. Formularios presentes, 174 recursos propios sin 4xx y 0 imagenes rotas.
+**Sitemap reenviado:** `lastSubmitted` 2026-11-02T15:36:32Z, 0 errores, 0 advertencias, `isPending` true (Google aun reporta 153 URLs de su descarga anterior).
+**Medicion puente de PSI** (homepage, mobile, Lighthouse 13.6.0, 6 corridas intercaladas y separadas por mas de 60 s; mediana de 3 por serie):
+| Metrica | Sin `no_ga` (serie vieja) | Con `no_ga=1` (serie nueva) |
+|---|---|---|
+| Score | 98 (95, 98, 98) | 98 (99, 98, 98) |
+| LCP | 0.93 s | 0.94 s |
+| FCP | 0.93 s | 0.94 s |
+| TBT | 65 ms (202, 16, 65) | 0 ms (0, 9, 0) |
+| CLS | 0 | 0 |
+| Speed Index | 4.13 s | 3.79 s |
+| Peticiones a GTM / `g/collect` en el log de red de Lighthouse | 1 / 1 en cada corrida | 0 / 0 en cada corrida |
+`fetchTime` de las corridas sin `no_ga` (pueden haber enviado hits): 15:37:53Z, 15:40:29Z y 15:42:59Z (09:37-09:43 CDMX). Las corridas con `no_ga=1` fueron a las 15:36:35Z, 15:39:12Z y 15:41:44Z.
+Lectura: quitar `gtag.js` no cambia el score ni el LCP. Si baja el TBT (unos 65 ms de mediana, y elimina el pico de 200 ms) y el Speed Index (unos 0.34 s). Desde hoy la serie de PSI se mide con `no_ga=1`; para comparar contra mediciones anteriores, se suma esa diferencia o se usa esta tabla.
+El log de red de PSI confirma, ademas, que sin el parametro la corrida si envia `g/collect`. Verificar en GA4 el 2026-11-03 si esas 3 corridas aparecen: perfil Android/moto g, EE.UU., homepage, 09:37-09:43 CDMX.
+
+## Decision (iteracion 2026-11-02)
+**KEEP (tecnico).** Cumple el KPI tecnico en produccion: 0 peticiones a GTM y a `/g/collect` con `?no_ga=1`, tanto en el navegador como dentro de la propia corrida de PSI, sin cambios para los visitantes reales ni en los formularios.
+**Learning:** (1) No hay que confiar en que el user agent de Lighthouse/PSI se mantenga estable. Un parametro que controlamos (`no_ga=1`) no depende de ese user agent. (2) Que `g/collect` responda 204 no significa que GA4 registre el hit: antes de corregir una linea base hay que cruzar con los datos (aqui la correccion fue 0). (3) Medir sin `gtag.js` cambia sobre todo el TBT y el Speed Index; por eso se documento el puente antes de cambiar la serie.
+**Pendiente:** confirmar en GA4 las 3 corridas puente sin `no_ga` (2026-11-03). Actualizar el prompt del checkpoint semanal: el script ya usa `no_ga=1` por defecto, pero el prompt debe registrar `lighthouseVersion` y advertir el cambio de serie del 2026-11-02 al comparar.
