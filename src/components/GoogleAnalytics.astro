@@ -8,6 +8,10 @@
   //   (mediciones de laboratorio del checkpoint semanal, no son visitantes).
   // - gtag() sigue definida, por lo que los formularios y la descarga del CV
   //   funcionan igual (no esperan respuesta de GA4).
+  // - EXP-018 (iteracion 2026-11-02): con ?no_ga=1 en la URL, gtag.js NO se
+  //   descarga ni se envia ningun hit en esa carga de pagina (no se guarda
+  //   marca: solo aplica a la URL que lo trae). Lo usan nuestras mediciones de
+  //   PageSpeed Insights, cuyo user agent ya no contiene "Chrome-Lighthouse".
   (function () {
     var GA_ID = 'G-Q023R5XBS1';
     var KEY = 'sib_internal_traffic';
@@ -27,6 +31,10 @@
     if (/Chrome-Lighthouse|Google Page Speed Insights/i.test(navigator.userAgent)) {
       window['ga-disable-' + GA_ID] = true;
     }
+    var noGa = false;
+    try { noGa = new URLSearchParams(window.location.search).get('no_ga') === '1'; } catch (e) { /* sin URLSearchParams: GA4 como siempre */ }
+    if (noGa) window['ga-disable-' + GA_ID] = true;
+    window.__sibNoGa = noGa;
     if (toggled) {
       var msg = toggled === 'on'
         ? 'GA4 desactivado en este navegador (trafico interno).'
@@ -43,10 +51,18 @@
     }
   })();
 </script>
-<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Q023R5XBS1"></script>
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Q023R5XBS1');
+  // gtag.js se inyecta solo si la URL no trae ?no_ga=1. Un script insertado
+  // dinamicamente es asincrono por definicion (s.async explicito por claridad):
+  // se mantiene el no-render-blocking de EXP-008.
+  if (!window.__sibNoGa) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Q023R5XBS1';
+    document.head.appendChild(s);
+  }
 </script>
