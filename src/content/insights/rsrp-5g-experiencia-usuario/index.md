@@ -4,6 +4,7 @@ pubDate: 2026-11-02
 description: "Descubre por qué dos celdas con el mismo RSRP en 5G ofrecen experiencias opuestas y qué KPIs revisar: SINR, PRBs, rank, MCS y transporte."
 coverImage: "./rsrp-5g-experiencia-usuario.webp"
 imageAlt: "Comparación de dos celdas 5G con el mismo nivel de RSRP: una con señal limpia y pocos usuarios, otra saturada de interferencia y tráfico, mostrando el impacto en la experiencia de usuario"
+linkedinUrl: "https://lnkd.in/p/eVYRRUrj"
 ---
 
 # ¿Por qué el mismo RSRP da experiencias opuestas en 5G?

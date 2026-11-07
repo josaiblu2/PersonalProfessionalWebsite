@@ -4,6 +4,7 @@ pubDate: 2026-11-02
 description: "Learn how 5G PCI planning affects cell detection, handovers and channel estimation, from collision and confusion to mod 3, mod 4 and mod 30 rules."
 coverImage: "./5g-pci-planning-collision-confusion.webp"
 imageAlt: "Hexagonal 5G cell grid map with color-coded PCI values, highlighting PCI collision and confusion between neighboring cells and mod 3 conflicts in overlapping coverage areas"
+linkedinUrl: "https://lnkd.in/p/ekmnJTFE"
 ---
 
 # 5G PCI Is Not Just a Number: What RF Engineers Must Know
