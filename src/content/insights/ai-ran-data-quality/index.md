@@ -4,6 +4,7 @@ pubDate: 2026-11-02
 description: "Understand why AI-RAN success depends on RAN data quality first: PM granularity, vendor counters, topology drift and the SMO data layer."
 coverImage: "./ai-ran-data-quality-smo.png"
 imageAlt: "AI-RAN data pipeline architecture showing raw CM, PM and FM data from 5G cell sites flowing through an SMO data layer for cleaning and normalization before feeding AI models"
+linkedinUrl: "https://lnkd.in/p/eGnRVCdS"
 ---
 
 # AI-RAN Needs Data Before It Needs More AI
