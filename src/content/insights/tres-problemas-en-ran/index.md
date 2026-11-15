@@ -4,7 +4,7 @@ pubDate: 2026-07-15
 description: "Descubre por qué algunos problemas de RAN requieren mejor ingeniería y no necesariamente más infraestructura."
 coverImage: "./tre-problemas-en-ran.png"
 imageAlt: "Arquitecto de redes móviles analizando mapas de cobertura, congestión, interferencia y balance de carga para determinar si una expansión de infraestructura es realmente necesaria."
-linkedinUrl: "https://www.linkedin.com/posts/salvador-ibarra-luna_oran-smo-networkautomation-activity-7482448799815270400-8Z0G?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAHdUJ4B2MN4INncxmIAgZdmF3VYSr1J55o"
+linkedinUrl: "https://lnkd.in/p/e9UqW8a3"
 ---
 
 # Tres problemas en RAN que no se resuelven con más sitios
