@@ -4,6 +4,7 @@ pubDate: 2026-11-06
 description: "Aplica un método de análisis de drive test en 4 pasos: síntoma, RSRP y SINR, capa 3 y contadores PM, para diagnosticar fallas RAN reales."
 coverImage: "./analisis-drive-test-diagnostico-red.webp"
 imageAlt: "Mapa de análisis de drive test sobre una ruta urbana con muestras de RSRP y SINR codificadas por color, un evento de caída marcado y paneles laterales con mensajes de capa 3 y contadores PM de la celda servidora"
+linkedinUrl: "https://lnkd.in/p/eMhYhRmN"
 ---
 
 # Del drive test al diagnóstico: cómo leer una red sin perderse en los datos con un análisis de drive test ordenado

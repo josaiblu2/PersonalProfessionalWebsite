@@ -4,6 +4,7 @@ pubDate: 2026-11-06
 description: "Learn how 5G handover parameters like A3 offset, hysteresis, TTT and CIO decide when a UE should move, and how SON MRO tunes them."
 coverImage: "./5g-handover-parameters-a3-event.png"
 imageAlt: "Diagram of a 5G NR handover between two cells, showing RSRP curves crossing at the A3 event threshold with hysteresis margin and time-to-trigger window marked, illustrating key 5G handover parameters"
+linkedinUrl: "https://lnkd.in/p/eUBx7xNW"
 ---
 
 # Handover 101: When Should the Network Let a User Go? 5G Handover Parameters Explained
