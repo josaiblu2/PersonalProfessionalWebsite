@@ -208,6 +208,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 
 **Status:** Abierto -- pendiente de priorizacion
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
+**Actualizacion 2026-11-14 (auditoria estrategica):** 150 de 159 posts no reciben ningun enlace interno y 155 no tienen un solo H2. Se ejecuta por pilar, no post por post: ver BL-023 (pilar 1) y BL-024 (pilar 2).
 
 **Observation:** Los 7 posts que generan impresiones en las 9 queries de expertise de Salvador tienen exactamente 0 encabezados `##`/`###` cada uno (solo el H1 del titulo, seguido de parrafos corridos), y no existe ni un solo enlace interno de un post de Insights hacia otro.
 
@@ -252,6 +253,7 @@ En conjunto, esto confirma que `public/assets/posts/` es contenido huerfano: no 
 - **Paso 1 completado (2026-10-25/26, por Salvador, guiado por voz):** LinkedIn -> Informacion de contacto con `https://salvadoribarra.tech/` (tipo "Cartera"); Destacados reordenado: 1) enlace al sitio (nuevo), 2) Physics Behind 5G Throughput, 3) RAN Optimization, 4) enlace a `data-in-ran/` (nuevo), 5) SON is not dead, 6) rApps y xApps; se retiro la publicacion del lanzamiento del sitio. GitHub -> perfil con sitio web, nombre "Salvador Ibarra", bio, ubicacion "Mexico City, Mexico", hora local y foto del sitio; correo no publico.
 - **Paso 2 iniciado (2026-10-26):** cuenta de Medium (plan gratuito) con nombre, foto y bio iguales. Importados con la funcion "Import a story" (fuente original = el sitio): `ai-ran-where-adds-value` (temas: Artificial Intelligence, 5G, Telecommunications, Wireless, Networking) y `l4-autonomous-networks`. `data-in-ran` se importa despues de cerrar la ventana de EXP-016 (~2026-11-20). Se recomienda no publicar mas en Medium por ahora y revisar en unas semanas si traen visitas.
 **Registrado:** 2026-09-23 (Fase 3, auditoria de SEO/adquisicion)
+**Actualizacion 2026-11-14 (auditoria estrategica):** la medicion y el formato de los posts de LinkedIn pasan a BL-021; la cola de Medium (solo posts ya ampliados o que no se van a consolidar) y los articulos invitados quedan en el plan de la auditoria.
 
 **Observation:** El dominio `salvadoribarra.tech` tiene aproximadamente 7 meses de antiguedad (primer commit del repositorio: 2026-02-04) y, hasta donde esta auditoria puede verificar con las herramientas disponibles (Search Console, GA4, PSI -- ninguna mide backlinks de terceros), no hay evidencia de un perfil de enlaces externos hacia el sitio.
 
@@ -331,6 +333,7 @@ Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para l
 
 **Status:** Abierto -- pendiente de priorizacion
 **Registrado:** 2026-10-23 (hallazgo colateral del Quality Gate de EXP-016)
+**Actualizacion 2026-11-14 (auditoria estrategica):** la revision actual cuenta 158 posts con dos `<h1>` y 1 con tres, y `/insights/` sin `<h1>`. Se propone resolverlo en la plantilla, sin editar los archivos, junto con BL-026.
 
 **Observation:** Los 147 posts renderizan dos `<h1>`: el layout pinta `title` como `<h1>` y el cuerpo Markdown repite `# titulo`.
 
@@ -344,6 +347,7 @@ Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para l
 
 **Status:** Abierto. Registrado 2026-11-02 durante la iteracion de EXP-018 (analisis de solo lectura). Sin accion todavia; pendiente de decision de Salvador.
 **Registrado:** 2026-11-02
+**Actualizacion 2026-11-14 (auditoria estrategica):** el 2026-11-11 aparecio un patron adicional (18 sesiones Direct desde Singapur y China, Windows, un post distinto por sesion, 0 s) que el criterio original no cubre. Salvador aprobo ampliar el criterio de lectura del checkpoint semanal para descontarlo, sin filtrar nada en GA4.
 
 **Observation:** Entre el 2026-09-24 y el 2026-10-31, GA4 registra visitas Direct al homepage desde centros de datos de EE.UU. Su navegador reporta una version reducida (`Chrome 152/154/155/156.0.0.0`), sin modelo de dispositivo y a veces sin ciudad. No son PSI (no coinciden con ninguna corrida ni con su perfil) y `?no_ga=1` / `?internal=on` no las filtran.
 
@@ -361,3 +365,255 @@ Pueden combinarse (p. ej. 1a en escritorio + 2 en casa). Pregunta abierta para l
 **Risk:** Bajo. Cualquier filtro mal definido podria excluir visitantes reales (p. ej. usuarios corporativos con Chrome reducido); por eso la opcion 3 es la menos riesgosa.
 
 **Reusability:** Alta. El cruce por minuto y huella de dispositivo (`dateHourMinute` + `deviceCategory`/`screenResolution`/`browserVersion`/`city`) sirve para auditar cualquier fuente de trafico no humano en otros tenants.
+
+---
+
+## BL-018 -- Eventos intermedios de analitica: no se mide el clic del hero, la apertura del modal del CV ni la llegada a la seccion de contacto [PROPUESTO -- aprobado en concepto, pendiente de implementar como EXP-019 fase A]
+
+**Status:** Propuesto. Concepto y alcance aprobados por Salvador el 2026-11-14; la implementacion sigue el flujo normal de gobernanza (rama, Quality Gate, Deploy Preview, PR).
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgos C-4, R-1 a R-3)
+
+**Observation:** Con el trafico actual, la conversion Tier 1 seguira cerca de cero, y hoy no existe ningun evento que mida pasos previos a ella: el clic del boton principal del hero (EXP-001 nunca pudo medir su KPI), la apertura de la ventana del CV (EXP-003) ni la llegada a la seccion de contacto.
+
+**Evidence:** Revision de EXP-001 a EXP-003 y diagnostico de conversion de la auditoria (detalle en la carpeta de auditoria, fuera de git).
+
+**Impact:** Alto como habilitador: sin estos eventos no se puede evaluar ningun cambio de conversion con tan poco trafico.
+
+**Recommendation:** Eventos GA4 `mailto_click`, `cv_modal_open`, `contact_section_view` y `post_cta_click` (este ultimo queda listo para BL-019). Sin cambiar textos, diseno ni los eventos tier1 existentes; con la exclusion de trafico propio de EXP-018 intacta. Dos semanas de linea base antes de BL-019.
+
+**Priority:** Alta.
+
+**Risk:** Bajo (analitica). Probar que cada evento se dispara una vez y ninguno con la marca interna.
+
+**Reusability:** Alta. El patron de eventos intermedios sirve para cualquier sitio con trafico bajo.
+
+---
+
+## BL-019 -- Los posts, que son la pagina de entrada de la mayoria de los visitantes, no ofrecen ningun camino al contacto [PROPUESTO -- EXP-019 fase B]
+
+**Status:** Propuesto. Texto del bloque aprobado por Salvador el 2026-11-14 (version A). Depende de BL-018 (2 semanas de linea base) y del cierre de EXP-016.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgo C-1)
+
+**Observation:** Aproximadamente 5 de cada 6 visitantes reales entran por un post y la plantilla de posts no incluye autor ni llamada a la accion.
+
+**Evidence:** GA4, ventana 2026-10-25 a 2026-11-11, con el trafico automatizado descontado (detalle en la carpeta de auditoria).
+
+**Impact:** Alto: multiplica las oportunidades de conversion sin una visita adicional.
+
+**Recommendation:** Bloque de autor y disponibilidad al final de cada post, con botones "Request my CV" (abre la ventana existente) y "Get in touch" (a `/#contact` hasta que exista BL-020). Ventana de 6 a 8 semanas con criterios mecanicos (clics en el bloque), no con tasas de conversion.
+
+**Priority:** Alta.
+
+**Risk:** Bajo-medio: cambia la plantilla de los 159 posts. Validar en Deploy Preview rendimiento y que no tape contenido.
+
+**Reusability:** Alta.
+
+---
+
+## BL-020 -- El sitio no dice para que roles o colaboraciones esta disponible su autor [PROPUESTO -- EXP-020]
+
+**Status:** Propuesto. Audiencia decidida el 2026-11-14: empleadores y colaboraciones conjuntas. Detalles (roles, modalidad, disponibilidad) pendientes de Salvador. Depende de la primera ventana de BL-019.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgos C-3 y E-3)
+
+**Observation:** Ninguna pagina explica que tipo de rol o colaboracion se busca ni como iniciar el contacto.
+
+**Evidence:** Diagnostico de conversion y comparacion con referentes de la auditoria.
+
+**Impact:** Alto a medio plazo; sin oferta, el bloque de BL-019 no tiene a donde llevar al lector.
+
+**Recommendation:** Pagina "trabajar conmigo" con primer paso concreto (pedir el CV o conversar sobre un rol o proyecto). KPI: descargas de CV y contactos de tipo colaboracion.
+
+**Priority:** Alta, secuenciada despues de BL-019.
+
+**Risk:** Medio: son afirmaciones profesionales; toda redaccion requiere aprobacion de Salvador.
+
+**Reusability:** Media.
+
+---
+
+## BL-021 -- Los enlaces de LinkedIn al sitio no se pueden medir y los posts de LinkedIn sustituyen al del sitio en lugar de llevar a el [PROPUESTO]
+
+**Status:** Propuesto. Convencion y checkpoint semanal v8 aprobados en concepto el 2026-11-14; falta probar los UTM antes de adoptarlos.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgos D-1 y D-2; ampliacion de BL-012)
+
+**Observation:** Desde que GA4 excluye el trafico propio llego una sola sesion desde linkedin.com en 21 dias, a pesar de publicar casi cada post del sitio.
+
+**Evidence:** GA4, 2026-10-25 a 2026-11-14.
+
+**Impact:** Medio. Es el canal con audiencia existente.
+
+**Recommendation:** (1) Enlaces con `utm_source=linkedin&utm_medium=social&utm_campaign=...` tras probar que no interfieren con el canonical, la redireccion a la forma con diagonal ni la exclusion de trafico propio. (2) Formato de post con una pieza que solo vive en el sitio y el enlace en el primer comentario. (3) Checkpoint semanal v8 con indicadores adelantados y el ruido descontado.
+
+**Priority:** Alta (costo casi nulo).
+
+**Risk:** Bajo.
+
+**Reusability:** Alta.
+
+---
+
+## BL-022 -- Defectos visibles en posts publicados [PROPUESTO]
+
+**Status:** Propuesto. Cada correccion requiere aprobacion explicita antes de editar.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgos P-5 y S-8)
+
+**Observation:** Varios posts muestran un error de edicion: descripcion de otro post, descripcion en otro idioma o de 17 caracteres, erratas en titulos, parrafos o subtitulos rotos, un parrafo duplicado y una etiqueta cortada. Seis de siete posts con URL que no corresponde al contenido tienen ademas una descripcion que no corresponde.
+
+**Evidence:** Lectura de los cuerpos de los 159 posts (detalle por post en la carpeta de auditoria).
+
+**Impact:** Bajo-medio en busqueda, medio en credibilidad ante un visitante profesional.
+
+**Recommendation:** Un solo lote de mantenimiento, sin cambiar el sentido de ningun texto ni afirmaciones profesionales. Las comprobaciones (descripcion duplicada, idioma, encabezados mal formados) se pueden automatizar en el Quality Gate. Decision aparte: unificar la cifra de anos de experiencia entre posts.
+
+**Priority:** Media.
+
+**Risk:** Bajo (contenido). Viaja con el siguiente deploy de contenido.
+
+**Reusability:** Media.
+
+---
+
+## BL-023 -- Pilar 1 (de SON a rApps): demanda de "closed loop automation" sin camino a un contenido de SON, y activo citable [PROPUESTO]
+
+**Status:** Propuesto. Pagina pilar `net-automation-maturity` y activo citable (opcion B, matriz de conflictos con arbitro de precedencia) decididos el 2026-11-14. El activo requiere verificar referencias de normas y una revision tecnica independiente antes de publicarse. No empezar antes del cierre de EXP-016.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgos P-1 y P-2)
+
+**Observation:** Las consultas de "closed loop automation" llegan casi todas a un post de network slicing que no enlaza al tema de SON, y el catalogo casi no tiene enlazado interno.
+
+**Evidence:** Search Console, 16 meses, cruce consulta-pagina.
+
+**Impact:** Alto para el posicionamiento profesional; los clics tardaran porque la posicion actual es cercana a 60.
+
+**Recommendation:** Enlace desde `network-slicing-automation` (registrar en el ledger de EXP-011), estructura de pagina pilar, malla de enlaces entre satelites y publicacion del activo. Amplia BL-010 por pilar.
+
+**Priority:** Alta.
+
+**Risk:** Bajo-medio. Toca un post bajo medicion en EXP-011: registrar el cambio alli.
+
+**Reusability:** Alta.
+
+---
+
+## BL-024 -- Pilar 2 en espanol: el unico pilar con traccion no tiene estructura propia [PROPUESTO]
+
+**Status:** Propuesto. Independiente de EXP-016.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgo P-4)
+
+**Observation:** Los posts en espanol tienen la mejor posicion del sitio y una parte desproporcionada de los clics organicos, sin pagina que los agrupe.
+
+**Evidence:** Search Console, 16 meses, por idioma del post.
+
+**Impact:** Medio-alto: es la via mas corta a visitas organicas.
+
+**Recommendation:** Ampliar `link-budget-la-ecuacion` con ejemplo numerico, H2/H3 e indice en espanol que enlace a los posts del pilar. Mantener un post en espanol de cada tres. Cifras tecnicas con fuente o marcadas como ejemplo.
+
+**Priority:** Alta.
+
+**Risk:** Bajo.
+
+**Reusability:** Media.
+
+---
+
+## BL-025 -- Identidad del homepage: imagen para compartir inexistente y sin datos estructurados de persona [PROPUESTO]
+
+**Status:** Propuesto. Salvador aporta la imagen y confirma cargo y perfiles.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgos S-2, S-3, S-11 y R-5)
+
+**Observation:** La imagen `og:image` del homepage responde 404, el homepage no declara una entidad `Person` y los posts declaran un autor sin enlace a ella.
+
+**Evidence:** Peticiones HTTP a produccion y HTML generado (2026-11-12).
+
+**Impact:** Medio: la busqueda por nombre y el enlace compartido son el primer contacto de un reclutador.
+
+**Recommendation:** Imagen de 1200x630, JSON-LD `Person` con `sameAs` y autor de `BlogPosting` enlazado a ella. Medir con la prueba de resultados enriquecidos y la vista previa al compartir.
+
+**Priority:** Media-alta.
+
+**Risk:** Bajo.
+
+**Reusability:** Alta.
+
+---
+
+## BL-026 -- Todas las paginas declaran `lang="es"` aunque la mayoria esta en ingles [PROPUESTO]
+
+**Status:** Propuesto. No empezar antes del cierre de EXP-016; hacerlo en un deploy propio.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgo S-1)
+
+**Observation:** El atributo `lang` del HTML es siempre espanol. Ningun post es traduccion de otro, por lo que `hreflang` no aplica.
+
+**Evidence:** HTML generado; clasificacion de idioma de los 159 posts.
+
+**Impact:** Medio-bajo.
+
+**Recommendation:** `lang` por post resuelto en la plantilla, sin editar los archivos. Combinar con la correccion de BL-016 en el mismo cambio de render.
+
+**Priority:** Media.
+
+**Risk:** Bajo.
+
+**Reusability:** Alta.
+
+---
+
+## BL-027 -- Sin menu en movil y el formulario de contacto queda a unas 112 pantallas del inicio [PROPUESTO -- aplazado]
+
+**Status:** Propuesto, sin fecha. Aplazado a proposito: cambiar el enlazado del homepage altera tambien la senal de SEO hacia los posts y conviene medirlo despues de BL-019.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgos C-2 y S-6)
+
+**Observation:** En movil no hay menu y el formulario esta debajo de las tarjetas de todos los posts.
+
+**Evidence:** Revision del layout y de la longitud del homepage.
+
+**Impact:** Medio.
+
+**Recommendation:** Menu movil y homepage mas corto (posts destacados y enlace a `/insights/`).
+
+**Priority:** Media.
+
+**Risk:** Medio: cambio visual y de enlazado.
+
+**Reusability:** Media.
+
+---
+
+## BL-028 -- Sin seguimiento del consumo de creditos de Netlify por categoria [PROPUESTO]
+
+**Status:** Propuesto. Lo ejecuta Salvador en cada revision quincenal (ve el panel).
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgo R-2)
+
+**Observation:** La gobernanza pide un total por categoria en cada revision, pero los experimentos de imagenes y rendimiento nunca registraron el consumo posterior.
+
+**Evidence:** Revision de EXP-004a, EXP-004b y EXP-006.
+
+**Impact:** Medio: protege el presupuesto y permite cerrar con su KPI los experimentos cuyo objetivo fue ancho de banda.
+
+**Recommendation:** Anotar en el ledger de cada revision quincenal los creditos por categoria (deploys, ancho de banda, solicitudes) del periodo.
+
+**Priority:** Media.
+
+**Risk:** Ninguno.
+
+**Reusability:** Alta.
+
+---
+
+## BL-029 -- 45 posts repiten una idea que otro ya cubre [PROPUESTO -- por pilar]
+
+**Status:** Propuesto. Cada consolidacion con redireccion 301 requiere aprobacion y verificar antes el comportamiento del servidor.
+**Registrado:** 2026-11-14 (auditoria estrategica 2026-11, hallazgo P-3)
+
+**Observation:** 45 posts se pueden consolidar en 27 posts base, y hay dos series de cinco partes sin enlaces entre si.
+
+**Evidence:** Clasificacion de los 159 posts (detalle y destino de cada uno en la carpeta de auditoria).
+
+**Impact:** Medio. Los grupos con mas impresiones y peor posicion son Cloud RAN, energia y Massive MIMO.
+
+**Recommendation:** Consolidar al ampliar cada pagina pilar, conservando los enlaces de LinkedIn de los posts recientes.
+
+**Priority:** Media.
+
+**Risk:** Medio (redirecciones).
+
+**Reusability:** Alta.

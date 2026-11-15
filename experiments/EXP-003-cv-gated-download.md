@@ -112,3 +112,9 @@ Con esta validacion en un entorno que replica fielmente el build real de Netlify
 Salvador confirmo descarga exitosa del CV directamente en salvadoribarra.tech tras el merge del PR #3 a `main`. El fix de causa raiz (PDF agregado a git) queda cerrado y confirmado en el entorno real. Comienza a partir de aqui la ventana de medicion de 2 semanas definida en este experimento.
 
 Pendiente unico: accion manual de Salvador en GA4 Admin para marcar 'tier1_contact_conversion' (EXP-002) y 'tier1_cv_download_conversion' (EXP-003) como Key Events -- fuera del alcance de este agente por gobernanza del proyecto (no se altera configuracion de analitica de forma autonoma).
+
+## Cierre documental (auditoria estrategica, 2026-11-14)
+Nota aditiva: no modifica ningun campo anterior de este ledger. Fuente: revision critica de EXP-001 a EXP-018 de la auditoria estrategica 2026-11 (detalle en la carpeta de auditoria, fuera de git). La decision final de cada cierre es de Salvador.
+- **Resultado de la ventana (2026-09-22 a ~2026-10-06):** 0 eventos `tier1_cv_download_conversion`. La hipotesis (pedir el correo no hace perder leads) no se puede evaluar: no existe un evento de apertura de la ventana, asi que se desconoce cuantos visitantes abandonan.
+- **Observacion:** el PDF es publico por URL directa; la verja es de interfaz, no de acceso. El formulario de contacto conserva "Request CV" como opcion por defecto, de modo que hay dos caminos para lo mismo.
+- **Cierre propuesto:** KEEP del mecanismo. La decision sobre mantener o quitar la verja la toma Salvador con dos semanas de datos de `cv_modal_open` (BL-018).

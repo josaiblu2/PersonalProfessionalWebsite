@@ -55,3 +55,9 @@ Salvador confirmo el envio del formulario de contacto en produccion (salvadoriba
 Nota operativa: el evento aun no aparecia en Admin > Eventos > Eventos recientes al momento de esta verificacion -- comportamiento esperado, ya que ese panel administrativo puede tardar hasta 24 horas en reflejar un nombre de evento nuevo por primera vez, a diferencia de Tiempo Real que es inmediato. Esto no representa ningun problema funcional.
 
 Con esta confirmacion, EXP-002 queda validado tecnicamente en produccion. Pendiente unicamente la accion administrativa de Salvador de marcar 'tier1_contact_conversion' como Key Event en GA4 Admin (con la estrella junto al evento) en cuanto aparezca en el listado de Eventos recientes.
+
+## Cierre documental (auditoria estrategica, 2026-11-14)
+Nota aditiva: no modifica ningun campo anterior de este ledger. Fuente: revision critica de EXP-001 a EXP-018 de la auditoria estrategica 2026-11 (detalle en la carpeta de auditoria, fuera de git). La decision final de cada cierre es de Salvador.
+- **Resultado de la ventana (2026-09-22 a ~2026-10-06):** 0 eventos `tier1_contact_conversion`; el KPI Tier 1 sigue en 0 contactos desde 2026-09-22/24. La ventana no se habia cerrado en este ledger.
+- **Cierre propuesto:** KEEP del evento (validado en Realtime y marcado como Key Event). Con tan poco trafico, el evento no puede dar senal por si solo.
+- **Learning propuesto:** hacen falta eventos intermedios; pasan a BL-018. Riesgo aceptado y documentado: el evento se dispara al intentar enviar, no al confirmar.

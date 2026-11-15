@@ -70,3 +70,8 @@ El mecanismo de restore/save funciona en ambas direcciones tal como se diseno, u
 
 ## Learning
 Antes de adoptar un paquete de terceros para resolver un problema de infraestructura, vale la pena revisar si el paquete es solo un envoltorio delgado sobre una herramienta oficial ya disponible (en este caso, `@netlify/cache-utils`, expuesta automaticamente via `utils.cache` a cualquier build plugin) -- frecuentemente se puede lograr el mismo resultado sin sumar una dependencia externa, eliminando por completo su riesgo de mantenimiento o compatibilidad futura.
+
+## Cierre documental (auditoria estrategica, 2026-11-14)
+Nota aditiva: no modifica ningun campo anterior de este ledger. Fuente: revision critica de EXP-001 a EXP-018 de la auditoria estrategica 2026-11 (detalle en la carpeta de auditoria, fuera de git). La decision final de cada cierre es de Salvador.
+- **Correccion de la hipotesis:** este ledger enuncia el beneficio como menor "consumo de minutos de build del modelo de creditos de Netlify". El modelo verificado en la gobernanza cobra 15 creditos fijos por deploy de produccion, no por minuto de build. El beneficio real del cache es el **tiempo de build**, no los creditos.
+- **Dato pendiente:** la duracion del segundo build sigue sin registrarse (el primero tardo 1 min 3 s). Registrar 2 o 3 duraciones cerraria la cifra.

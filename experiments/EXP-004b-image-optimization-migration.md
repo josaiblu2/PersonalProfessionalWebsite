@@ -80,3 +80,9 @@ Las dos recomendaciones operativas registradas arriba siguen vigentes: (1) cache
 
 ## Learning
 Para validaciones de gran escala en entornos con limite de tiempo de ejecucion por comando, es efectivo separar la validacion de "correctitud estructural" (schema, slugs, rutas -- rapida, se puede hacer sobre placeholders) de la validacion de "correctitud de procesamiento real" (compresion de imagenes -- mas lenta, se valida sobre una muestra representativa real). Ambas juntas dan cobertura equivalente a una validacion completa sin necesitar un build real de 141 imagenes en un entorno con limite de ~3 minutos por comando.
+
+## Cierre documental (auditoria estrategica, 2026-11-14)
+Nota aditiva: no modifica ningun campo anterior de este ledger. Fuente: revision critica de EXP-001 a EXP-018 de la auditoria estrategica 2026-11 (detalle en la carpeta de auditoria, fuera de git). La decision final de cada cierre es de Salvador.
+- **Estado:** la decision "preliminarmente KEEP" se mantiene; la migracion fue verificada byte a byte con 0 URLs cambiadas.
+- **KPI de fondo abierto:** igual que EXP-004a (BL-028).
+- **Pendiente operativo:** las imagenes de origen siguen entrando al repositorio sin limite de peso (hasta 6.6 MB en la tanda del 2026-11-06). Antes de cada tanda de contenido conviene comprobar un peso maximo de imagen de origen.
