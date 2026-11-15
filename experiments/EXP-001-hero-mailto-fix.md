@@ -47,3 +47,10 @@ Pendiente.
 
 ## Learning
 Pendiente.
+
+## Cierre documental (auditoria estrategica, 2026-11-14)
+Nota aditiva: no modifica ningun campo anterior de este ledger. Fuente: revision critica de EXP-001 a EXP-018 de la auditoria estrategica 2026-11 (detalle en la carpeta de auditoria, fuera de git). La decision final de cada cierre es de Salvador.
+- **Estado:** el cambio esta en produccion y corrigio un defecto real (el boton del hero apuntaba a un correo de plantilla). El campo Result "Pendiente de deploy" quedo desactualizado.
+- **KPI:** el KPI objetivo (clics de contacto por correo desde el Hero) nunca se instrumento: no existe un evento para ese clic, por lo que no hay medicion posible, ni retroactiva.
+- **Cierre propuesto:** cerrar como correccion sin KPI (KEEP). La instrumentacion pasa a BL-018 (`mailto_click`).
+- **Learning propuesto:** una correccion cuyo KPI es un clic debe instrumentar ese clic en el mismo cambio.

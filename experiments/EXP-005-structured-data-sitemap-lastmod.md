@@ -58,3 +58,9 @@ Pendiente de datos de Search Console (impresiones de rich results) en la ventana
 
 ## Learning
 El mismo patron de validacion con placeholders usado en EXP-004b (reemplazar imagenes reales por miniaturas para acelerar el build, validar estructura/metadatos, restaurar y verificar por checksum) es reutilizable para cualquier cambio futuro que no dependa del contenido real de las imagenes, evitando el costo de tiempo del procesamiento real de Sharp sobre las 141 imagenes en este entorno.
+
+## Cierre documental (auditoria estrategica, 2026-11-14)
+Nota aditiva: no modifica ningun campo anterior de este ledger. Fuente: revision critica de EXP-001 a EXP-018 de la auditoria estrategica 2026-11 (detalle en la carpeta de auditoria, fuera de git). La decision final de cada cierre es de Salvador.
+- **Estado:** implementacion correcta y sin regresiones; es la base que uso EXP-017. La decision "preliminarmente KEEP" se mantiene a nivel tecnico.
+- **KPI observable:** el KPI objetivo (cobertura de resultados enriquecidos) nunca se midio y la exportacion de apariencias de Search Console de los 16 meses tiene 0 filas, es decir, no registra ninguna apariencia enriquecida. Se propone medir validez en la prueba de resultados enriquecidos y paginas validas en Search Console.
+- **Faltante:** `Person`, `BreadcrumbList` y `sameAs` del autor siguen sin existir; pasan a BL-025.

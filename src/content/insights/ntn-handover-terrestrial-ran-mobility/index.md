@@ -4,6 +4,7 @@ pubDate: 2026-11-06
 description: "Explore why NTN handover breaks classic A3 logic and how 3GPP Rel-17 and Rel-18 use time, distance and RACH-less triggers for LEO mobility."
 coverImage: "./ntn-handover-leo-terrestrial-ran-mobility.webp"
 imageAlt: "LEO satellite beam moving over a terrestrial 5G RAN layer, showing NTN handover between satellite and ground cells with distance-based trigger zones and a group of UEs transferring at once"
+linkedinUrl: "https://lnkd.in/p/ekJ-8qhF"
 ---
 
 # When Terrestrial RAN Meets NTN: A New Mobility Problem for NTN Handover

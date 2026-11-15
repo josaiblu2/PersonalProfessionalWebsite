@@ -61,3 +61,8 @@ Pendiente de datos objetivos de la ventana de medicion (ver Result). Preliminarm
 
 ## Learning
 El acceso a .src de un objeto de imagen de astro:assets sin pasar por <Image /> o getImage() NO dispara la optimizacion -- solo re-emite el archivo original. Cualquier uso futuro de imagenes de contenido colectivo para metadatos (og:image, twitter:image, JSON-LD, etc.) debe usar getImage() explicitamente, nunca .src directo, o el beneficio de la optimizacion se pierde silenciosamente sin ningun error de build.
+
+## Cierre documental (auditoria estrategica, 2026-11-14)
+Nota aditiva: no modifica ningun campo anterior de este ledger. Fuente: revision critica de EXP-001 a EXP-018 de la auditoria estrategica 2026-11 (detalle en la carpeta de auditoria, fuera de git). La decision final de cada cierre es de Salvador.
+- **Estado:** la decision "preliminarmente KEEP" se mantiene. La reduccion por imagen (95 a 99 %) esta medida y las mediciones PSI de experimentos posteriores no mostraron regresion.
+- **KPI de fondo abierto:** el objetivo era el consumo de ancho de banda de Netlify y no hay una medicion posterior de creditos registrada. Pasa a BL-028.
