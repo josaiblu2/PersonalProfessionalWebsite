@@ -66,3 +66,49 @@
     document.head.appendChild(s);
   }
 </script>
+<script is:inline>
+  // EXP-019 fase A (BL-018): eventos intermedios de analitica, sin cambio visible.
+  // - Clics: cualquier elemento con data-ga-event="<nombre>" envia ese evento
+  //   (mailto_click, cv_modal_open y, para la fase B, post_cta_click). El clic
+  //   solo se registra; nunca se detiene ni se retrasa.
+  // - contact_section_view: una vez por carga de pagina, cuando #contact entra
+  //   en pantalla (la seccion solo existe en el homepage).
+  // - Respeta la exclusion de trafico propio de EXP-018: usan gtag(), y con la
+  //   marca interna, ?no_ga=1 o el user agent de Lighthouse ga-disable-<ID> evita
+  //   que se envie cualquier hit. Si gtag no existe, no pasa nada.
+  (function () {
+    function send(name, label) {
+      try {
+        if (typeof window.gtag !== 'function') return;
+        window.gtag('event', name, {
+          event_category: 'Engagement',
+          event_label: label || '',
+          page_path: window.location.pathname,
+          transport_type: 'beacon'
+        });
+      } catch (e) { /* la analitica nunca debe romper la pagina */ }
+    }
+    document.addEventListener('click', function (e) {
+      try {
+        var t = e.target && e.target.closest ? e.target.closest('[data-ga-event]') : null;
+        if (t) send(t.getAttribute('data-ga-event'), t.getAttribute('data-ga-label'));
+      } catch (err) { /* idem */ }
+    });
+    function watchContact() {
+      var el = document.getElementById('contact');
+      if (!el || typeof IntersectionObserver !== 'function') return;
+      var io = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            send('contact_section_view', 'contact_section');
+            io.disconnect();
+            return;
+          }
+        }
+      }, { threshold: 0.4 });
+      io.observe(el);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watchContact);
+    else watchContact();
+  })();
+</script>
