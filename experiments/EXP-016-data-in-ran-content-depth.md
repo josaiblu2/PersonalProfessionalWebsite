@@ -65,8 +65,18 @@ Medicion de negocio: checkpoint semanal (desde v6 del prompt), ventana de 4 sema
 
 **Contexto (checkpoint semanal 2026-11-20, datos de Search Console al 2026-11-18). La ventana de 4 semanas esta vencida.** Par RAN, semana 2026-11-12 a 11-18: "ran monitoring" -> `ai-ran-where-adds-value/` 19 impr., pos. 94.5 y **`data-in-ran/` reaparece con 1 impr., pos. 77** (mejor posicion que el primario, muestra de 1); "ran analytics" -> solo `data-in-ran/` con 5 impr., pos. 93.0, el secundario no aparece por segunda semana. Ambas consultas siguen en el fondo de la segunda pagina o mas alla con muestras de una decena de impresiones. **El cierre y la decision de EXP-016 se escriben en una sesion en vivo con el prompt I-6; esta corrida desatendida solo registra el dato.**
 
+**Cierre de la ventana (2026-11-21, sesion en vivo; datos de Search Console al 2026-11-18).** Cuatro semanas cumplidas desde el merge del PR #13. **Target KPI 1 (ran monitoring):** `data-in-ran/` aparece y con mejor posicion que el competidor (77 contra 94.5), pero con **1 sola impresion** frente a 19 de `ai-ran-where-adds-value/`: no alcanza el liderazgo por impresiones y la muestra no permite concluir. **Target KPI 2 (ran analytics):** `data-in-ran/` conserva el liderazgo semanal y el competidor no aparece por segunda semana consecutiva, pero su posicion se degrado de 76.8 (checkpoint del 10-30) a 93.0. **Guardarrail: respetado**, `ai-ran-where-adds-value/` no perdio terreno de forma clara en sus consultas propias. **Tier 1: 0 contactos y 0 descargas de CV** en toda la ventana. Clics organicos del post: 0. Factores externos vigentes durante la medicion, ya registrados arriba: republicacion de `ai-ran-where-adds-value` en Medium (10-26) y publicacion de `ai-ran-data-quality` (11-02), que no llego a competir por estas consultas.
+
 ## Decision
-Pendiente.
+**INCONCLUSIVE, conservando el cambio** (decision de Salvador, 2026-11-21).
+
+El experimento cumplio el objetivo heredado de BL-009 —el par quedo separado, cada post con su consulta— pero no demostro su hipotesis propia: que la profundidad de contenido convirtiera a `data-in-ran/` en la mejor respuesta para "ran monitoring". Con una decena de impresiones por semana y posiciones entre 77 y 95, la medicion no distingue senal de ruido.
+
+No se revierte. El post paso de 422 a ~1,050 palabras, gano 8 H2 y 8 H3, enlaces internos y un titulo explicito: es mejor contenido con cualquier criterio, y ningun guardarrail se movio. Revertir destruiria valor sin recuperar nada.
+
+Siguiente paso asociado: `data-in-ran` entra a la cola de Medium (primer lugar del orden propuesto en `05-distribucion-autoridad.md`, seccion 4), que Salvador importa manualmente.
 
 ## Learning
-Pendiente.
+**Reescribir un post que vive en posicion 60 a 95 no lo mueve.** Cuatro semanas de contenido sustancialmente mejor no produjeron ni un clic ni un cambio de posicion interpretable. Es la misma conclusion a la que llego la auditoria estrategica al revisar EXP-001 a EXP-018: el SEO on-page ya no es el cuello de botella de este sitio. Lo que falta es autoridad y estructura, y por eso el plan apuesta ahora por los pilares y el activo citable en lugar de por mas optimizacion pagina por pagina.
+
+**Leccion de metodo, igual de util:** una ventana de 4 semanas sobre una pagina que recibe ~10 impresiones semanales no puede sostener una decision. Cualquier experimento futuro sobre paginas de bajo trafico necesita o una ventana mucho mas larga, o KPIs adelantados que se muevan antes (los del checkpoint v8), o aceptar de entrada que su resultado sera INCONCLUSIVE. Declararlo al disenar el experimento, no al cerrarlo.
