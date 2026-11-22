@@ -69,6 +69,9 @@ Fusionado a `main` via PR #7 (merge commit `6c07776`) junto con EXP-010, confirm
 
 **Contexto (corrida de validacion 2026-11-18, datos de Search Console al 2026-11-16).** Par network slicing, semana 2026-11-10 a 11-16: "network slicing automation" -> solo `network-slicing-automation/` con 7 impr., pos. 65.9; `networkslicing/` sigue sin aparecer (septima revision consecutiva de consolidacion estable en el primario). La posicion semanal del primario continua la deriva de las ultimas semanas (44.5 -> 48.2 -> 64.0 -> 65.9) con n<=8 impresiones, sin conclusion posible con esa muestra.
 
+
+**Contexto (checkpoint semanal 2026-11-20, datos de Search Console al 2026-11-18).** Par network slicing, semana 2026-11-12 a 11-18: "network slicing automation" -> solo `network-slicing-automation/` con 6 impr., pos. 65.8; `networkslicing/` sigue sin aparecer para esa consulta (octava revision consecutiva de consolidacion estable en el primario). En "end to end network slicing automation" reaparece el secundario con 1 impr., pos. 79, frente a 6 impr., pos. 71.3 del primario: muestra de una sola impresion, sin lectura posible. `networkslicing/` conserva sus consultas propias ("network slicing market" 4 impr., pos. 69.5; "future of network slicing" 2 impr., pos. 88). Sin movimiento llamativo.
+
 ## Decision
 **Estado al 2026-10-09:** par network slicing -> consolidado a favor de `network-slicing-automation` (hipotesis confirmada en direccion). Par RAN -> no consolidado; `ai-ran-where-adds-value` sigue dominando "ran monitoring" y supera a `data-in-ran` en "ran analytics". Se mantiene KEEP (sin efectos negativos), y si el par RAN no se corrige en la revision de 2026-10-16/10-22, evaluar BL-011 (expandir `data-in-ran`) como siguiente paso.
 

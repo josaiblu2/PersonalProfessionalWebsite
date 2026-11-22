@@ -62,6 +62,9 @@ Medicion de negocio: checkpoint semanal (desde v6 del prompt), ventana de 4 sema
 
 **Contexto (corrida de validacion 2026-11-18, datos de Search Console al 2026-11-16).** Par RAN, semana 2026-11-10 a 11-16: "ran monitoring" -> solo `ai-ran-where-adds-value/` con 22 impr., pos. 94.2; `data-in-ran/` no aparece. "ran analytics" -> solo `data-in-ran/` con 5 impr., pos. 93.0 (el secundario no aparece esta semana). Ambas posiciones estan en el fondo de la segunda pagina o mas alla, con muestras de una decena de impresiones. La ventana vence hacia el 2026-11-20: el cierre y la decision se escriben con los datos de ese corte (prompt I-6).
 
+
+**Contexto (checkpoint semanal 2026-11-20, datos de Search Console al 2026-11-18). La ventana de 4 semanas esta vencida.** Par RAN, semana 2026-11-12 a 11-18: "ran monitoring" -> `ai-ran-where-adds-value/` 19 impr., pos. 94.5 y **`data-in-ran/` reaparece con 1 impr., pos. 77** (mejor posicion que el primario, muestra de 1); "ran analytics" -> solo `data-in-ran/` con 5 impr., pos. 93.0, el secundario no aparece por segunda semana. Ambas consultas siguen en el fondo de la segunda pagina o mas alla con muestras de una decena de impresiones. **El cierre y la decision de EXP-016 se escriben en una sesion en vivo con el prompt I-6; esta corrida desatendida solo registra el dato.**
+
 ## Decision
 Pendiente.
 
