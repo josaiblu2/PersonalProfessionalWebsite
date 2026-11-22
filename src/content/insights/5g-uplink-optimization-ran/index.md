@@ -4,6 +4,7 @@ pubDate: 2026-11-06
 description: "Diagnose hidden RAN issues with 5G uplink optimization: link budget gaps, TDD slot limits, IoT, RACH failures and VoNR edge problems."
 coverImage: "./5g-uplink-optimization-link-budget.png"
 imageAlt: "5G uplink optimization concept showing a smartphone at the cell edge sending a weak uplink signal to a mid-band TDD gNB, contrasted with a strong downlink beam, with UL SINR and interference over thermal indicators"
+linkedinUrl: "https://lnkd.in/p/ecq_e7Xa"
 ---
 
 # Why the Uplink Deserves More Attention in RAN Optimization: A 5G Uplink Optimization Guide

@@ -4,6 +4,7 @@ pubDate: 2026-11-06
 description: "Evita el error de diseño RF más caro: modelos de propagación sin calibrar, clutter viejo y link budgets solo en downlink antes del despliegue."
 coverImage: "./diseno-rf-calibracion-modelo-propagacion.webp"
 imageAlt: "Ingeniero de diseño RF frente a una herramienta de planeación comparando un mapa de cobertura predicho contra mediciones CW reales sobre una ciudad, mostrando la diferencia entre modelo de propagación calibrado y sin calibrar"
+linkedinUrl: "https://lnkd.in/p/epUT55cw"
 ---
 
 # El error de diseño RF que empieza antes de instalar la primera antena
