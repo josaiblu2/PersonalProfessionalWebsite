@@ -4,6 +4,7 @@ pubDate: 2026-11-06
 description: "Understand the 6G physics behind the hype: Shannon limits, path loss at 7 GHz, uplink power and where real 6G gains will come from."
 coverImage: "./6g-physics-path-loss-spectrum.webp"
 imageAlt: "6G physics concept showing a large massive MIMO antenna array focusing narrow beams through a city, with overlays of Shannon capacity formula, free space path loss curves at 3.5 GHz and 7 GHz, and an upper mid-band spectrum chart"
+linkedinUrl: "https://lnkd.in/p/eAy52zA8"
 ---
 
 # 6G Will Not Break the Laws of Physics: What 6G Physics Means for RAN Engineers
