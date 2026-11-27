@@ -4,6 +4,7 @@ pubDate: 2026-11-23
 description: "A practical scorecard to rate any closed loop, SON function, rApp or AI agent before it gets write access to a live RAN: eight checks, red flags and a 0 to 16 score."
 coverImage: "./closed-loop-readiness-scorecard.webp"
 imageAlt: "Closed loop diagram around a 5G cell tower with an eight item readiness checklist"
+linkedinUrl: "https://lnkd.in/p/dDKm2Zhj"
 ---
 
 A closed loop is only as safe as the questions someone asked before giving it write access to the network. In [SON Is Not Dead](/insights/son-is-not-dead/) I argued that the old SON problem was coordination, not the idea. This scorecard is the practical side of that argument: eight checks I would run on any loop, whether it is a classic SON function, an rApp or an AI agent.
