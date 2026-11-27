@@ -4,6 +4,7 @@ pubDate: 2026-11-23
 description: "Ubica cada función SON en la arquitectura O-RAN: ANR, MRO, MLB, CCO y PCI, con la interfaz y el lazo de control que las alimenta hoy."
 coverImage: "./de-son-a-rapps-mapeo-funciones.png"
 imageAlt: "Diagrama de arquitectura O-RAN en tres capas: nodo 5G con RU, DU y CU; Near-RT RIC con SON y apps de control en la escala de 10 ms a 1 s; y Non-RT RIC con rApps por encima de 1 s, conectados por las interfaces E2, A1 y O1"
+linkedinUrl: "https://lnkd.in/p/eC-bs-KB"
 ---
 
 La transición de SON a rApps se cuenta muchas veces como si las funciones de automatización se hubieran reinventado desde cero. No ocurrió eso. ANR, MRO, MLB, CCO y la asignación de PCI siguen existiendo, con la misma lógica que un ingeniero RAN aprendió hace diez años. Lo que se movió fue el domicilio de cada función y la interfaz por la que recibe datos y escribe decisiones.

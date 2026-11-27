@@ -34,6 +34,9 @@ const shareUrl = new URL(sharePath, Astro.site || 'https://salvadoribarra.tech')
 // enriquecidos en Google Search. Reutiliza shareUrl (URL canonica, ya calculada
 // arriba) y la misma imagen que ya se usa para og:image, resuelta a URL absoluta.
 const siteOrigin = Astro.site || 'https://salvadoribarra.tech';
+// I-11a: Astro.site se convierte a texto con diagonal final, asi que se
+// normaliza aparte para construir el @id de la entidad Person sin doble barra.
+const personId = `${siteOrigin.toString().replace(/\/$/, '')}/#salvador`;
 const absoluteImageUrl = ogImage ? new URL(ogImage, siteOrigin).toString() : undefined;
 const structuredData = {
   "@context": "https://schema.org",
@@ -45,8 +48,11 @@ const structuredData = {
   "datePublished": post.data.pubDate.toISOString(),
   // BL-015/EXP-017: dateModified = updatedDate si existe; si no, pubDate.
   "dateModified": (post.data.updatedDate ?? post.data.pubDate).toISOString(),
-  "author": { "@type": "Person", "name": "Salvador Ibarra Luna", "url": siteOrigin },
-  "publisher": { "@type": "Person", "name": "Salvador Ibarra Luna" }
+  // I-11a (hallazgo S-2): el autor conserva su nombre, que Google exige en
+  // Article, y ademas referencia por @id la entidad Person del homepage,
+  // para que los 162 posts refuercen una sola identidad.
+  "author": { "@type": "Person", "@id": personId, "name": "Salvador Ibarra Luna", "url": siteOrigin },
+  "publisher": { "@type": "Person", "@id": personId, "name": "Salvador Ibarra Luna" }
 };
 ---
 

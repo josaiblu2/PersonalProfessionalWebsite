@@ -7,9 +7,45 @@ import CaseStudies from '../components/CaseStudies.astro';
 import Experience from '../components/Experience.astro';
 import InsightsFeed from '../components/InsightsFeed.astro';
 import Contact from '../components/Contact.astro';
+
+// I-11a (hallazgo S-2): entidad Person del sitio. El @id es estable y los
+// BlogPosting de cada post apuntan a el, de modo que los 162 articulos
+// refuerzan una sola identidad en lugar de 162 autores sueltos.
+// sameAs fusiona sitio, LinkedIn, Medium y GitHub como una misma persona.
+// Cargo, temas y perfiles confirmados por Salvador el 2026-11-26.
+const siteOrigin = (Astro.site || 'https://salvadoribarra.tech').toString().replace(/\/$/, '');
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteOrigin}/#salvador`,
+  "name": "Salvador Ibarra Luna",
+  "jobTitle": "Senior SON Architect",
+  "url": `${siteOrigin}/`,
+  "image": `${siteOrigin}/assets/default-share-image.jpg`,
+  "description": "Senior SON Architect. Over two decades optimizing and automating mobile networks, from cSON to SMO and rApps.",
+  "knowsAbout": [
+    "SON and cSON",
+    "RAN optimization",
+    "O-RAN",
+    "SMO and rApps",
+    "Closed-loop network automation",
+    "RF design and link budget",
+    "RAN energy efficiency",
+    "AI applied to RAN"
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/salvador-ibarra-luna",
+    "https://medium.com/@josaiblu",
+    "https://github.com/josaiblu2"
+  ]
+};
 ---
 
-<MainLayout title="Salvador Ibarra | Senior SON Architect">
+<MainLayout
+	title="Salvador Ibarra | Senior SON Architect"
+	imageAlt="Salvador Ibarra Luna, Senior SON Architect: portrait next to the topics SON, O-RAN, SMO and rApps, RAN optimization and AI applied to RAN"
+	structuredData={personSchema}
+>
 	<Hero />
 	<About />
 	<Expertise />

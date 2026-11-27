@@ -4,6 +4,7 @@ pubDate: 2026-11-23
 description: "Size the verification window a closed loop needs before trusting a KPI, with the sample size math, two worked cell examples and a table by KPI family."
 coverImage: "./closed-loop-verification-window.webp"
 imageAlt: "Horizontal timeline of sequential measurement periods next to a 5G cell site, with one span highlighted as the closed-loop verification window"
+linkedinUrl: "https://lnkd.in/p/e7jHh4t8"
 ---
 
 A closed loop has three jobs: see a problem, act on it, and decide whether its own action helped. The third one is where most designs are thin. The question "how long do we wait before reading the KPI" usually gets answered by whatever the reporting period happens to be, and that is how a loop ends up congratulating itself on traffic variation.
