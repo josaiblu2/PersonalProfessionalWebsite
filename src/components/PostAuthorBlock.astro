@@ -1,0 +1,69 @@
+---
+// EXP-019 fase B (BL-019): bloque de autor y oferta al final de cada post.
+// Texto aprobado por Salvador el 2026-11-14 (version A, seccion 8 de
+// auditoria-estrategica-2026-11/06-experimentos-conversion-propuestos.md).
+// Va en ingles en todos los posts, incluidos los de espanol (decision 2026-11-26).
+//
+// Medicion: los dos botones disparan post_cta_click con etiqueta distinta, por
+// el mecanismo de delegacion de la fase A (data-ga-event en GoogleAnalytics.astro).
+// El boton del CV NO dispara cv_modal_open a proposito: ese evento se deja
+// como lo instalo la fase A (solo el hero) para no alterar su linea base del
+// 2026-11-15 al 2026-11-29 a mitad de la ventana.
+import { Image } from 'astro:assets';
+import headshotImage from '../assets/Salvador_Headshot_Primary.png';
+---
+
+<aside
+  aria-labelledby="post-author-heading"
+  class="mt-16 p-6 md:p-8 bg-[#020617]/60 border border-teal/20 rounded-xl"
+>
+  <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+    <Image
+      src={headshotImage}
+      width={160}
+      height={160}
+      format="webp"
+      quality={80}
+      loading="lazy"
+      alt="Salvador Ibarra Luna"
+      class="w-20 h-20 shrink-0 object-cover rounded-full border-2 border-teal/60"
+    />
+
+    <div class="flex-1 text-center sm:text-left space-y-4">
+      <div class="space-y-1">
+        <p id="post-author-heading" class="text-white font-bold text-lg">
+          Salvador Ibarra Luna
+          <span class="text-teal font-mono text-sm uppercase tracking-widest block sm:inline sm:ml-2">
+            Senior SON Architect
+          </span>
+        </p>
+        <p class="text-slate-300 leading-relaxed">
+          Over two decades optimizing and automating mobile networks, from cSON to SMO and rApps.
+        </p>
+        <p class="text-slate-300 leading-relaxed">
+          Open to senior RAN automation roles and joint projects.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center sm:justify-start">
+        <button
+          type="button"
+          data-cv-trigger
+          data-ga-event="post_cta_click"
+          data-ga-label="post_author_block_cv"
+          class="px-6 py-3 bg-teal text-navy font-bold rounded-lg hover:bg-[#2DD4BF] transition-all duration-300"
+        >
+          Request my CV
+        </button>
+        <a
+          href="/#contact"
+          data-ga-event="post_cta_click"
+          data-ga-label="post_author_block_contact"
+          class="px-6 py-3 border-2 border-slate-400 text-slate-200 font-bold rounded-lg hover:border-teal hover:text-teal transition-all text-center"
+        >
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </div>
+</aside>
